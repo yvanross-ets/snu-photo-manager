@@ -652,7 +652,7 @@ class ImportingScreen(Screen):
 
     def finalize_import(self):
         """Begin the final stage of the import - copying files."""
-
+        print("XXXXXXXXXX")
         app = App.get_running_app()
 
         #Create popup to show importing progress
@@ -725,6 +725,7 @@ class ImportingScreen(Screen):
                         app.database_folder_update_description(folderinfo[0], folderinfo[2])
 
                 #Scan and import photos in folder
+                print("XXXXXXXXXXX")
                 for photo in photos:
                     if self.cancel_scanning:
                         break

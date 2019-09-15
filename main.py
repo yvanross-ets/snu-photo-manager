@@ -223,6 +223,7 @@ class PhotoManager(App):
     thumbsize = 256  #Size in pixels of the long side of any generated thumbnails
     album_directory = 'Albums'  #Directory name to look in for album files
     tag_directory = 'Tags'  #Directory name to look in for tag files
+    person_directory = 'Persons'  #directory name to look in for Person files
     settings_cls = PhotoManagerSettings
     target = StringProperty()
     type = StringProperty('None')
@@ -230,6 +231,7 @@ class PhotoManager(App):
     imports = []
     exports = []
     albums = []
+    persons = []
     tags = []
     programs = []
     shift_pressed = BooleanProperty(False)
@@ -561,7 +563,7 @@ class PhotoManager(App):
                 self.programs.append([name, command, argument])
 
     def save_photoinfo(self, target, save_location, container_type='folder', photos=list(), newnames=False):
-        """Save relavent photoinfo files for a folder, album, tag, or specified photos.
+        """Save relavent photoinfo files for a folder, album, tag, Persons or specified photos.
         Arguments:
             target: String, database identifier for the path where the photos are.
             save_location: String, full absolute path to the folder where the photoinfo file should be saved.
@@ -578,6 +580,9 @@ class PhotoManager(App):
             if container_type == 'tag':
                 photos = self.database_get_tag(target)
                 title = "Photos tagged as '"+target+"'"
+            elif container_type == 'person':
+                photos = self.database_get_person(target)
+                title = "Photos include person as '" + target + "'"
             elif container_type == 'album':
                 index = self.album_find(target)
                 if index >= 0:
@@ -615,6 +620,7 @@ class PhotoManager(App):
                     photo_filename = os.path.basename(photo[0])
                 configfile.add_section(photo_filename)
                 configfile.set(photo_filename, 'tags', photo[8])
+                configfile.set(photo_filename, 'persons', photo[14])
                 configfile.set(photo_filename, 'owner', photo[11])
                 configfile.set(photo_filename, 'edited', str(photo[9]))
                 configfile.set(photo_filename, 'import_date', str(photo[6]))
@@ -1272,24 +1278,25 @@ class PhotoManager(App):
 
         photos_db = os.path.join(database_directory, 'photos.db')
         photos_db_backup = os.path.join(database_backup_dir, 'photos.db')
-        if os.path.exists(photos_db_backup):
-            os.remove(photos_db_backup)
-        if os.path.exists(photos_db):
-            copyfile(photos_db, photos_db_backup)
+        self.__overwrite_file(photos_db, photos_db_backup)
 
         folders_db = os.path.join(database_directory, 'folders.db')
         folders_db_backup = os.path.join(database_backup_dir, 'folders.db')
-        if os.path.exists(folders_db_backup):
-            os.remove(folders_db_backup)
-        if os.path.exists(folders_db):
-            copyfile(folders_db, folders_db_backup)
+        self.__overwrite_file(folders_db, folders_db_backup)
 
         imported_db = os.path.join(database_directory, 'imported.db')
         imported_db_backup = os.path.join(database_backup_dir, 'imported.db')
-        if os.path.exists(imported_db_backup):
-            os.remove(imported_db_backup)
-        if os.path.exists(imported_db):
-            copyfile(imported_db, imported_db_backup)
+        self.__overwrite_file(imported_db, imported_db_backup)
+
+        persons_db = os.path.join(database_directory, 'persons.db')
+        persons_db_backup = os.path.join(database_backup_dir, 'persons.db')
+        self.__overwrite_file(persons_db, persons_db_backup)
+
+    def __overwrite_file(self, db, db_backup):
+        if os.path.exists(db_backup):
+            os.remove(db_backup)
+        if os.path.exists(db):
+            copyfile(db, db_backup)
 
     def database_restore(self):
         """Attempts to restore the backup databases"""
@@ -1304,6 +1311,8 @@ class PhotoManager(App):
         self.folders.join()
         self.imported.close()
         self.imported.join()
+        self.persons.close()
+        self.persons.join()
         self.show_database_restore()
 
     def database_restore_process(self):
@@ -1316,9 +1325,13 @@ class PhotoManager(App):
         folders_db_backup = os.path.join(database_backup_dir, 'folders.db')
         imported_db = os.path.join(database_directory, 'imported.db')
         imported_db_backup = os.path.join(database_backup_dir, 'imported.db')
+
+        persons_db = os.path.join(database_directory, 'imported.db')
+        persons_db_backup = os.path.join(database_backup_dir, 'imported.db')
+
         if not os.path.exists(database_backup_dir):
             return "Backup does not exist"
-        files = [photos_db_backup, photos_db, folders_db_backup, folders_db, imported_db_backup, imported_db]
+        files = [photos_db_backup, photos_db, folders_db_backup, folders_db, imported_db_backup, imported_db,persons_db_backup,persons_db]
         for file in files:
             if not os.path.exists(file):
                 return "Backup does not exist"
@@ -1329,6 +1342,8 @@ class PhotoManager(App):
             copyfile(folders_db_backup, folders_db)
             os.remove(imported_db)
             copyfile(imported_db_backup, imported_db)
+            os.remove(persons_db)
+            copyfile(persons_db_backup, imported_db)
         except:
             return "Could not copy backups"
         return True
@@ -1356,7 +1371,8 @@ class PhotoManager(App):
                             OriginalFile text,
                             Owner text,
                             Export integer,
-                            Orientation integer);''')
+                            Orientation integer,
+                            Persons text);''')
 
         folders_db = os.path.join(database_directory, 'folders.db')
         self.folders = MultiThreadOK(folders_db)
@@ -1385,6 +1401,13 @@ class PhotoManager(App):
                               FullPath text PRIMARY KEY,
                               File text,
                               ModifiedDate integer);''')
+
+        persons_db = os.path.join(database_directory, 'persons.db')
+        self.persons = MultiThreadOK(persons_db)
+        self.persons.execute('''CREATE TABLE IF NOT EXISTS imported(
+                                      fullname text PRIMARY KEY,
+                                     );''')
+
         if not restore and self.config.getboolean("Settings", "backupdatabase"):
             self.database_backup()
 
@@ -1414,6 +1437,20 @@ class PhotoManager(App):
                 except:
                     pass
 
+    def persons_load(self):
+        """Scans the album directory, and tries to load all album .ini files into the app.albums variable."""
+
+        self.persons = []
+        person_directory = self.person_directory
+        if not os.path.exists(person_directory):
+            os.makedirs(person_directory)
+        person_directory_contents = os.listdir(person_directory)
+        for item in person_directory_contents:
+            filename, extension = os.path.splitext(item)
+            if extension == '.person':
+                self.persons.append(filename)
+
+
     def tags_load(self):
         """Scans the tags directory and loads saved tags into the app.tags variable."""
 
@@ -1438,6 +1475,20 @@ class PhotoManager(App):
         filename = os.path.join(self.tag_directory, tag_filename)
         if not os.path.isfile(filename) and tag_name != 'favorite':
             self.tags.append(tag_name)
+            open(filename, 'a').close()
+
+
+    def person_make(self, person_name):
+        """Create a new person .
+        Argument:
+            person_name: String, name of the tag to create.
+        """
+
+        person_name = person_name.lower().strip(' ')
+        person_filename = person_name + '.person'
+        filename = os.path.join(self.person_directory, person_filename)
+        if not os.path.isfile(filename) and person_name != 'favorite':
+            self.persons.append(person_name)
             open(filename, 'a').close()
 
     def album_make(self, album_name, album_description=''):
@@ -1694,6 +1745,8 @@ class PhotoManager(App):
         self.thumbsize = int(self.config.get("Settings", "thumbsize"))
         self.simple_interface = to_bool(self.config.get("Settings", "simpleinterface"))
         #Load data
+
+        self.person_directory = os.path.join(self.data_directory, 'Persons')
         self.tag_directory = os.path.join(self.data_directory, 'Tags')
         self.album_directory = os.path.join(self.data_directory, 'Albums')
         about_file = open(os.path.join(self.app_location, 'about.txt'), 'r')
@@ -1705,6 +1758,7 @@ class PhotoManager(App):
         self.tags_load()  #Load tags
         self.setup_database()  #Import or set up databases
         self.album_load_all()  #Load albums
+        self.persons_load() #load persons
         self.load_encoding_presets()
         self.set_single_database()
 
@@ -1764,6 +1818,19 @@ class PhotoManager(App):
         if tag in self.tags:
             self.tags.remove(tag)
         self.message("Deleted the tag '"+tag+"'")
+
+    def remove_person(self, person):
+        """Deletes a person.
+        Argument:
+            person: String, the person to be deleted."""
+
+        person = person.lower()
+        person_file = os.path.join(self.person_directory, person+'.person')
+        if os.path.isfile(person_file):
+            os.remove(person_file)
+        if person in self.persons:
+            self.persons.remove(person)
+        self.message("Deleted the person '"+person+"'")
 
     def delete_photo(self, fullpath, filename, message=False):
         """Deletes a photo file, and removes it from the database.
@@ -1857,6 +1924,31 @@ class PhotoManager(App):
                 if message:
                     self.message("Removed tag '"+tag+"' from the photo.")
 
+    def database_remove_person(self, fullpath, person, message=False):
+        """Remove a person from a photo.
+        Arguments:
+            fullpath: String, the database-relative path to the photo.
+            person: String, the person to remove.
+            message: Display an app message stating that the tag was removed.
+        """
+
+        person = person.lower()
+        fullpath = agnostic_path(fullpath)
+        info = self.photos.select('SELECT * FROM photos WHERE FullPath = ?', (fullpath, ))
+        info = list(info)
+        if info:
+            info = list(info[0])
+            current_persons = info[14].split(',')
+            if person in current_persons:
+                current_persons.remove(person)
+                new_tags = ",".join(current_persons)
+                info[14] = new_tags
+                self.database_item_update(info)
+                self.update_photoinfo(folders=info[1])
+                if message:
+                    self.message("Removed person '"+person+"' from the photo.")
+
+
     def database_toggle_tag(self, fullpath, tag):
         """Toggles a tag on a photo.  Used for enabling/disabling the 'favorite' tag.
         Arguments:
@@ -1913,6 +2005,38 @@ class PhotoManager(App):
                 return True
         return False
 
+    def database_add_person(self, fullpath, person):
+        """Adds a person to a photo.
+        Arguments:
+            fullpath: String, the database-relative path to the photo.
+            person: String, the person to be added.
+        """
+
+        person = person.lower().strip(' ')
+        fullpath = agnostic_path(fullpath)
+        info = self.photos.select('SELECT * FROM photos WHERE FullPath = ?', (fullpath, ))
+        info = list(info)
+        if info:
+            info = list(info[0])
+            original_persons = info[14].split(',')
+            current_persons = []
+            update = False
+            for original in original_persons:
+                if original.strip(' '):
+                    current_persons.append(original)
+                else:
+                    update = True
+            if person not in current_persons:
+                current_persons.append(person)
+                update = True
+            if update:
+                new_persons = ",".join(current_persons)
+                info[14] = new_persons
+                self.database_item_update(info)
+                self.update_photoinfo(folders=info[1])
+                return True
+        return False
+
     def database_get_tag(self, tag):
         """Gets all photos that have a tag applied to them.
         Argument:
@@ -1928,6 +2052,25 @@ class PhotoManager(App):
         for photo in photos:
             tags = photo[8].split(',')
             if tag in tags:
+                checked_photos.append(photo)
+        return local_paths(checked_photos)
+
+
+    def database_get_person(self, person):
+        """Gets all photos that have a person applied to them.
+        Argument:
+            person: String, the person to search for.
+        Returns:
+            List of photoinfo Lists.
+        """
+
+        person = person.lower()
+        match = '%' + person + '%'
+        photos = list(self.photos.select('SELECT * FROM photos WHERE Persons LIKE ?', (match,)))
+        checked_photos = []
+        for photo in photos:
+            persons = photo[14].split(',')
+            if person in persons:
                 checked_photos.append(photo)
         return local_paths(checked_photos)
 
@@ -2428,7 +2571,7 @@ class PhotoManager(App):
         """
 
         fileinfo = agnostic_photoinfo(fileinfo)
-        self.photos.execute("UPDATE photos SET Rename = ?, ModifiedDate = ?, Tags = ?, Edited = ?, OriginalFile= ?, Owner = ?, Export = ?, Orientation = ? WHERE FullPath = ?", (fileinfo[5], fileinfo[7], fileinfo[8], fileinfo[9], fileinfo[10], fileinfo[11], fileinfo[12], fileinfo[13], fileinfo[0]))
+        self.photos.execute("UPDATE photos SET Rename = ?, ModifiedDate = ?, Tags = ?, Edited = ?, OriginalFile= ?, Owner = ?, Export = ?, Orientation = ?, Persons = ? WHERE FullPath = ?", (fileinfo[5], fileinfo[7], fileinfo[8], fileinfo[9], fileinfo[10], fileinfo[11], fileinfo[12], fileinfo[13], fileinfo[14], fileinfo[0]))
         self.photos.commit()
 
     def cancel_database_import(self, *_):
@@ -2870,6 +3013,16 @@ class PhotoManager(App):
         """
 
         return "".join(i for i in string if i not in "#%&*{}\\/:?<>+|\"=][;,").lower()
+
+    def test_person(self, string, *_):
+        """Checks a person input string, removes non-allowed characters and sets to lower-case.
+        Arguments:
+            string: String to replace.
+        Returns: A string.
+        """
+
+        return "".join(i for i in string if i not in "#%&*{}\\/:?<>+|\"=][;,").lower()
+
 
     def new_description(self, description_editor, root):
         """Update the description of a folder or album.

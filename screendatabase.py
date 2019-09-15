@@ -227,6 +227,22 @@ Builder.load_string("""
                         opacity: 0 if app.simple_interface else 1
                         size_hint_x: 0 if app.simple_interface else 1
                         id: albumButton
+                        text: 'Add To Person...'
+                        disabled: not root.photos_selected or app.database_scanning
+                        on_release: root.person_menu.open(self)
+                    MenuStarterButton:
+                        width: 0 if app.simple_interface else self.texture_size[0] + app.button_scale
+                        opacity: 0 if app.simple_interface else 1
+                        size_hint_x: 0 if app.simple_interface else 1
+                        id: albumButton
+                        text: 'Add To Location...'
+                        disabled: not root.photos_selected or app.database_scanning
+                        on_release: root.album_menu.open(self)
+                    MenuStarterButton:
+                        width: 0 if app.simple_interface else self.texture_size[0] + app.button_scale
+                        opacity: 0 if app.simple_interface else 1
+                        size_hint_x: 0 if app.simple_interface else 1
+                        id: albumButton
                         text: 'Add To Album...'
                         disabled: not root.photos_selected or app.database_scanning
                         on_release: root.album_menu.open(self)
@@ -432,9 +448,11 @@ class DatabaseScreen(Screen):
     album_sort_reverse_button = StringProperty('normal')
     tag_menu = ObjectProperty()
     album_menu = ObjectProperty()
+    person_menu = ObjectProperty()
     data = ListProperty()
     expanded_albums = BooleanProperty(True)
     expanded_tags = BooleanProperty(True)
+    expanded_persons = BooleanProperty(True)
     expanded_folders = []
     folders = []
     update_folders = True
@@ -485,6 +503,9 @@ class DatabaseScreen(Screen):
         elif self.type == 'Tag':
             self.new_tag()
 
+        elif self.type == 'Person':
+            self.new_person()
+
         elif self.type == 'Folder':
             self.add_folder()
         else:
@@ -495,6 +516,8 @@ class DatabaseScreen(Screen):
             pass
 
         elif self.type == 'Tag':
+            pass
+        elif self.type == 'Person':
             pass
 
         elif self.type == 'Folder':
@@ -507,6 +530,9 @@ class DatabaseScreen(Screen):
             self.delete_folder()
 
         elif self.type == 'Tag':
+            self.delete_folder()
+
+        elif self.type == 'Person':
             self.delete_folder()
 
         elif self.type == 'Folder':
@@ -728,6 +754,10 @@ class DatabaseScreen(Screen):
                 for photo in selected_files:
                     app.database_remove_tag(photo[0], self.selected, message=True)
                 app.message("Removed the tag '"+self.selected+"' from "+str(len(selected_files))+" Files.")
+            elif self.type == 'Person':
+                for photo in selected_files:
+                    app.database_remove_person(photo[0], self.selected, message=True)
+                app.message("Removed the person '"+self.selected+"' from "+str(len(selected_files))+" Files.")
             else:
                 folders = []
                 errors = []
@@ -798,6 +828,10 @@ class DatabaseScreen(Screen):
                                 self.add_to_album(widget.target, selected_photos=selected_photos)
                             elif widget.type == 'Tag':
                                 self.add_to_tag(widget.target, selected_photos=selected_photos)
+                            elif widget.type == 'Person':
+                                self.add_to_person(widget.target, selected_photos=selected_photos)
+                                app.popup_message("Adding person "+widget.target+" to selected photos", title='Warning')
+
                             elif widget.type == 'Folder':
                                 content = ConfirmPopup(text='Move These Files To "'+widget.target+'"?', yes_text="Move", no_text="Don't Move", warn_yes=True)
                                 content.bind(on_answer=self.move_files)
@@ -870,9 +904,12 @@ class DatabaseScreen(Screen):
             app.message("Added "+str(added)+" files to the album '"+album_name+"'")
         self.update_treeview()
 
+
     def add_to_album_menu(self, instance):
         self.add_to_album(instance.text)
         self.album_menu.dismiss()
+
+
 
     def add_to_tag(self, tag_name, selected_photos=None):
         """Adds a tag to the currently selected photos.
@@ -899,9 +936,61 @@ class DatabaseScreen(Screen):
                 self.update_treeview()
                 app.message("Added tag '"+tag_name+"' to "+str(added_tag)+" files.")
 
+    def add_to_person(self, person_name, selected_photos=None):
+        """Adds a person to the currently selected photos.
+        Arguments:
+            person_name: Tag to add to selected photos.
+            selected_photos: List of selected photo data.
+        """
+
+        if not selected_photos:
+            selected_photos = self.get_selected_photos(fullpath=True)
+        person_name = person_name.strip(' ')
+        added_person = 0
+        if person_name:
+            app = App.get_running_app()
+            for photo in selected_photos:
+                added = app.database_add_person(photo, person_name)
+                if added:
+                    added_person = added_person + 1
+            self.select_none()
+            if added_person:
+                if person_name == 'favorite':
+                    self.on_selected()
+                app.photos.commit()
+                self.update_treeview()
+                app.message("Added person '"+person_name+"' to "+str(added_person)+" files.")
+
+    # def add_to_person(self, person_name, selected_photos=None):
+    #     """Adds the current selected photos to an person.
+    #     Arguments:
+    #         album_name: String, album to move the photos into.
+    #         selected_photos: List of selected photo data.
+    #     """
+    #
+    #     if not selected_photos:
+    #         selected_photos = self.get_selected_photos(fullpath=True)
+    #     app = App.get_running_app()
+    #     added = 0
+    #     for person in app.persons:
+    #         if person['name'] == person_name:
+    #             for photo in selected_photos:
+    #                 if photo not in person['photos']:
+    #                     person['photos'].append(photo)
+    #                     added = added + 1
+    #             app.person_save(person)
+    #     self.select_none()
+    #     if added:
+    #         app.message("Added " + str(added) + " files to the person '" + person_name + "'")
+    #         self.update_treeview()
+
     def add_to_tag_menu(self, instance):
         self.add_to_tag(instance.text)
         self.tag_menu.dismiss()
+
+    def add_to_person_menu(self, instance):
+        self.add_to_person(instance.text)
+        self.person_menu.dismiss()
 
     def can_add_tag(self, tag_name):
         """Checks if a new tag can be created.
@@ -914,6 +1003,21 @@ class DatabaseScreen(Screen):
         tag_name = tag_name.lower().strip(' ')
         tags = app.tags
         if tag_name and (tag_name not in tags) and (tag_name.lower() != 'favorite'):
+            return True
+        else:
+            return False
+
+    def can_add_person(self, person_name):
+        """Checks if a new person can be created.
+        Argument:
+            person_name: The person name to check.
+        Returns: True or False.
+        """
+
+        app = App.get_running_app()
+        person_name = person_name.lower().strip(' ')
+        persons = app.persons
+        if person_name and (person_name not in persons) and (person_name.lower() != 'favorite'):
             return True
         else:
             return False
@@ -933,6 +1037,24 @@ class DatabaseScreen(Screen):
                 tag_input.text = ''
             app = App.get_running_app()
             app.tag_make(tag_name)
+            self.update_treeview()
+        self.dismiss_popup()
+
+
+    def add_person(self, instance=None, answer="yes"):
+        """Adds the current input person to the app persons."""
+        if answer == "yes":
+            if instance is not None:
+                person_name = instance.ids['input'].text.lower().strip(' ')
+                if not person_name:
+                    self.dismiss_popup()
+                    return
+            else:
+                person_input = self.ids['input']
+                person_name = person_input.text.lower().strip(' ')
+                person_input.text = ''
+            app = App.get_running_app()
+            app.person_make(person_name)
             self.update_treeview()
         self.dismiss_popup()
 
@@ -990,42 +1112,52 @@ class DatabaseScreen(Screen):
         database.data = []
         data = []
 
-        #add the favorites item
-        total_favorites = len(app.database_get_tag('favorite'))
-        if total_favorites > 0:
-            total_photos = '('+str(total_favorites)+')'
-        else:
-            total_photos = ''
-        database_favorites = {
-            'fullpath': 'Favorites',
-            'target': 'favorite',
-            'owner': self,
-            'type': 'Tag',
-            'folder_name': 'Favorites',
-            'total_photos_numeric': total_favorites,
-            'total_photos': total_photos,
-            'expandable': False,
-            'displayable': True,
-            'indent': 0,
-            'subtext': '',
-            'height': app.button_scale + int(app.button_scale * 0.1),
-            'end': True,
-            'dragable': False
-        }
-        data.append(database_favorites)
+        self.__append_favorites_to_treeview(data)
+        self.__append_tags_to_treeview(data)
+        self.__append_persons_to_treeview(data)
+        self.__append_albums_to_treeview(data)
+        root_folders = self.__append_folders_to_treeview(data)
+        database.data = self.__expand_selected_folder(root_folders, data)
 
-        #add the tags tree item
-        sorted_tags = sorted(app.tags)
-        expandable_tags = True if len(sorted_tags) > 0 else False
-        tag_root = {
-            'fullpath': 'Tags',
-            'folder_name': 'Tags',
-            'target': 'Tags',
-            'type': 'Tag',
+        self.show_selected()
+
+    def __expand_selected_folder(self,root_folders,data):
+
+        # ensure that selected folder is expanded up to
+        selected_folder = self.selected
+        while os.path.sep in selected_folder:
+            selected_folder, leaf = selected_folder.rsplit(os.path.sep, 1)
+            if selected_folder not in self.expanded_folders:
+                self.expanded_folders.append(selected_folder)
+
+        if self.search_text:
+            folder_data = self.populate_folders(root_folders, root_folders, all=True)
+            searched = []
+            for item in folder_data:
+                if self.search_text.lower() in item['folder_name'].lower() or self.search_text in item['subtext'].lower():
+                    searched.append(item)
+            folder_data = searched
+        else:
+            folder_data = self.populate_folders(root_folders, self.expanded_folders)
+        data = data + folder_data
+
+        return data
+
+    def __append_folders_to_treeview(self,data):
+        app = App.get_running_app()
+
+        # Get and sort folder list
+        all_folders = self.get_folders()
+        # Add folders to tree
+        folder_root = {
+            'fullpath': 'Folders',
+            'folder_name': 'Folders',
+            'target': 'Folders',
+            'type': 'Folder',
             'total_photos': '',
             'displayable': False,
-            'expandable': expandable_tags,
-            'expanded': True if (self.expanded_tags and expandable_tags) else False,
+            'expandable': True,
+            'expanded': True,
             'owner': self,
             'indent': 0,
             'subtext': '',
@@ -1033,42 +1165,42 @@ class DatabaseScreen(Screen):
             'end': False,
             'dragable': False
         }
-        data.append(tag_root)
-        self.tag_menu.clear_widgets()
-        menu_button = MenuButton(text='favorite')
-        menu_button.bind(on_release=self.add_to_tag_menu)
-        self.tag_menu.add_widget(menu_button)
-        for tag in sorted_tags:
-            total_photos = len(app.database_get_tag(tag))
-            menu_button = MenuButton(text=tag)
-            menu_button.bind(on_release=self.add_to_tag_menu)
-            self.tag_menu.add_widget(menu_button)
-            if self.expanded_tags:
-                if total_photos > 0:
-                    total_photos_text = '('+str(total_photos)+')'
-                else:
-                    total_photos_text = ''
-                tag_item = {
-                    'fullpath': 'Tag',
-                    'folder_name': tag,
-                    'total_photos': total_photos_text,
-                    'total_photos_numeric': total_photos,
-                    'target': tag,
-                    'type': 'Tag',
-                    'expandable': False,
-                    'displayable': True,
-                    'owner': self,
-                    'indent': 1,
-                    'subtext': '',
-                    'end': False,
-                    'height': app.button_scale,
-                    'dragable': False
-                }
-                data.append(tag_item)
-        data[-1]['end'] = True
-        data[-1]['height'] = data[-1]['height'] + int(app.button_scale * 0.1)
+        data.append(folder_root)
 
-        #add the albums tree item
+        # Parse and sort folders and subfolders
+        root_folders = []
+        for folder_info in all_folders:
+            full_folder, folder_title, folder_description = folder_info
+            if full_folder and not any(avoidfolder in full_folder for avoidfolder in avoidfolders):
+                newname = full_folder
+                children = root_folders
+                parent_folder = ''
+                while os.path.sep in newname:
+                    # split the base path and the leaf paths
+                    root, leaf = newname.split(os.path.sep, 1)
+                    parent_folder = os.path.join(parent_folder, root)
+
+                    # check if the root path is already in the tree
+                    root_element = False
+                    for child in children:
+                        if child['folder'] == root:
+                            root_element = child
+                    if not root_element:
+                        children.append(
+                            {'folder': root, 'title': folder_title, 'full_folder': parent_folder, 'children': []})
+                        root_element = children[-1]
+                    children = root_element['children']
+                    newname = leaf
+                root_element = False
+                for child in children:
+                    if child['folder'] == newname:
+                        root_element = child
+                if not root_element:
+                    children.append({'folder': newname, 'title': folder_title, 'full_folder': full_folder, 'children': []})
+        return root_folders
+
+    def __append_albums_to_treeview(self,data):
+        app = App.get_running_app()
         albums = sorted(app.albums, key=lambda x: x['name'])
         expandable_albums = True if len(albums) > 0 else False
         album_root = {
@@ -1088,6 +1220,7 @@ class DatabaseScreen(Screen):
             'dragable': False
         }
         data.append(album_root)
+
         self.album_menu.clear_widgets()
         for album in albums:
             total_photos = len(album['photos'])
@@ -1119,18 +1252,22 @@ class DatabaseScreen(Screen):
         data[-1]['end'] = True
         data[-1]['height'] = data[-1]['height'] + int(app.button_scale * 0.1)
 
-        #Get and sort folder list
-        all_folders = self.get_folders()
-        #Add folders to tree
-        folder_root = {
-            'fullpath': 'Folders',
-            'folder_name': 'Folders',
-            'target': 'Folders',
-            'type': 'Folder',
+
+    def __append_tags_to_treeview(self,data):
+        app = App.get_running_app()
+
+        # add the tags tree item
+        sorted_tags = sorted(app.tags)
+        expandable_tags = True if len(sorted_tags) > 0 else False
+        tag_root = {
+            'fullpath': 'Tags',
+            'folder_name': 'Tags',
+            'target': 'Tags',
+            'type': 'Tag',
             'total_photos': '',
             'displayable': False,
-            'expandable': False,
-            'expanded': True,
+            'expandable': expandable_tags,
+            'expanded': True if (self.expanded_tags and expandable_tags) else False,
             'owner': self,
             'indent': 0,
             'subtext': '',
@@ -1138,58 +1275,124 @@ class DatabaseScreen(Screen):
             'end': False,
             'dragable': False
         }
-        data.append(folder_root)
+        data.append(tag_root)
+        self.tag_menu.clear_widgets()
+        menu_button = MenuButton(text='favorite')
+        menu_button.bind(on_release=self.add_to_tag_menu)
+        self.tag_menu.add_widget(menu_button)
+        for tag in sorted_tags:
+            total_photos = len(app.database_get_tag(tag))
+            menu_button = MenuButton(text=tag)
+            menu_button.bind(on_release=self.add_to_tag_menu)
+            self.tag_menu.add_widget(menu_button)
+            if self.expanded_tags:
+                if total_photos > 0:
+                    total_photos_text = '(' + str(total_photos) + ')'
+                else:
+                    total_photos_text = ''
+                tag_item = {
+                    'fullpath': 'Tag',
+                    'folder_name': tag,
+                    'total_photos': total_photos_text,
+                    'total_photos_numeric': total_photos,
+                    'target': tag,
+                    'type': 'Tag',
+                    'expandable': False,
+                    'displayable': True,
+                    'owner': self,
+                    'indent': 1,
+                    'subtext': '',
+                    'end': False,
+                    'height': app.button_scale,
+                    'dragable': False
+                }
+                data.append(tag_item)
+       # data[-1]['end'] = True
+       # data[-1]['height'] = data[-1]['height'] + int(app.button_scale * 0.1)
 
-        #Parse and sort folders and subfolders
-        root_folders = []
-        for folder_info in all_folders:
-            full_folder, folder_title, folder_description = folder_info
-            if full_folder and not any(avoidfolder in full_folder for avoidfolder in avoidfolders):
-                newname = full_folder
-                children = root_folders
-                parent_folder = ''
-                while os.path.sep in newname:
-                    #split the base path and the leaf paths
-                    root, leaf = newname.split(os.path.sep, 1)
-                    parent_folder = os.path.join(parent_folder, root)
+    def __append_persons_to_treeview(self,data):
+        app = App.get_running_app()
 
-                    #check if the root path is already in the tree
-                    root_element = False
-                    for child in children:
-                        if child['folder'] == root:
-                            root_element = child
-                    if not root_element:
-                        children.append({'folder': root, 'title': folder_title, 'full_folder': parent_folder, 'children': []})
-                        root_element = children[-1]
-                    children = root_element['children']
-                    newname = leaf
-                root_element = False
-                for child in children:
-                    if child['folder'] == newname:
-                        root_element = child
-                if not root_element:
-                    children.append({'folder': newname, 'title': folder_title, 'full_folder': full_folder, 'children': []})
+        # add the tags tree item
+        sorted_persons = sorted(app.persons)
+        expandable_persons = True if len(sorted_persons) > 0 else False
+        person_root = {
+            'fullpath': 'Persons',
+            'folder_name': 'Persons',
+            'target': 'Persons',
+            'type': 'Person',
+            'total_photos': '',
+            'displayable': False,
+            'expandable': expandable_persons,
+            'expanded': True if (self.expanded_persons and expandable_persons) else False,
+            'owner': self,
+            'indent': 0,
+            'subtext': '',
+            'height': app.button_scale,
+            'end': False,
+            'dragable': False
+        }
+        data.append(person_root)
+        self.person_menu.clear_widgets()
+        menu_button = MenuButton(text='Persons222')
+        menu_button.bind(on_release=self.add_to_person_menu)
+        self.person_menu.add_widget(menu_button)
 
-        #ensure that selected folder is expanded up to
-        selected_folder = self.selected
-        while os.path.sep in selected_folder:
-            selected_folder, leaf = selected_folder.rsplit(os.path.sep, 1)
-            if selected_folder not in self.expanded_folders:
-                self.expanded_folders.append(selected_folder)
+        for person in sorted_persons:
+            total_photos = len(app.database_get_person(person))
+            menu_button = MenuButton(text=person)
+            menu_button.bind(on_release=self.add_to_person_menu)
+            self.person_menu.add_widget(menu_button)
+            if self.expanded_persons:
+                if total_photos > 0:
+                    total_photos_text = '(' + str(total_photos) + ')'
+                else:
+                    total_photos_text = ''
+                person_item = {
+                    'fullpath': 'Person',
+                    'folder_name': person,
+                    'total_photos': total_photos_text,
+                    'total_photos_numeric': total_photos,
+                    'target': person,
+                    'type': 'Person',
+                    'expandable': False,
+                    'displayable': True,
+                    'owner': self,
+                    'indent': 1,
+                    'subtext': '',
+                    'end': False,
+                    'height': app.button_scale,
+                    'dragable': False
+                }
+                data.append(person_item)
+        #data[-1]['end'] = True
+        #data[-1]['height'] = data[-1]['height'] + int(app.button_scale * 0.1)
 
-        if self.search_text:
-            folder_data = self.populate_folders(root_folders, root_folders, all=True)
-            searched = []
-            for item in folder_data:
-                if self.search_text.lower() in item['folder_name'].lower() or self.search_text in item['subtext'].lower():
-                    searched.append(item)
-            folder_data = searched
+    def __append_favorites_to_treeview(self, data):
+        app = App.get_running_app()
+        # add the favorites item
+        total_favorites = len(app.database_get_tag('favorite'))
+        if total_favorites > 0:
+            total_photos = '(' + str(total_favorites) + ')'
         else:
-            folder_data = self.populate_folders(root_folders, self.expanded_folders)
-        data = data + folder_data
-
-        database.data = data
-        self.show_selected()
+            total_photos = ''
+        database_favorites = {
+            'fullpath': 'Favorites',
+            'target': 'favorite',
+            'owner': self,
+            'type': 'Tag',
+            'folder_name': 'Favorites',
+            'total_photos_numeric': total_favorites,
+            'total_photos': total_photos,
+            'expandable': False,
+            'displayable': True,
+            'indent': 0,
+            'subtext': '',
+            'height': app.button_scale + int(app.button_scale * 0.1),
+            'end': True,
+            'dragable': False
+        }
+        data.append(database_favorites)
 
     def populate_folders(self, folder_root, expanded, all=False):
         app = App.get_running_app()
@@ -1303,7 +1506,18 @@ class DatabaseScreen(Screen):
         content = InputPopupTag(hint='Tag Name', text='Enter A Tag:')
         app = App.get_running_app()
         content.bind(on_answer=self.add_tag)
-        self.popup = NormalPopup(title='Create Tag', content=content, size_hint=(None, None), size=(app.popup_x, app.button_scale * 5), auto_dismiss=False)
+        self.popup = NormalPopup(title='Create Tag', content=content, size_hint=(None, None),
+                                 size=(app.popup_x, app.button_scale * 5), auto_dismiss=False)
+        self.popup.open()
+
+    def new_person(self):
+        """Starts the new person process, creates an input text popup."""
+
+        content = InputPopup(hint='Person Name', text='Enter A Person:')
+        app = App.get_running_app()
+        content.bind(on_answer=self.add_person)
+        self.popup = NormalPopup(title='Create Person', content=content, size_hint=(None, None),
+                                 size=(app.popup_x, app.button_scale * 5), auto_dismiss=False)
         self.popup.open()
 
     def new_album(self):
@@ -1372,6 +1586,8 @@ class DatabaseScreen(Screen):
                     app.album_delete(album_index)
             elif delete_type == 'Tag':
                 app.remove_tag(delete_item)
+            elif delete_type == 'Person':
+                app.remove_person(delete_item)
             elif delete_type == 'Folder':
                 app.delete_folder(delete_item)
             self.previous_album()
@@ -1435,6 +1651,8 @@ class DatabaseScreen(Screen):
                     operation_label.text = 'Album:'
                 elif self.type == 'Tag':
                     operation_label.text = 'Tag:'
+                elif self.type == 'Person':
+                    operation_label.text = 'Person:'
                 elif self.type == 'Folder':
                     operation_label.text = 'Folder:'
             else:
@@ -1466,6 +1684,13 @@ class DatabaseScreen(Screen):
                     folder_title_type.text = 'Tagged As: '
                     folder_path.text = self.selected
                     photos = app.database_get_tag(self.selected)
+                elif self.type == 'Person':
+                    operation_label.text = 'Person:'
+                    self.can_rename_folder = False
+                    delete_button.text = 'Remove Selected person'
+                    folder_title_type.text = 'Person As: '
+                    folder_path.text = self.selected
+                    photos = app.database_get_person(self.selected)
                 else:  #self.type == 'Folder'
                     operation_label.text = 'Folder:'
                     dragable = True
@@ -1600,6 +1825,7 @@ class DatabaseScreen(Screen):
         app.fullpath = ''
         self.tag_menu = NormalDropDown()
         self.album_menu = NormalDropDown()
+        self.person_menu = NormalDropDown()
         self.ids['leftpanel'].width = app.left_panel_width()
 
         #self.can_export = False

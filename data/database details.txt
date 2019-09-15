@@ -13,6 +13,7 @@ photos.db:
     11 Owner            text
     12 Export           integer
     13 Orientation      integer
+    14 Persons          text
 
 thumbnails.db:
     0  FullPath         text        Database-relative path to the photo
@@ -29,3 +30,11 @@ imported.db:
     0  FullPath         text
     1  File             text
     2  ModifiedDate     integer
+
+
+# a completer
+persons.db:
+    0 FullPath          text
+    1 FirstName         text
+    2 Lastname          text
+

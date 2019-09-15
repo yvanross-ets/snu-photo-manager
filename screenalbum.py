@@ -144,6 +144,12 @@ Builder.load_string("""
                         on_press: root.fullscreen()
                     Label:
                         text: ''
+                    NormalButton:
+                        size_hint_y: 1
+                        text: '1 month'
+                        on_press: root.fullscreen()
+                    Label:
+                        text: ''   
                     NormalToggle:
                         size_hint_y: 1
                         text: '  Favorite  '
@@ -283,6 +289,11 @@ Builder.load_string("""
                                             multiline: False
                                             hint_text: 'Tag Name'
                                             input_filter: app.test_tag
+                                        NormalInput:
+                                            id: newPerson
+                                            multiline: False
+                                            hint_text: 'Person Name'
+                                            input_filter: app.test_person
                                         NormalButton:
                                             disabled: not root.can_add_tag(newTag.text)
                                             text: 'New'
@@ -751,7 +762,7 @@ Builder.load_string("""
             text: 'Color Adjustments:'
         NormalButton:
             text: 'Reset All'
-            on_release: root.reset_all()
+            on_release: root.r/eset_all()
     BoxLayout:
         canvas.before:
             Color:

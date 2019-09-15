@@ -1350,7 +1350,7 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
     """
 
     displayable = BooleanProperty(True)
-    target = StringProperty()  #Folder, Album, or Tag
+    target = StringProperty()  #Folder, Album, Tag, or Person
     fullpath = StringProperty()  #Folder name, used only on folder type targets
     folder = StringProperty()
     database_folder = StringProperty()
@@ -1387,6 +1387,10 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
             elif photo_type == 'Tag':
                 photos = app.database_get_tag(data['target'])
                 self.total_photos_numeric = len(photos)
+            elif photo_type == 'Person':
+                photos = app.database_get_person(data['target'])
+                self.total_photos_numeric = len(photos)
+
         if self.total_photos_numeric > 0:
             self.total_photos = '(' + str(self.total_photos_numeric) + ')'
         else:
@@ -1426,6 +1430,8 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
                 self.owner.expanded_albums = not self.owner.expanded_albums
             elif self.type == 'Tag':
                 self.owner.expanded_tags = not self.owner.expanded_tags
+            elif self.type == 'Person':
+                self.owner.expanded_persons = not self.owner.expanded_persons
             elif self.type == 'Folder':
                 self.owner.toggle_expanded_folder(self.target)
             self.owner.update_treeview()
