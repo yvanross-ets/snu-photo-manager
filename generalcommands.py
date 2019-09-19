@@ -334,7 +334,7 @@ def get_folder_info(folder, databases):
 
     Arguments:
         folder: Database subfolder to check, string.
-        databases: List of database root folder strings.
+        databases: List of screenDatabase root folder strings.
     Returns:
         A list containing:
             folder: Given folder.
@@ -380,7 +380,7 @@ def get_file_info(file_info, import_mode=False, modified_date=False):
 
     Arguments:
         file_info: A list containing file information:
-            Relative path to the file from the database directory
+            Relative path to the file from the screenDatabase directory
             Database root directory
         import_mode: When reading the file from a camera or other import source, don't try to find any info files.
         modified_date: if this is already found, can be passed in to save time

@@ -1,72 +1,215 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AutoTestManager">
-    <enabled-run-configurations>
-      <run-configuration type="tests" name="pytest in bin" />
-    </enabled-run-configurations>
-  </component>
   <component name="ChangeListManager">
     <list default="true" id="c18f69a3-776f-4dd6-998c-4d459ba95fe2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/gomp.iml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/other.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/mock.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/test/test_main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/data/database details.txt" beforeDir="false" afterPath="$PROJECT_DIR$/data/database details.txt" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorPickerCustom/ColorPickerCustom.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorPickerCustom/ColorWheel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorPickerCustom/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorPickerCustom/colorArc.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/colorPickerCustom/colorPickerApp.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/ButtonBase.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/ExpandableButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/MenuButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/NormalButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/RemoveButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/SplitterResizer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/ToogleBase.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/VerticalButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/WideButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Button/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/DropDown/AlbumSortDropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/DropDown/NormalDropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/DropDown/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Image/AsyncThumbnail.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/Image/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/input/FloatInput.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/input/IntegerInput.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/input/NormalInput.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/input/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/label/InfoLabel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/label/NormalLabel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/label/PhotoThumbLabel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/label/ShortLabel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/label/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/photo/PhotoDrag.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/photo/PhotoListRecycleView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/photo/PhotoRecycleThumb.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/photo/PhotoRecycleThumbWide.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/photo/PhotorecycleViewButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/photo/StencilViewTouch.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/photo/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/ConfirmPopup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/InputMenu.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/InputPopup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/InputPopupTag.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/MessagePopup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/MoveConfirmPopup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/NormalPopup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/ScanningPopup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/popup/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/scroller/ScrollViewCentered.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/scroller/Scroller.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/scroller/ScrollerContainer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/scroller/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/selectable/SelectableRecycleBoxLayout.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/selectable/SelectableRecycleGrid.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/selectable/SelectableRecycleLayout.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/selectable/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/splitter/SplitterPanel.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/splitter/SplitterPanelLeft.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/splitter/SplitterPanelRight.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/splitter/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/treeview/RecycleTreeViewButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/treeview/TreeViewButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/treeview/TreenodeDrag.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/treeview/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/view/HalfSliderLimited.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/view/LimitedScatterLayout.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/view/NormalRecycleView.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/view/RecycleItem.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/generalElements/view/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/google/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/google/geolocalisation.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/MainWindow.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/MultiThreadOK.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/PhotoManager.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/Theme.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/main/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen/ScreenImportPreset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen/screenDatabaseRestore.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screen/screenDatabaseTransfer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/AlbumSelectButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/AspectRatioDropdown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/CropOverlay.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/Curves.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/DenoisePreview.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditColorImageAdvanced.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditConvertImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditConvertVideo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditCropImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditDenoiseImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditFilterImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditMain.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditNone.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditPanelContainer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/EditRotateImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/ExitFullScreenButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/ExternalProgramEditor.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/InterpolationDropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/PanelTabs.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/PauseableVideo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/PhotoShow.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/PhotoViewer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/RemoveFromTagButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/RemoveTagButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/RotateGrid.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/SpecialVideoPlayer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/TagSelectButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/VideoEncodePreset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/VideoViewer.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/customImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/editBorderImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/editColorImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/screenAlbum.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/treeViewInfo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenAlbum/videoThumbnail.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenCollage/AddRemoveDropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenCollage/ColorDropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenCollage/ExpotAspectratioDropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenCollage/ResolutionDropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenCollage/ScatterImage.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenCollage/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenDatabase/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenDatabase/albumDetails.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenDatabase/databaseSortDropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenDatabase/folderDetails.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenExporting/ExportPreset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenExporting/ExportPresetArea.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenExporting/FTPToggleSettings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenExporting/FolderToggleSettings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenExporting/ScaleSettings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenExporting/WatermarkSettings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenExporting/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenImporting/ImportPreset.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenImporting/ImportPresetArea.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenImporting/ImportPresetForlder.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenImporting/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/AboutPopup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/FolderSettingsItem.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/FolderSettingsList.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/PhotoManagerSettings.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingDatabaseBackup.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingDatabaseClean.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingDatabaseImport.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingDatabaseRestore.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingMultiDirectory.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingNumeric.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingString.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingsAboutButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/SettingsThemeButton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenSettings/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenTheme/ColorElement.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenTheme/ColorElementbutton.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenTheme/ColorPickerSimple.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/screenTheme/__init__.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_buttons.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_dropDown.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_input.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/test_label.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/gomp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gomp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/about.txt" beforeDir="false" afterPath="$PROJECT_DIR$/main/about.txt" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/colorpickercustom.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/filebrowser.py" beforeDir="false" afterPath="$PROJECT_DIR$/filebrowser.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generalcommands.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalcommands.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/generalelements.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalelements.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenalbum.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenalbum.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screendatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/screendatabase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenimporting.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenimporting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenalbum.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screencollage.py" beforeDir="false" afterPath="$PROJECT_DIR$/screen/screencollage.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screendatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/screen/screenDatabase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenexporting.py" beforeDir="false" afterPath="$PROJECT_DIR$/screen/ScreenExporting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screenimporting.py" beforeDir="false" afterPath="$PROJECT_DIR$/screen/ScreenImporting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screensettings.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/screentheme.py" beforeDir="false" afterPath="$PROJECT_DIR$/screen/ScreenTheme.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/mock.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/test/test_main.py" beforeDir="false" />
     </list>
+    <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
+  <component name="CoverageDataManager">
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_WideButton.coverage" NAME="Unittest ButtonTestCase.test_WideButton Coverage Results" MODIFIED="1568914079231" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_remove_button.coverage" NAME="Unittest ButtonTestCase.test_remove_button Coverage Results" MODIFIED="1568912046437" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_AlbumSortDropDown.coverage" NAME="Unittest ButtonTestCase.test_AlbumSortDropDown Coverage Results" MODIFIED="1568919787723" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_normal_button.coverage" NAME="Unittest ButtonTestCase.test_normal_button Coverage Results" MODIFIED="1568911402101" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_InputTestCase_test_NormanDropDown.coverage" NAME="Unittest InputTestCase.test_NormanDropDown Coverage Results" MODIFIED="1568920322416" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_explandable_base.coverage" NAME="Unittest ButtonTestCase.test_explandable_base Coverage Results" MODIFIED="1568914216228" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$button_unit_test.coverage" NAME="button unit test Coverage Results" MODIFIED="1568915678969" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_in_test_dropDown.coverage" NAME="Unittests in test_dropDown Coverage Results" MODIFIED="1568916260549" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_splitterResizer.coverage" NAME="Unittest ButtonTestCase.test_splitterResizer Coverage Results" MODIFIED="1568913269629" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_Vertical_button.coverage" NAME="Unittest ButtonTestCase.test_Vertical_button Coverage Results" MODIFIED="1568913847551" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_TootleBase.coverage" NAME="Unittest ButtonTestCase.test_TootleBase Coverage Results" MODIFIED="1568913520479" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittest_ButtonTestCase_test_NormanDropDown.coverage" NAME="Unittest ButtonTestCase.test_NormanDropDown Coverage Results" MODIFIED="1568916165905" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+  </component>
+  <component name="CoverageViewManager">
+    <option name="myElementSize" value="512" />
+  </component>
+  <component name="CreatePatchCommitExecutor">
+    <option name="PATCH_PATH" value="" />
+  </component>
+  <component name="FavoritesManager">
+    <favorites_list name="gompAppPy" />
+  </component>
   <component name="FileEditorManager">
-    <leaf>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generalelements.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="225">
-              <caret line="1439" selection-start-line="1439" selection-end-line="1439" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/screendatabase.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="215">
-              <caret line="2162" selection-start-line="2162" selection-end-line="2162" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/main.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="232">
-              <caret line="2968" selection-start-line="2968" selection-end-line="2968" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/screenalbum.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="670">
-              <caret line="2347" column="32" selection-start-line="2347" selection-start-column="32" selection-end-line="2347" selection-end-column="32" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-    </leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -77,37 +220,45 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>PhotoListRecycleView</find>
-      <find>click</find>
-      <find>Description</find>
-      <find>Title</find>
-      <find>FolderDetails</find>
-      <find>select</find>
-      <find>photocontainer</find>
-      <find>photosContainer</find>
-      <find>treeview</find>
-      <find>tree</find>
-      <find>on_button</find>
-      <find>on_change</find>
-      <find>select_node</find>
-      <find>toggle_node</find>
-      <find>_selected</find>
-      <find>on_touch</find>
-      <find>self.owner.type</find>
-      <find>owner.type</find>
-      <find>ScrollView</find>
-      <find>on_touch_down</find>
-      <find>recycletree</find>
-      <find>self.owner.selected</find>
-      <find>'Tag'</find>
-      <find>'Search...'</find>
-      <find>NormalRecycleView</find>
-      <find>SelectableRecycleBoxLayout</find>
-      <find>RecycleTreeViewButton</find>
-      <find>photos</find>
-      <find>children</find>
-      <find>Person:</find>
+      <find>settin</find>
+      <find>Backup Photo</find>
+      <find>backupdatabase</find>
+      <find>screens.</find>
+      <find>screen.</find>
+      <find>PhotoRecycleThumbWide</find>
+      <find>Import To Direc</find>
+      <find>No Import</find>
+      <find>SettingsWithNoMenu</find>
+      <find>on_close_event</find>
+      <find>on_config</find>
+      <find>config</find>
+      <find>close_settings</find>
+      <find>SettingsThemeButton</find>
+      <find>close</find>
+      <find>PhotoManagerSettings</find>
+      <find>About Snu Photo</find>
+      <find>SettingDatabaseRestore</find>
+      <find>about</find>
+      <find>Header</find>
+      <find>HeaderBase</find>
+      <find>app</find>
+      <find>PhotoManager</find>
+      <find>PhotoThumbLabel</find>
+      <find>XXXXXXXXXXX</find>
+      <find>insert_text</find>
+      <find>popup_bubble</find>
+      <find>inspector</find>
+      <find>Inspector</find>
+      <find>on_progress</find>
     </findStrings>
+    <replaceStrings>
+      <replace />
+      <replace>scr</replace>
+      <replace>screen.</replace>
+    </replaceStrings>
+    <dirStrings>
+      <dir>$PROJECT_DIR$</dir>
+    </dirStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -115,23 +266,67 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/screenimporting.py" />
-        <option value="$PROJECT_DIR$/test/mock.py" />
-        <option value="$PROJECT_DIR$/test/test_main.py" />
-        <option value="$PROJECT_DIR$/screenalbum.py" />
-        <option value="$PROJECT_DIR$/data/database details.txt" />
-        <option value="$PROJECT_DIR$/main.py" />
-        <option value="$PROJECT_DIR$/generalcommands.py" />
+        <option value="$PROJECT_DIR$/generalElements/TreenodeDrag.py" />
+        <option value="$PROJECT_DIR$/generalElements/SelectableRecycleBoxLayout.py" />
+        <option value="$PROJECT_DIR$/generalElements/SelectableRecycleGrid.py" />
+        <option value="$PROJECT_DIR$/generalElements/NormalRecycleView.py" />
+        <option value="$PROJECT_DIR$/generalElements/SplitterResizer.py" />
+        <option value="$PROJECT_DIR$/generalElements/SplitterPanel.py" />
+        <option value="$PROJECT_DIR$/generalElements/SplitterPanelLeft.py" />
+        <option value="$PROJECT_DIR$/generalElements/SplitterPanelRight.py" />
+        <option value="$PROJECT_DIR$/generalElements/AsyncThumbnail.py" />
+        <option value="$PROJECT_DIR$/generalElements/PhotoDrag.py" />
+        <option value="$PROJECT_DIR$/generalElements/Scroller.py" />
+        <option value="$PROJECT_DIR$/colorPickerCustom/ColorPickerCustom.py" />
+        <option value="$PROJECT_DIR$/generalElements/VerticalButton.py" />
+        <option value="$PROJECT_DIR$/generalElements/ToogleBase.py" />
+        <option value="$PROJECT_DIR$/screenDatabase/screenDatabase.py" />
+        <option value="$PROJECT_DIR$/generalElements/ExpandableButton.py" />
+        <option value="$PROJECT_DIR$/screenCollage/screencollage.py" />
+        <option value="$PROJECT_DIR$/screenImporting/ImportingScreen.py" />
+        <option value="$PROJECT_DIR$/screenTheme/ColorElementbutton.py" />
+        <option value="$PROJECT_DIR$/screenTheme/ScreenTheme.py" />
+        <option value="$PROJECT_DIR$/screenTheme/ColorElement.py" />
         <option value="$PROJECT_DIR$/generalelements.py" />
-        <option value="$PROJECT_DIR$/screendatabase.py" />
+        <option value="$PROJECT_DIR$/screenImporting/ScreenImportPreset.py" />
+        <option value="$PROJECT_DIR$/screens/ScreenImporting.py" />
+        <option value="$PROJECT_DIR$/main/PhotoManager.py" />
+        <option value="$PROJECT_DIR$/screenAlbum/videoThumbnail.py" />
+        <option value="$PROJECT_DIR$/screen/screencollage.py" />
+        <option value="$PROJECT_DIR$/screen/ScreenImportPreset.py" />
+        <option value="$PROJECT_DIR$/screenSettings/PhotoManagerSettings.py" />
+        <option value="$PROJECT_DIR$/screenDatabase/albumDetails.py" />
+        <option value="$PROJECT_DIR$/tests/test_album_detail.py" />
+        <option value="$PROJECT_DIR$/generalElements/PhotoRecycleThumbWide.py" />
+        <option value="$PROJECT_DIR$/screen/ScreenImporting.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/ButtonBase.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/WideButton.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/ExpandableButton.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/NormalButton.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/RemoveButton.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/SplitterResizer.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/ToogleBase.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/VerticalButton.py" />
+        <option value="$PROJECT_DIR$/tests/test_buttons.py" />
+        <option value="$PROJECT_DIR$/generalElements/Button/MenuButton.py" />
+        <option value="$PROJECT_DIR$/generalElements/DropDown/AlbumSortDropDown.py" />
+        <option value="$PROJECT_DIR$/generalElements/input/NormalInput.py" />
+        <option value="$PROJECT_DIR$/tests/test_input.py" />
+        <option value="$PROJECT_DIR$/tests/test_dropDown.py" />
+        <option value="$PROJECT_DIR$/generalElements/label/InfoLabel.py" />
+        <option value="$PROJECT_DIR$/generalElements/label/ShortLabel.py" />
+        <option value="$PROJECT_DIR$/generalElements/label/PhotoThumbLabel.py" />
+        <option value="$PROJECT_DIR$/tests/test_label.py" />
       </list>
     </option>
   </component>
-  <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="220" />
-    <option name="y" value="236" />
+  <component name="ProjectFrameBounds">
+    <option name="y" value="22" />
     <option name="width" value="1920" />
     <option name="height" value="1178" />
+  </component>
+  <component name="ProjectLevelVcsManager">
+    <ConfirmationsSetting value="2" id="Add" />
   </component>
   <component name="ProjectView">
     <navigator proportions="" version="1">
@@ -143,167 +338,225 @@
         <subPane>
           <expand>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="test" type="462c0819:PsiDirectoryNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="generalelements.py" type="8704e2dd:PyFileNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
+              <item name="label" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="generalelements.py" type="8704e2dd:PyFileNode" />
-              <item name="PhotoRecycleThumb" type="dd8bbb05:PyElementNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
+              <item name="label" type="462c0819:PsiDirectoryNode" />
+              <item name="InfoLabel.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="generalelements.py" type="8704e2dd:PyFileNode" />
-              <item name="RecycleTreeViewButton" type="dd8bbb05:PyElementNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
+              <item name="label" type="462c0819:PsiDirectoryNode" />
+              <item name="InfoLabel.py" type="8704e2dd:PyFileNode" />
+              <item name="InfoLabel" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="generalelements.py" type="8704e2dd:PyFileNode" />
-              <item name="SelectableRecycleLayout" type="dd8bbb05:PyElementNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="main" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="main.py" type="8704e2dd:PyFileNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="main.py" type="8704e2dd:PyFileNode" />
-              <item name="PhotoManager" type="dd8bbb05:PyElementNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="test_label.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="screenalbum.py" type="8704e2dd:PyFileNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="test_label.py" type="8704e2dd:PyFileNode" />
+              <item name="LabelTestCase" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="screenalbum.py" type="8704e2dd:PyFileNode" />
-              <item name="AlbumScreen" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="screenalbum.py" type="8704e2dd:PyFileNode" />
-              <item name="PhotoViewer" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="screendatabase.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="screendatabase.py" type="8704e2dd:PyFileNode" />
-              <item name="DatabaseScreen" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gomp" type="462c0819:PsiDirectoryNode" />
-              <item name="screendatabase.py" type="8704e2dd:PyFileNode" />
-              <item name="TransferScreen" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="1437855905" type="70582d5e:PySkeletonsNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="_pytest" type="462c0819:PsiDirectoryNode" />
+              <item name="1437855905" type="70582d5e:PySkeletonsNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="1437855905" type="70582d5e:PySkeletonsNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="_event.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="1437855905" type="70582d5e:PySkeletonsNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="_event.py" type="8704e2dd:PyFileNode" />
+              <item name="EventDispatcher" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="_pytest" type="462c0819:PsiDirectoryNode" />
-              <item name="assertion" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="window" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="inspector.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="uix" type="462c0819:PsiDirectoryNode" />
+              <item name="modules" type="462c0819:PsiDirectoryNode" />
+              <item name="inspector.py" type="8704e2dd:PyFileNode" />
+              <item name="Inspector" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
               <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="behaviors" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="py" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="uix" type="462c0819:PsiDirectoryNode" />
+              <item name="textinput.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
-              <item name="gomp" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="py" type="462c0819:PsiDirectoryNode" />
-              <item name="_path" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="uix" type="462c0819:PsiDirectoryNode" />
+              <item name="textinput.py" type="8704e2dd:PyFileNode" />
+              <item name="TextInput" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="uix" type="462c0819:PsiDirectoryNode" />
+              <item name="widget.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="uix" type="462c0819:PsiDirectoryNode" />
+              <item name="widget.py" type="8704e2dd:PyFileNode" />
+              <item name="Widget" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="animation.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="animation.py" type="8704e2dd:PyFileNode" />
+              <item name="Animation" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="animation.py" type="8704e2dd:PyFileNode" />
+              <item name="Sequence" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="clock.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="kivy" type="462c0819:PsiDirectoryNode" />
+              <item name="clock.py" type="8704e2dd:PyFileNode" />
+              <item name="ClockBaseBehavior" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
@@ -316,6 +569,7 @@
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="js-jscs-nodeInterpreter" value="$USER_HOME$/.nvm/versions/node/v8.4.0/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js.eslint.nodeInterpreter" value="/usr/local/bin/node" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$" />
@@ -328,7 +582,19 @@
     <property name="nodejs_interpreter_path.stuck_in_default_project" value="undefined stuck path" />
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
+  </component>
+  <component name="PyCoverageOptionsProvider">
+    <option name="myUseBundledCoveragePy" value="true" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/screens" />
+      <recent name="$PROJECT_DIR$/screenAlbum" />
+      <recent name="$PROJECT_DIR$/main" />
+      <recent name="$PROJECT_DIR$/screenTheme" />
+      <recent name="$PROJECT_DIR$/screenImporting" />
+    </key>
   </component>
   <component name="RunDashboard">
     <option name="ruleStates">
@@ -342,7 +608,27 @@
       </list>
     </option>
   </component>
-  <component name="RunManager" selected="Python.main">
+  <component name="RunManager" selected="Python tests.Unittests for test_label.LabelTestCase.test_InfoLabel">
+    <configuration default="true" type="tests" factoryName="Attests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="gomp" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" enabled="false" sample_coverage="true" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <method />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="gomp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -365,49 +651,114 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
-    <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="gomp" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
+    <configuration default="true" type="js.build_tools.gulp">
+      <node-interpreter>project</node-interpreter>
+      <node-options />
+      <gulpfile />
+      <tasks />
+      <arguments />
+      <envs />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for test_main.MyTest.test" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="gomp" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
       <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/test" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
       <option name="IS_MODULE_SDK" value="true" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_main.MyTest.test&quot;" />
+      <option name="_new_target" value="&quot;test_label.LabelTestCase.test_InfoLabel&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="pytest in bin" type="tests" factoryName="py.test" nameIsGenerated="true">
+    <configuration name="Unittests for test_label.LabelTestCase.test_NormalLabel" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="gomp" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="/usr/local/bin/python3" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_label.LabelTestCase.test_NormalLabel&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_label.LabelTestCase.test_PhotoThumbLabel" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="gomp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_label.LabelTestCase.test_PhotoThumbLabel&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests for test_label.LabelTestCase.test_ShortLabel" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="gomp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;test_label.LabelTestCase.test_ShortLabel&quot;" />
+      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Unittests in tests" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+      <module name="gomp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;$PROJECT_DIR$/tests&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="Unittests">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
       <option name="WORKING_DIRECTORY" value="" />
       <option name="IS_MODULE_SDK" value="false" />
       <option name="ADD_CONTENT_ROOTS" value="true" />
       <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
+    <configuration default="true" type="tests" factoryName="py.test">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_keywords" value="&quot;&quot;" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
@@ -415,15 +766,55 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
+    <configuration name="button unit test" type="tests" factoryName="Unittests">
+      <module name="gomp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="/usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/bin/python3.7" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_buttons.py" />
+      <option name="CLASS_NAME" value="" />
+      <option name="METHOD_NAME" value="" />
+      <option name="FOLDER_NAME" value="" />
+      <option name="TEST_TYPE" value="TEST_SCRIPT" />
+      <option name="PATTERN" value="" />
+      <option name="USE_PATTERN" value="false" />
+      <option name="PUREUNITTEST" value="true" />
+      <option name="PARAMS" value="" />
+      <option name="USE_PARAM" value="false" />
+      <module name="gomp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <option name="SDK_HOME" value="/usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/bin/python3.7" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="_new_additionalArguments" value="&quot;&quot;" />
+      <option name="_new_target" value="&quot;&quot;" />
+      <option name="_new_targetType" value="&quot;PATH&quot;" />
+      <method v="2" />
+    </configuration>
     <list>
-      <item itemvalue="Python tests.pytest in bin" />
-      <item itemvalue="Python tests.Unittests for test_main.MyTest.test" />
-      <item itemvalue="Python.main" />
+      <item itemvalue="Python tests.button unit test" />
+      <item itemvalue="Python tests.Unittests in tests" />
+      <item itemvalue="Python tests.Unittests for test_label.LabelTestCase.test_InfoLabel" />
+      <item itemvalue="Python tests.Unittests for test_label.LabelTestCase.test_NormalLabel" />
+      <item itemvalue="Python tests.Unittests for test_label.LabelTestCase.test_PhotoThumbLabel" />
+      <item itemvalue="Python tests.Unittests for test_label.LabelTestCase.test_ShortLabel" />
     </list>
     <recent_temporary>
       <list>
-        <item itemvalue="Python.main" />
-        <item itemvalue="Python tests.Unittests for test_main.MyTest.test" />
+        <item itemvalue="Python tests.Unittests for test_label.LabelTestCase.test_InfoLabel" />
+        <item itemvalue="Python tests.Unittests in tests" />
+        <item itemvalue="Python tests.Unittests for test_label.LabelTestCase.test_ShortLabel" />
+        <item itemvalue="Python tests.Unittests for test_label.LabelTestCase.test_PhotoThumbLabel" />
+        <item itemvalue="Python tests.Unittests for test_label.LabelTestCase.test_NormalLabel" />
       </list>
     </recent_temporary>
   </component>
@@ -440,496 +831,629 @@
       <workItem from="1568380783851" duration="5875000" />
       <workItem from="1568391050628" duration="2794000" />
       <workItem from="1568547522691" duration="18228000" />
+      <workItem from="1568578257308" duration="3725000" />
+      <workItem from="1568810054916" duration="16397000" />
+      <workItem from="1568828332598" duration="4964000" />
+      <workItem from="1568833440394" duration="2720000" />
+      <workItem from="1568836207451" duration="4975000" />
+      <workItem from="1568920400289" duration="5640000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 12m 30s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 40m 06s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 17m 36s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 40m 33s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 17m 42s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 41m 01s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 17m 50s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 41m 41s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 17m 57s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 41m 53s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 18m 04s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 42m 51s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 18m 17s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 43m 52s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 18m 22s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 45m 36s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 20m 00s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 46m 38s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
-    <history-entry file="pytest_in_bin - 2019.09.15 at 13h 22m 48s.xml">
-      <configuration name="pytest in bin" configurationId="tests" />
+    <history-entry file="Unittests_for_test_label_LabelTestCase_test_InfoLabel - 2019.09.19 at 16h 47m 39s.xml">
+      <configuration name="Unittests for test_label.LabelTestCase.test_InfoLabel" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="26897000" />
+    <option name="totallyTimeSpent" value="65318000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="1178" extended-state="6" />
+    <frame x="0" y="22" width="1920" height="1178" extended-state="0" />
     <layout>
       <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25825346" />
-      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" weight="0.32925683" />
+      <window_info id="Project" order="1" visible="true" weight="0.12193823" />
+      <window_info id="Structure" order="2" weight="0.25" />
+      <window_info anchor="bottom" id="Docker" show_stripe_button="false" />
+      <window_info anchor="bottom" id="Database Changes" />
+      <window_info anchor="bottom" id="Terminal" order="0" weight="0.32924527" />
       <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32925683" />
+      <window_info anchor="bottom" id="Version Control" order="2" weight="0.32924527" />
       <window_info anchor="bottom" id="Application Servers" order="3" />
-      <window_info anchor="bottom" id="Python Console" order="4" weight="0.3283161" />
+      <window_info anchor="bottom" id="Python Console" order="4" weight="0.32924527" />
       <window_info anchor="bottom" id="Message" order="5" />
-      <window_info anchor="bottom" id="Find" order="6" weight="0.32925683" />
-      <window_info anchor="bottom" id="Run" order="7" weight="0.3283161" />
-      <window_info anchor="bottom" id="Debug" order="8" weight="0.317968" />
+      <window_info anchor="bottom" id="Find" order="6" weight="0.32924527" />
+      <window_info anchor="bottom" id="Run" order="7" weight="0.32925683" />
+      <window_info anchor="bottom" id="Debug" order="8" weight="0.39981186" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" />
-      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32896462" />
+      <window_info anchor="right" id="SciView" />
+      <window_info active="true" anchor="right" id="Coverage" side_tool="true" visible="true" weight="0.32960597" />
       <window_info anchor="right" id="Database" order="0" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="430" height="978" id="Documentation" order="4" side_tool="true" weight="0.32904148" />
-      <window_info anchor="right" id="SciView" order="5" />
     </layout>
-    <layout-to-restore>
-      <window_info id="Favorites" order="0" side_tool="true" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.25825346" />
-      <window_info id="Structure" order="2" side_tool="true" weight="0.25" />
-      <window_info anchor="bottom" id="Terminal" order="0" />
-      <window_info anchor="bottom" id="Event Log" order="1" side_tool="true" />
-      <window_info anchor="bottom" id="Version Control" order="2" />
-      <window_info anchor="bottom" id="Application Servers" order="3" />
-      <window_info anchor="bottom" id="Python Console" order="4" weight="0.3283161" />
-      <window_info anchor="bottom" id="Message" order="5" />
-      <window_info anchor="bottom" id="Find" order="6" weight="0.32925683" />
-      <window_info anchor="bottom" id="Run" order="7" weight="0.3283161" />
-      <window_info active="true" anchor="bottom" id="Debug" order="8" visible="true" weight="0.317968" />
-      <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
-      <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
-      <window_info anchor="bottom" id="TODO" order="11" />
-      <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Database Changes" order="13" />
-      <window_info anchor="bottom" id="Inspection Results" order="14" weight="0.32896462" />
-      <window_info anchor="right" id="Database" order="0" />
-      <window_info anchor="right" id="Commander" internal_type="SLIDING" order="1" type="SLIDING" weight="0.4" />
-      <window_info anchor="right" id="Ant Build" order="2" weight="0.25" />
-      <window_info anchor="right" content_ui="combo" id="Hierarchy" order="3" weight="0.25" />
-      <window_info anchor="right" x="0" y="0" width="430" height="978" id="Documentation" order="4" side_tool="true" weight="0.32904148" />
-      <window_info anchor="right" id="SciView" order="5" />
-    </layout-to-restore>
   </component>
   <component name="TypeScriptGeneratedFilesManager">
     <option name="version" value="1" />
+  </component>
+  <component name="Vcs.Log.UiProperties">
+    <option name="RECENTLY_FILTERED_USER_GROUPS">
+      <collection />
+    </option>
+    <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
+      <collection />
+    </option>
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenimporting.py</url>
-          <line>674</line>
+          <url>file://$PROJECT_DIR$/screen/ScreenImportPreset.py</url>
+          <line>281</line>
           <option name="timeStamp" value="3" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenimporting.py</url>
-          <line>537</line>
-          <option name="timeStamp" value="4" />
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generalElements/Button/ButtonBase.py</url>
+          <line>80</line>
+          <option name="timeStamp" value="8" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenimporting.py</url>
-          <line>601</line>
-          <option name="timeStamp" value="5" />
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generalElements/Button/ButtonBase.py</url>
+          <line>83</line>
+          <option name="timeStamp" value="9" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenimporting.py</url>
-          <line>610</line>
-          <option name="timeStamp" value="6" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenimporting.py</url>
-          <line>612</line>
-          <option name="timeStamp" value="7" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>1325</line>
-          <option name="timeStamp" value="10" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>622</line>
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generalElements/Button/ButtonBase.py</url>
+          <line>86</line>
           <option name="timeStamp" value="11" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>647</line>
-          <option name="timeStamp" value="20" />
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generalElements/Button/ButtonBase.py</url>
+          <line>89</line>
+          <option name="timeStamp" value="12" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screendatabase.py</url>
-          <line>1292</line>
-          <option name="timeStamp" value="28" />
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generalElements/Button/ButtonBase.py</url>
+          <line>92</line>
+          <option name="timeStamp" value="13" />
         </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenimporting.py</url>
-          <line>916</line>
-          <option name="timeStamp" value="37" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1793</line>
-          <option name="timeStamp" value="39" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1212</line>
-          <option name="timeStamp" value="42" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenalbum.py</url>
-          <line>4789</line>
-          <option name="timeStamp" value="45" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenalbum.py</url>
-          <line>4846</line>
-          <option name="timeStamp" value="46" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenalbum.py</url>
-          <line>4856</line>
-          <option name="timeStamp" value="47" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenalbum.py</url>
-          <line>4875</line>
-          <option name="timeStamp" value="48" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1666</line>
-          <option name="timeStamp" value="50" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1577</line>
-          <option name="timeStamp" value="54" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1891</line>
-          <option name="timeStamp" value="55" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1885</line>
-          <option name="timeStamp" value="59" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1898</line>
-          <option name="timeStamp" value="61" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1906</line>
-          <option name="timeStamp" value="62" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1867</line>
-          <option name="timeStamp" value="65" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2832</line>
-          <option name="timeStamp" value="70" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main.py</url>
-          <line>2779</line>
-          <option name="timeStamp" value="71" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screenimporting.py</url>
-          <line>1202</line>
-          <option name="timeStamp" value="73" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screendatabase.py</url>
-          <line>470</line>
-          <option name="timeStamp" value="75" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>2419</line>
-          <option name="timeStamp" value="86" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1116</line>
-          <option name="timeStamp" value="87" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/generalelements.py</url>
-          <line>1501</line>
-          <option name="timeStamp" value="91" />
+        <line-breakpoint enabled="true" type="python-line">
+          <url>file://$PROJECT_DIR$/generalElements/input/FloatInput.py</url>
+          <line>21</line>
+          <option name="timeStamp" value="23" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="tests">
+        <watch expression="app.theme.button_up" />
+        <watch expression="app.theme.button_up" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="com.intellij.coverage.CoverageDataManagerImpl">
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_label_LabelTestCase_test_PhotoThumbLabel.coverage" NAME="Unittests for test_label.LabelTestCase.test_PhotoThumbLabel Coverage Results" MODIFIED="1568925278729" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gomp$pytest_in_bin.coverage" NAME="pytest in bin Coverage Results" MODIFIED="1568568167625" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_album_detail_MyTestCase_test_runtouchapp.coverage" NAME="Unittests for test_album_detail.MyTestCase.test_runtouchapp Coverage Results" MODIFIED="1568839821663" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1568836361129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_album_detail_MyTestCase.coverage" NAME="Unittests for test_album_detail.MyTestCase Coverage Results" MODIFIED="1568839431128" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_input_InputTestCase_test_FloadInput.coverage" NAME="Unittests for test_input.InputTestCase.test_FloadInput Coverage Results" MODIFIED="1568922029042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Doctests_in_tests.coverage" NAME="Doctests in tests Coverage Results" MODIFIED="1568810138343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/gompAppPy$pytest_geolocalisation.coverage" NAME="pytest geolocalisation Coverage Results" MODIFIED="1568818563634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/gomp$Unittests_for_test_main_MyTest_test.coverage" NAME="Unittests for test_main.MyTest.test Coverage Results" MODIFIED="1568392128945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_album_detail_MyTestCase_test_render.coverage" NAME="Unittests for test_album_detail.MyTestCase.test_render Coverage Results" MODIFIED="1568839871305" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gomp$main.coverage" NAME="main Coverage Results" MODIFIED="1568572666299" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_album_detail_MyTestCase_test_theme.coverage" NAME="Unittests for test_album_detail.MyTestCase.test_theme Coverage Results" MODIFIED="1568840700065" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_input_InputTestCase_test_IntegerInput.coverage" NAME="Unittests for test_input.InputTestCase.test_IntegerInput Coverage Results" MODIFIED="1568922195675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$pytest_for_test_album_detail_test_album_detail.coverage" NAME="pytest for test_album_detail.test_album_detail Coverage Results" MODIFIED="1568837686181" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_label_LabelTestCase_test_NormalLabel.coverage" NAME="Unittests for test_label.LabelTestCase.test_NormalLabel Coverage Results" MODIFIED="1568925192121" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_in_tests.coverage" NAME="Unittests in tests Coverage Results" MODIFIED="1568925449594" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_in_test_album_detail_py.coverage" NAME="Unittests in test_album_detail.py Coverage Results" MODIFIED="1568839363647" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Nosetests_in_tests.coverage" NAME="Nosetests in tests Coverage Results" MODIFIED="1568810197575" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
+    <SUITE FILE_PATH="coverage/gompAppPy$main.coverage" NAME="main Coverage Results" MODIFIED="1568834038861" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_input_InputTestCase_test_FloadInput2.coverage" NAME="Unittests for test_input.InputTestCase.test_FloadInput2 Coverage Results" MODIFIED="1568922085521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_album_detail_MyTestCase_test_screen_database.coverage" NAME="Unittests for test_album_detail.MyTestCase.test_screen_database Coverage Results" MODIFIED="1568838674058" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_dropDown_ButtonTestCase_test_AlbumSortDropDown.coverage" NAME="Unittests for test_dropDown.ButtonTestCase.test_AlbumSortDropDown Coverage Results" MODIFIED="1568923069423" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_album_detail_MyTestCase_test_screenCollage.coverage" NAME="Unittests for test_album_detail.MyTestCase.test_screenCollage Coverage Results" MODIFIED="1568840477668" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_dropDown.coverage" NAME="Unittests for test_dropDown Coverage Results" MODIFIED="1568923469936" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_label_LabelTestCase_test_ShortLabel.coverage" NAME="Unittests for test_label.LabelTestCase.test_ShortLabel Coverage Results" MODIFIED="1568925415041" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_label_LabelTestCase_test_InfoLabel.coverage" NAME="Unittests for test_label.LabelTestCase.test_InfoLabel Coverage Results" MODIFIED="1568926052769" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_input_InputTestCase_test_NormalInput.coverage" NAME="Unittests for test_input.InputTestCase.test_NormalInput Coverage Results" MODIFIED="1568922910131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/pydevd.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="98">
-          <caret line="1127" column="24" selection-start-line="1127" selection-start-column="24" selection-end-line="1127" selection-end-column="24" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/borders/3d.jpg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/buildozer.spec">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/android.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/about.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screentheme.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-10872">
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screensettings.py">
+    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/unittest/case.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
-          <folding>
-            <element signature="e#0#24#0" expanded="true" />
-          </folding>
+          <caret line="627" selection-start-line="627" selection-end-line="627" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/screencollage.py">
+    <entry file="file://$PROJECT_DIR$/main/Theme.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="251">
-          <caret line="24" column="60" selection-start-line="24" selection-start-column="60" selection-end-line="24" selection-end-column="60" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
+        <state>
+          <caret line="21" column="15" selection-start-line="21" selection-start-column="4" selection-end-line="21" selection-end-column="15" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generalconstants.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
+          <caret line="53" column="53" selection-start-line="53" selection-start-column="30" selection-end-line="53" selection-end-column="53" />
           <folding>
-            <element signature="e#0#11#0" expanded="true" />
+            <element signature="e#0#11#0" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/test/mock.py">
+    <entry file="file://$PROJECT_DIR$/generalElements/treeview/RecycleTreeViewButton.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="20" lean-forward="true" selection-start-line="5" selection-start-column="20" selection-end-line="5" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/Readme.md">
-      <provider selected="true" editor-type-id="split-provider[text-editor;markdown-preview-editor]">
-        <state split_layout="SPLIT">
-          <first_editor relative-caret-position="41">
-            <caret line="8" column="16" lean-forward="true" selection-start-line="8" selection-start-column="16" selection-end-line="8" selection-end-column="16" />
-          </first_editor>
-          <second_editor />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/_pytest/python.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="500" selection-start-line="500" selection-end-line="500" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/py/_path/local.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="700" selection-start-line="700" selection-end-line="700" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/_pytest/assertion/rewrite.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="228">
-          <caret line="139" selection-start-line="139" selection-end-line="139" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/test/test_main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="3" selection-start-line="19" selection-start-column="3" selection-end-line="19" selection-end-column="3" />
-          <folding>
-            <element signature="e#17#41#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/_pytest/assertion/truncate.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/textinput.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="412">
-          <caret line="3095" selection-start-line="3095" selection-end-line="3095" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/data/database details.txt">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/config.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="546" column="17" selection-start-line="546" selection-start-column="17" selection-end-line="546" selection-end-column="17" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalcommands.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1675">
-          <caret line="275" selection-start-line="275" selection-end-line="275" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screenexporting.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="87" column="37" selection-start-line="87" selection-start-column="20" selection-end-line="87" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/behaviors/button.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="161">
-          <caret line="136" column="29" selection-start-line="136" selection-start-column="29" selection-end-line="136" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/relativelayout.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="562">
-          <caret line="303" selection-start-line="303" selection-end-line="303" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/screenmanager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="881" column="6" selection-start-line="881" selection-start-column="6" selection-end-line="881" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/core/window/__init__.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="1405" selection-start-line="1405" selection-end-line="1405" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="450">
-          <caret line="341" selection-start-line="341" selection-end-line="341" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/core/window/window_sdl2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="746" selection-start-line="746" selection-end-line="746" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/scrollview.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="641" selection-start-line="641" selection-end-line="641" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/widget.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="548" selection-start-line="548" selection-end-line="548" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screenimporting.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="1203" column="12" selection-start-line="1203" selection-start-column="12" selection-end-line="1203" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screenalbum.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="670">
-          <caret line="2347" column="32" selection-start-line="2347" selection-start-column="32" selection-end-line="2347" selection-end-column="32" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="232">
-          <caret line="2968" selection-start-line="2968" selection-end-line="2968" />
+        <state>
+          <caret line="117" column="21" selection-start-line="117" selection-start-column="21" selection-end-line="117" selection-end-column="21" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/generalelements.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="1439" selection-start-line="1439" selection-end-line="1439" />
+        <state>
+          <caret line="173" column="18" selection-start-line="173" selection-start-column="18" selection-end-line="173" selection-end-column="18" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/screendatabase.py">
+    <entry file="file://$PROJECT_DIR$/screenAlbum/EditRotateImage.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="215">
-          <caret line="2162" selection-start-line="2162" selection-end-line="2162" />
+        <state>
+          <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screenAlbum/screenAlbum.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="471" column="61" selection-start-line="471" selection-start-column="11" selection-end-line="471" selection-end-column="61" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/site-packages/kivy/modules/inspector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="419" column="43" selection-start-line="419" selection-start-column="43" selection-end-line="419" selection-end-column="43" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/base.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="405" column="28" selection-start-line="405" selection-start-column="15" selection-end-line="405" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/lang/builder.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="248" selection-start-line="248" selection-end-line="248" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/NormalButton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="28" selection-start-column="28" selection-end-column="28" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/ExpandableButton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="20" column="32" selection-start-line="20" selection-start-column="32" selection-end-line="20" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#36#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/RemoveButton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="8" column="15" selection-start-line="8" selection-start-column="15" selection-end-line="8" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#58#0" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/label.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="293" column="6" selection-start-line="293" selection-start-column="6" selection-end-line="293" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/behaviors/button.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="55" column="6" selection-start-line="55" selection-start-column="6" selection-end-line="55" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/tests/common.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="85" column="8" selection-start-line="85" selection-start-column="8" selection-end-line="85" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/SplitterResizer.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#34#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/togglebutton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="13" column="24" selection-start-line="13" selection-start-column="24" selection-end-line="13" selection-end-column="24" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/ToogleBase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="4" column="8" selection-start-line="4" selection-start-column="8" selection-end-line="4" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/VerticalButton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="30" column="17" selection-start-line="30" selection-start-column="4" selection-end-line="30" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#42#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/ButtonBase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="19" column="6" selection-start-line="19" selection-start-column="6" selection-end-line="19" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/WideButton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="13" column="8" selection-start-line="13" selection-start-column="8" selection-end-line="13" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screenAlbum/EditConvertVideo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="340" column="52" selection-start-line="340" selection-start-column="12" selection-end-line="340" selection-end-column="52" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/button.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="53" column="6" selection-start-line="53" selection-start-column="6" selection-end-line="53" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/Button/MenuButton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="10" column="29" selection-start-line="10" selection-start-column="29" selection-end-line="10" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/DropDown/NormalDropDown.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="18" column="6" selection-start-line="18" selection-start-column="6" selection-end-line="18" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/DropDown/AlbumSortDropDown.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="10" column="31" selection-start-line="10" selection-start-column="25" selection-end-line="10" selection-end-column="31" />
+          <folding>
+            <element signature="e#0#66#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screen/screencollage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="595" column="8" selection-start-line="595" selection-start-column="8" selection-end-line="595" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/scrollview.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="512" selection-start-line="512" selection-end-line="512" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screen/ScreenExporting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="200" column="5" selection-start-line="199" selection-start-column="5" selection-end-line="200" selection-end-column="5" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/dropdown.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="211" selection-start-line="211" selection-end-line="211" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pycharm/utrunner.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret line="47" column="35" selection-start-line="47" selection-start-column="32" selection-end-line="47" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#10#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/input/FloatInput.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="12" column="21" lean-forward="true" selection-start-line="12" selection-start-column="21" selection-end-line="12" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/textinput.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="2633" column="4" selection-start-line="2633" selection-start-column="4" selection-end-line="2633" selection-end-column="4" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/input/IntegerInput.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="17" column="6" selection-start-line="17" selection-start-column="6" selection-end-line="17" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main/PhotoManager.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="131" column="8" selection-start-line="131" selection-start-column="8" selection-end-line="131" selection-end-column="8" />
+          <folding>
+            <element signature="e#0#11#0" expanded="true" />
+            <marker date="1568833028223" expanded="true" signature="20519:20562" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="21304:21341" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="49879:50602" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="50758:50933" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="51097:51365" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="51474:51758" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="51919:52105" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="52261:52401" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="71319:71356" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="71409:71450" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="73517:73556" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="74522:74561" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="75503:75542" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="76405:76444" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="77574:77613" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="78732:78770" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="79353:79394" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="88787:88821" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="89493:89529" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="89663:89697" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="89760:89802" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="90251:90311" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="90397:90434" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="90600:90621" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="91119:91185" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="91393:91417" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="91593:91634" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="92527:92594" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="93156:93195" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="93715:93756" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="94446:94482" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="94817:94856" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="95550:95607" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="95746:95789" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="96057:96102" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="96492:96513" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="96960:96994" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="97176:97213" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="97262:97303" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="98001:98044" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="98122:98165" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="99038:99081" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="99194:99237" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="99457:99498" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="99647:99736" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="101975:102036" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="102173:102226" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="102578:102633" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="102932:103089" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="105664:105706" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="110076:110112" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="110629:110664" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="111049:111092" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="111488:111537" ph="..." />
+            <marker date="1568833028223" expanded="true" signature="111881:111941" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/input/NormalInput.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="595">
+          <caret line="47" column="50" lean-forward="true" selection-start-line="47" selection-start-column="50" selection-end-line="47" selection-end-column="50" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_album_detail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="450">
+          <caret line="30" column="49" selection-start-line="30" selection-start-column="49" selection-end-line="30" selection-end-column="49" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/modules/inspector.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="382" selection-start-line="382" selection-end-line="382" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_buttons.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="415">
+          <caret line="317" column="17" selection-start-line="317" selection-start-column="8" selection-end-line="317" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_input.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="45">
+          <caret line="3" column="34" selection-start-line="3" selection-start-column="25" selection-end-line="3" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_dropDown.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="49">
+          <caret line="81" column="30" lean-forward="true" selection-end-line="140" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/widget.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="248">
+          <caret line="352" selection-start-line="352" selection-end-line="352" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/python_stubs/1437855905/kivy/_event.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="151" column="8" selection-start-line="151" selection-start-column="8" selection-end-line="151" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/clock.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="228">
+          <caret line="590" selection-start-line="590" selection-end-line="590" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/animation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="268">
+          <caret line="118" lean-forward="true" selection-start-line="118" selection-end-line="118" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/label/NormalLabel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="180">
+          <caret line="12" column="6" selection-start-line="12" selection-start-column="6" selection-end-line="12" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#32#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/label/PhotoThumbLabel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="210">
+          <caret line="16" column="6" selection-start-line="16" selection-start-column="6" selection-end-line="16" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/label/ShortLabel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="195">
+          <caret line="14" column="6" selection-start-line="14" selection-start-column="6" selection-end-line="14" selection-end-column="6" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/label/InfoLabel.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="18" lean-forward="true" selection-start-line="10" selection-start-column="18" selection-end-line="10" selection-end-column="18" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/test_label.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="533">
+          <caret line="73" column="20" lean-forward="true" selection-start-line="73" selection-start-column="20" selection-end-line="73" selection-end-column="20" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
