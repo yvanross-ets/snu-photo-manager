@@ -9,7 +9,7 @@ from screenSettings.SettingDatabaseRestore import SettingDatabaseRestore
 from screenSettings.SettingDatabaseClean import SettingDatabaseClean
 from screenSettings.SettingDatabaseBackup import SettingDatabaseBackup
 from screenSettings.SettingsAboutButton import SettingAboutButton
-
+from screenSettings.SettingsBackToLibraryButton import SettingsBackToLibraryButton
 
 class PhotoManagerSettings(SettingsWithNoMenu):
     """Expanded settings class to add new settings buttons and types."""
@@ -18,6 +18,7 @@ class PhotoManagerSettings(SettingsWithNoMenu):
         super(PhotoManagerSettings, self).__init__(**kwargs)
         self.register_type('string', SettingString)
         self.register_type('numeric', SettingNumeric)
+        self.register_type('backToLibrary', SettingsBackToLibraryButton)
         self.register_type('multidirectory', SettingMultiDirectory)
         self.register_type('themescreen', SettingsThemeButton)
         self.register_type('databaseimport', SettingDatabaseImport)

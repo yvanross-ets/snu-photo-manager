@@ -1,4 +1,4 @@
-#__all__ = ('ColorPickerCustom', 'ColorWheel')
+__all__ = ('ColorPickerCustom', 'ColorWheel')
 
 from kivy.uix.boxlayout import BoxLayout
 from kivy.uix.relativelayout import RelativeLayout
@@ -18,7 +18,7 @@ from colorPickerCustom.ColorWheel import ColorWheel
 from kivy.lang.builder import Builder
 
 Builder.load_string("""
-ColorPickerCustom>:
+<ColorPickerCustom>:
     canvas.before:
         Color:
             rgba: self.color

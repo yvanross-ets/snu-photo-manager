@@ -1,8 +1,8 @@
 from kivy.app import App
 
-from generalElements.RemoveButton import RemoveButton
-from generalElements.NormalPopup import NormalPopup
-from generalElements.ConfirmPopup import ConfirmPopup
+from generalElements.buttons.RemoveButton import RemoveButton
+from generalElements.popups.NormalPopup import NormalPopup
+from generalElements.popups.ConfirmPopup import ConfirmPopup
 
 
 class RemoveTagButton(RemoveButton):
@@ -19,6 +19,6 @@ class RemoveTagButton(RemoveButton):
         del instance
         if answer == 'yes':
             app = App.get_running_app()
-            app.remove_tag(self.to_remove)
+            app.Tag.remove(self.to_remove)
             self.owner.update_treeview()
         self.owner.dismiss_popup()

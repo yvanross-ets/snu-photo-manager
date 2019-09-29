@@ -3,7 +3,7 @@ from kivy.uix.floatlayout import FloatLayout
 
 from screenAlbum.customImage import CustomImage
 from screenAlbum.CropOverlay import CropOverlay
-from screenAlbum.RotateGrid import RotationGrid
+from screenAlbum.RotationGrid import RotationGrid
 
 from kivy.lang.builder import Builder
 

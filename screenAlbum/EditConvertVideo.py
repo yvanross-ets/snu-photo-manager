@@ -4,8 +4,8 @@ from kivy.uix.gridlayout import GridLayout
 
 from generalcommands import to_bool
 from generalconstants import containers_friendly, video_codecs_friendly, audio_codecs_friendly
-from generalElements.MenuButton import MenuButton
-from generalElements.NormalDropDown import NormalDropDown
+from generalElements.buttons.MenuButton import MenuButton
+from generalElements.dropDowns.NormalDropDown import NormalDropDown
 
 from kivy.lang.builder import Builder
 

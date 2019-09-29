@@ -14,7 +14,7 @@ Builder.load_string("""
         NormalInput:
             height: app.button_scale if app.simple_interface else (app.button_scale * 2)
             id: folderTitle
-            input_filter: app.test_album
+            input_filter: app.remove_unallowed_characters
             multiline: False
             text: ''
             on_focus: app.new_title(self, root.owner)
@@ -24,7 +24,7 @@ Builder.load_string("""
         NormalInput:
             id: folderDescription
             height: app.button_scale if app.simple_interface else (app.button_scale * 2)
-            input_filter: app.test_description
+            input_filter: app.remove_unallowed_characters
             multiline: True
             text: ''
             on_focus: app.new_description(self, root.owner)

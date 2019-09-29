@@ -8,9 +8,9 @@ from kivy.uix.image import Image as KivyImage
 
 from filebrowser import FileBrowser
 from generalconstants import scale_size_to_options
-from generalElements.MenuButton import MenuButton
-from generalElements.NormalDropDown import NormalDropDown
-from generalElements.NormalPopup import NormalPopup
+from generalElements.buttons.MenuButton import MenuButton
+from generalElements.dropDowns.NormalDropDown import NormalDropDown
+from generalElements.popups.NormalPopup import NormalPopup
 from screenExporting.WatermarkSettings import WatermarkSettings
 from screenExporting.ScaleSettings import ScaleSettings
 from screenExporting.FTPToggleSettings import FTPToggleSettings
@@ -34,7 +34,7 @@ Builder.load_string("""
                 text: 'Title: '
             NormalInput:
                 id: titleEditor
-                input_filter: app.test_album
+                input_filter: app.remove_unallowed_characters
                 multiline: False
                 text: root.name
                 on_focus: root.set_title(self)

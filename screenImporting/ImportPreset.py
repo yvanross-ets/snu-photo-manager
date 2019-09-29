@@ -2,7 +2,7 @@ from kivy.app import App
 from kivy.properties import DictProperty, ObjectProperty, StringProperty
 
 from generalcommands import naming
-from generalElements.ExpandableButton import ExpandableButton
+from generalElements.buttons.ExpandableButton import ExpandableButton
 from screenImporting.ImportPresetArea import ImportPresetArea
 
 

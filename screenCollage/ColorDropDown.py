@@ -1,6 +1,7 @@
 from kivy.properties import ObjectProperty
 
-from generalElements.NormalDropDown import NormalDropDown
+from generalElements.dropDowns.NormalDropDown import NormalDropDown
+from colorPickerCustom import ColorPickerCustom
 
 from kivy.lang.builder import Builder
 

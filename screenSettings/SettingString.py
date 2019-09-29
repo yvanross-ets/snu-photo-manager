@@ -2,19 +2,18 @@ from kivy.app import App
 from kivy.properties import ObjectProperty
 from kivy.uix.settings import SettingItem
 
-from generalElements.InputPopup import InputPopup
-from generalElements.NormalPopup import NormalPopup
+from generalElements.popups.InputPopup import InputPopup
+from generalElements.popups.NormalPopup import NormalPopup
 from kivy.lang.builder import Builder
 
 Builder.load_string("""
 <SettingString>:
     size_hint_y: None
-    Label:
+    NormalButton:
         text: root.value or ''
         pos: root.pos
         font_size: '15sp'
         color: app.theme.text
-
 """)
 
 class SettingString(SettingItem):

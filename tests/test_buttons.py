@@ -1,45 +1,16 @@
-import unittest
 from kivy.tests.common import GraphicUnitTest, UnitTestTouch
 from kivy.base import EventLoop
 from kivy.modules import inspector
-from kivy.factory import Factory
 from kivy.app import App
-from main.Theme import Theme
-from kivy.properties import NumericProperty
-from generalconstants import themes
 from kivy.uix.button import Button
 
-def data_to_theme(theme,data):
-    for color in theme.colors:
-        try:
-            new_color = data[color]
-            r = float(new_color[0])
-            g = float(new_color[1])
-            b = float(new_color[2])
-            a = float(new_color[3])
-            new_color = [r, g, b, a]
-            setattr(theme, color, new_color)
-        except:
-            pass
-
-class TesterApp(App):
-    button_pressed = False
-    animations = 0
-    theme = Theme()
-    data_to_theme(theme,themes[0])
-    button_scale = NumericProperty(40)
-
-    def button_update(self):
-        pass
-
+from testUtils.TesterApp import TesterApp
 
 class ButtonTestCase(GraphicUnitTest):
     framecount = 0
 
     def setUp(self):
-        app = TesterApp()
-        app.text_scale = 10
-        app.padding = 10
+        self.app = TesterApp()
 
         EventLoop.ensure_window()
         self._win = EventLoop.window
@@ -71,7 +42,7 @@ class ButtonTestCase(GraphicUnitTest):
     def test_button_base(self):
 
         # build the button
-        from generalElements.Button.ButtonBase import ButtonBase
+        from generalElements.buttons.ButtonBase import ButtonBase
         button = ButtonBase(text="Bonjour", always_release=True)
         self.root = button
         self.render(self.root)
@@ -106,12 +77,13 @@ class ButtonTestCase(GraphicUnitTest):
         self.assertLess(len(self._win.children), 2)
 
     def test_explandable_base(self):
-        from generalElements.Button.ExpandableButton import ExpandableButton
-        from generalElements.Button.WideButton import WideButton
-        from generalElements.Button.RemoveButton import RemoveButton
+        from generalElements.buttons.ExpandableButton import ExpandableButton
+        from generalElements.buttons.WideButton import WideButton
+        from generalElements.buttons.RemoveButton import RemoveButton
         from kivy.uix.button import Button
         from kivy.uix.checkbox import CheckBox
-
+        print('padding: ', self.app.padding)
+        print('padding2:', App.get_running_app().padding)
         button = ExpandableButton()
         self.root = button
         self.render(self.root)
@@ -162,7 +134,7 @@ class ButtonTestCase(GraphicUnitTest):
 
 
     def test_normal_button(self):
-        from generalElements.Button.NormalButton import NormalButton
+        from generalElements.buttons.NormalButton import NormalButton
 
         button = NormalButton(text="Bonjour")
         self.root = button
@@ -196,7 +168,7 @@ class ButtonTestCase(GraphicUnitTest):
         self.assertLess(len(self._win.children), 2)
 
     def test_remove_button(self):
-        from generalElements.Button.RemoveButton import RemoveButton
+        from generalElements.buttons.RemoveButton import RemoveButton
 
         button = RemoveButton()
         self.root = button
@@ -235,14 +207,14 @@ class ButtonTestCase(GraphicUnitTest):
         self.assertLess(len(self._win.children), 2)
 
     def test_splitterResizer(self):
-        from generalElements.Button.SplitterResizer import SplitterResizer
+        from generalElements.buttons.SplitterResizer import SplitterResizer
         self.root =  SplitterResizer()
         self.render(self.root)
         self.advance_frames(1)
         pass
 
     def test_TootleBase(self):
-        from generalElements.Button.ToogleBase import ToggleBase
+        from generalElements.buttons.ToogleBase import ToggleBase
 
         self.root = ToggleBase(text='Bonjour', group='gomp')
         self.render(self.root)
@@ -279,7 +251,7 @@ class ButtonTestCase(GraphicUnitTest):
         self.assertLess(len(self._win.children), 2)
 
     def test_Vertical_button(self):
-        from generalElements.Button.VerticalButton import VerticalButton
+        from generalElements.buttons.VerticalButton import VerticalButton
         from kivy.uix.label import Label
 
         self.root = VerticalButton(vertical_text="allo", group='gomp')
@@ -319,7 +291,7 @@ class ButtonTestCase(GraphicUnitTest):
         self.assertLess(len(self._win.children), 2)
 
     def test_WideButton(self):
-        from generalElements.Button.WideButton import WideButton
+        from generalElements.buttons.WideButton import WideButton
         self.root = WideButton(text="allo")
         self.render(self.root)
         #self.advance_frames(1)

@@ -4,7 +4,7 @@ from kivy.clock import Clock
 from kivy.properties import StringProperty, NumericProperty, ListProperty, ObjectProperty
 from kivy.uix.gridlayout import GridLayout
 
-from generalElements.TreeViewButton import TreeViewButton
+from generalElements.treeviews.TreeViewButton import TreeViewButton
 from screenAlbum import VideoEncodePreset
 
 from kivy.lang.builder import Builder

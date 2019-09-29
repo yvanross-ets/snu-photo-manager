@@ -4,7 +4,7 @@ from kivy.app import App
 from kivy.properties import ObjectProperty
 from kivy.uix.gridlayout import GridLayout
 
-from generalElements.ExpandableButton import ExpandableButton
+from generalElements.buttons.ExpandableButton import ExpandableButton
 from screenAlbum import ExternalProgramEditor
 
 from kivy.lang.builder import Builder

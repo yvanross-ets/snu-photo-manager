@@ -2,8 +2,8 @@ from kivy.app import App
 from kivy.properties import ObjectProperty, StringProperty
 from kivy.uix.boxlayout import BoxLayout
 
-from generalElements.MenuButton import MenuButton
-from generalElements.NormalDropDown import NormalDropDown
+from generalElements.buttons.MenuButton import MenuButton
+from generalElements.dropDowns.NormalDropDown import NormalDropDown
 
 from kivy.lang.builder import Builder
 

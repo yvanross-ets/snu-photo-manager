@@ -2,7 +2,7 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.properties import DictProperty, ObjectProperty
 
-from generalElements.ExpandableButton import ExpandableButton
+from generalElements.buttons.ExpandableButton import ExpandableButton
 from screenExporting.ExportPresetArea import ExportPresetArea
 
 

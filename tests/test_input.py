@@ -8,37 +8,12 @@ from main.Theme import Theme
 from kivy.properties import NumericProperty
 from generalconstants import themes
 from kivy.uix.button import Button
+from tests.utils import *
+from testUtils.TesterApp import TesterApp
 
-def data_to_theme(theme,data):
-    for color in theme.colors:
-        try:
-            new_color = data[color]
-            r = float(new_color[0])
-            g = float(new_color[1])
-            b = float(new_color[2])
-            a = float(new_color[3])
-            new_color = [r, g, b, a]
-            setattr(theme, color, new_color)
-        except:
-            pass
-
-class TesterApp(App):
-    # button_pressed = False
-    text_scale = 15
-    animations = 0
-    theme = Theme()
-    data_to_theme(theme,themes[0])
-    button_scale = NumericProperty(25)
-    bubble = ""
-
-    def button_update(self):
-        pass
-
-    def popup_bubble(self, long_press_position, pos):
-        self.bubble = long_press_position.text
 
 def displayMsg(value):
-    print("XXXXXXXXX", value)
+    print("displayMsg", value)
 
 class InputTestCase(GraphicUnitTest):
     framecount = 0
@@ -66,7 +41,7 @@ class InputTestCase(GraphicUnitTest):
 
     def test_FloadInput(self):
         self.test_txt = "2.aa45"
-        from generalElements.input.FloatInput import FloatInput
+        from generalElements.inputs.FloatInput import FloatInput
         self.root = FloatInput()
         self.root.bind(text=self.on_text)
         #self.root.insert_text(self.test_txt)
@@ -83,7 +58,7 @@ class InputTestCase(GraphicUnitTest):
 
 
     def test_FloadInput2(self):
-        from generalElements.input.FloatInput import FloatInput
+        from generalElements.inputs.FloatInput import FloatInput
         ti = FloatInput()
         ti.focus = True
         self.render(ti)
@@ -95,7 +70,7 @@ class InputTestCase(GraphicUnitTest):
 
 
     def test_IntegerInput(self):
-        from generalElements.input.IntegerInput import IntegerInput
+        from generalElements.inputs.IntegerInput import IntegerInput
         ti = IntegerInput()
         ti.focus = True
         self.render(ti)
@@ -106,7 +81,7 @@ class InputTestCase(GraphicUnitTest):
         self.assertEqual(ti.text,"34563166")
 
     def test_NormalInput(self):
-        from generalElements.input.NormalInput import NormalInput
+        from generalElements.inputs.NormalInput import NormalInput
         ti = NormalInput()
         ti.focus = True
         self.render(ti)

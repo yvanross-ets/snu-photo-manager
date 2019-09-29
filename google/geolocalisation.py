@@ -35,6 +35,10 @@ class Geolocalisation:
         return self.__country
 
     @__getLocation
+    def province(self):
+        return self.__administrative_area_level_1
+
+    @__getLocation
     def locality(self):
         return self.__locality
 
@@ -81,3 +85,25 @@ class Geolocalisation:
                 if 'postal_code' in detail['types']:
                     if len(self.__postal_code) < len(detail['long_name']):
                         self.__postal_code =  detail['long_name']
+
+
+
+
+# import math
+#
+# def get_distance(lat_1, lng_1, lat_2, lng_2):
+#    d_lat = lat_2 - lat_1
+#    d_lng = lng_2 - lng_1
+#
+#    temp = (
+#        math.sin(d_lat / 2) ** 2
+#      + math.cos(lat_1)
+#      * math.cos(lat_2)
+#      * math.sin(d_lng / 2) ** 2
+#    )
+#
+#    return 6373.0 * (2 * math.atan2(math.sqrt(temp), math.sqrt(1 - temp)))
+# share improve this answer
+# answered
+# Jun 25 '17 at 4:10
+#

@@ -1,6 +1,6 @@
 from kivy.properties import StringProperty, ObjectProperty
 
-from generalElements.WideButton import WideButton
+from generalElements.buttons.WideButton import WideButton
 from kivy.lang.builder import Builder
 
 Builder.load_string("""

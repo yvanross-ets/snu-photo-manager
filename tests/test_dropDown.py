@@ -8,32 +8,11 @@ from main.Theme import Theme
 from kivy.properties import NumericProperty
 from generalconstants import themes
 from kivy.uix.button import Button
-
-def data_to_theme(theme,data):
-    for color in theme.colors:
-        try:
-            new_color = data[color]
-            r = float(new_color[0])
-            g = float(new_color[1])
-            b = float(new_color[2])
-            a = float(new_color[3])
-            new_color = [r, g, b, a]
-            setattr(theme, color, new_color)
-        except:
-            pass
-
-class TesterApp(App):
-    # button_pressed = False
-    animations = 0
-    theme = Theme()
-    data_to_theme(theme,themes[0])
-    button_scale = NumericProperty(25)
-
-    def button_update(self):
-        pass
+from tests.utils import data_to_theme
+from testUtils.TesterApp import TesterApp
 
 def displayMsg(value):
-    print("XXXXXXXXX", value)
+    print("displayMsg", value)
 
 class ButtonTestCase(GraphicUnitTest):
     framecount = 0
@@ -60,7 +39,7 @@ class ButtonTestCase(GraphicUnitTest):
         self.advance_frames(5)
 
     def test_NormanDropDown(self):
-        from generalElements.DropDown.NormalDropDown import NormalDropDown
+        from generalElements.dropDowns.NormalDropDown import NormalDropDown
         dropDown = NormalDropDown()
         dropDown.add_widget(Button(text="allo"))
         dropDown.add_widget(Button(text="mon"))
@@ -74,8 +53,8 @@ class ButtonTestCase(GraphicUnitTest):
 
     def test_AlbumSortDropDown(self):
         self.advance_frames(100)
-        from generalElements.DropDown.AlbumSortDropDown import AlbumSortDropDown
-        from generalElements.Button.MenuButton import MenuButton
+        from generalElements.dropDowns.AlbumSortDropDown import AlbumSortDropDown
+        from generalElements.buttons.MenuButton import MenuButton
         dropDown = AlbumSortDropDown()
 
         self.root = dropDown

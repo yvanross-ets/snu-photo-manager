@@ -8,10 +8,10 @@ from kivy.uix.settings import SettingItem
 
 from filebrowser import FileBrowser
 from generalcommands import agnostic_path
-from generalElements.ShortLabel import ShortLabel
-from generalElements.NormalButton import NormalButton
-from generalElements.WideButton import WideButton
-from generalElements.NormalPopup import NormalPopup
+from generalElements.labels.ShortLabel import ShortLabel
+from generalElements.buttons.NormalButton import NormalButton
+from generalElements.buttons.WideButton import WideButton
+from generalElements.popups.NormalPopup import NormalPopup
 from screenSettings.FolderSettingsList import FolderSettingsList
 
 from kivy.lang.builder import Builder

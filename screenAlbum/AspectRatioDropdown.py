@@ -1,4 +1,4 @@
-from generalElements.NormalDropDown import NormalDropDown
+from generalElements.dropDowns.NormalDropDown import NormalDropDown
 from kivy.lang.builder import Builder
 
 Builder.load_string("""

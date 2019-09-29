@@ -9,6 +9,7 @@ def test_geolocalisation():
     assert localisation.street_number() == "398-310"
     assert localisation.route() == "10e Av"
     assert localisation.postal_code() == "J3L 3P7"
+    assert localisation.province() == 'xxx'
 
     assert str(localisation) == "Canada,\nRichelieu,\n398-310\n10e Av,\nJ3L 3P7"
 

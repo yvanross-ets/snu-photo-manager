@@ -1,6 +1,6 @@
 from kivy.app import App
 
-from generalElements.RemoveButton import RemoveButton
+from generalElements.buttons.RemoveButton import RemoveButton
 
 
 class RemoveFromTagButton(RemoveButton):
@@ -8,5 +8,5 @@ class RemoveFromTagButton(RemoveButton):
 
     def on_release(self):
         app = App.get_running_app()
-        app.database_remove_tag(self.remove_from, self.to_remove, message=True)
+        app.Tag.remove(self.remove_from, self.to_remove, message=True)
         self.owner.update_treeview()

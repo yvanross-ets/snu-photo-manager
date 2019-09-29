@@ -2,7 +2,7 @@ from kivy.properties import StringProperty, ObjectProperty, NumericProperty
 from kivy.uix.gridlayout import GridLayout
 
 from filebrowser import FileBrowser
-from generalElements.NormalPopup import NormalPopup
+from generalElements.popups.NormalPopup import NormalPopup
 from kivy.lang.builder import Builder
 
 Builder.load_string("""
@@ -19,7 +19,7 @@ Builder.load_string("""
         NormalInput:
             text: root.name
             multiline: False
-            input_filter: app.test_album
+            input_filter: app.remove_unallowed_characters
             on_focus: root.set_name(self)
     BoxLayout:
         orientation: 'horizontal'
@@ -41,7 +41,7 @@ Builder.load_string("""
         NormalInput:
             text: root.argument
             multiline: False
-            input_filter: app.test_album
+            input_filter: app.remove_unallowed_characters
             on_focus: root.set_argument(self)
     LeftNormalLabel:
         text: 'For The Argument: '

@@ -11,10 +11,10 @@ from kivy.utils import platform
 if platform == 'win':
     from ctypes import windll, create_unicode_buffer
 
-from generalElements.RecycleItem import RecycleItem
-from generalElements.InputPopup import InputPopup
-from generalElements.NormalPopup import NormalPopup
-from generalElements.ConfirmPopup import ConfirmPopup
+from generalElements.views.RecycleItem import RecycleItem
+from generalElements.popups.InputPopup import InputPopup
+from generalElements.popups.NormalPopup import NormalPopup
+from generalElements.popups.ConfirmPopup import ConfirmPopup
 
 from kivy.lang.builder import Builder
 Builder.load_string("""

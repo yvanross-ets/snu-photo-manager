@@ -5,9 +5,9 @@ from kivy.uix.gridlayout import GridLayout
 
 from filebrowser import FileBrowser
 from generalcommands import local_path, naming
-from generalElements.MenuButton import MenuButton
-from generalElements.NormalDropDown import NormalDropDown
-from generalElements.NormalPopup import NormalPopup
+from generalElements.buttons.MenuButton import MenuButton
+from generalElements.dropDowns.NormalDropDown import NormalDropDown
+from generalElements.popups.NormalPopup import NormalPopup
 from screenImporting.ImportPresetForlder import ImportPresetFolder
 
 from kivy.lang.builder import Builder
@@ -65,7 +65,7 @@ Builder.load_string("""
                 size_hint_x: 1
                 text: root.title
                 multiline: False
-                input_filter: app.test_album
+                input_filter: app.remove_unallowed_characters
                 on_focus: root.set_title(self)
             NormalLabel:
                 text: root.naming_example

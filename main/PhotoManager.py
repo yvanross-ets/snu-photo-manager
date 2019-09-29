@@ -3,14 +3,27 @@ import os
 import sqlite3
 import threading
 import time
-from configparser import ConfigParser
-from io import BytesIO
+from kivy.modules import inspector
+from kivy.core.window import Window
+from kivy.modules import inspector
+try:
+    from configparser import ConfigParser
+except:
+    from six.moves import configparser
+
+from models.FileInfo import FileInfo
+from models.Photo import Photo
+from models.Face import Face
+from models.Location import Location
+from models.Person import Person
+from models.Folder import Folder
+from models.Tag import Tag
+
 from shutil import copyfile, move, rmtree
 from subprocess import call
 
 from PIL import Image, ImageEnhance
-from ffpyplayer.pic import SWScale
-from ffpyplayer.player.player import MediaPlayer
+
 from kivy import platform
 from kivy.app import App
 from kivy.base import EventLoop
@@ -19,21 +32,21 @@ from kivy.core.window import Window
 from kivy.properties import BooleanProperty, NumericProperty, StringProperty, ObjectProperty, ListProperty
 from kivy.uix.screenmanager import SlideTransition, NoTransition, ScreenManager
 
-from generalcommands import get_file_info, agnostic_photoinfo, local_photoinfo, to_bool, local_path, naming, \
+from generalcommands import  agnostic_photoinfo, local_photoinfo, to_bool, local_path, naming, \
   agnostic_path, local_paths, list_folders, isfile2, local_thumbnail, get_folder_info
-from generalconstants import themes, imagetypes, movietypes, desktop, naming_method_default, kivy_version_primary, \
+from generalconstants import imagetypes, movietypes, desktop, naming_method_default, kivy_version_primary, \
   kivy_version_secondary, interface_multiplier
-from generalElements.InputMenu import InputMenu
-from generalElements.TreenodeDrag import TreenodeDrag
-from generalElements.PhotoDrag import PhotoDrag
-from generalElements.MessagePopup import MessagePopup
-from generalElements.NormalPopup import NormalPopup
+from generalElements.popups.InputMenu import InputMenu
+from generalElements.treeviews.TreenodeDrag import TreenodeDrag
+from generalElements.photos.PhotoDrag import PhotoDrag
+from generalElements.popups.MessagePopup import MessagePopup
+from generalElements.popups.NormalPopup import NormalPopup
 from main import Theme
 from main.MainWindow import MainWindow
-from main.MultiThreadOK import MultiThreadOK
-from screen.screenDatabase import ScreenDatabase
-from screen.screenDatabaseRestore import ScreenDatabaseRestore
-from screen.screenDatabaseTransfer import ScreenDatabaseTransfer
+from main.SQLMultiThreadOK import SQLMultiThreadOK
+from screens.screenDatabase import ScreenDatabase
+from screens.screenDatabaseRestore import ScreenDatabaseRestore
+from screens.screenDatabaseTransfer import ScreenDatabaseTransfer
 from screenSettings.AboutPopup import AboutPopup
 from screenSettings.PhotoManagerSettings import PhotoManagerSettings
 from send2trash import send2trash
@@ -76,23 +89,19 @@ class PhotoManager(App):
     fullpath = StringProperty()
     database_scanning = BooleanProperty(False)
     database_sort = StringProperty('')
-    album_sort = StringProperty('')
+    # album_sort = StringProperty('')
     database_sort_reverse = BooleanProperty(False)
-    album_sort_reverse = BooleanProperty(False)
+    # album_sort_reverse = BooleanProperty(False)
     thumbsize = 256  #Size in pixels of the long side of any generated thumbnails
-    album_directory = 'Albums'  #Directory name to look in for album files
-    tag_directory = 'Tags'  #Directory name to look in for tag files
-    person_directory = 'Persons'  #directory name to look in for Person files
     settings_cls = PhotoManagerSettings
     target = StringProperty()
     type = StringProperty('None')
     photo = StringProperty('')
     imports = []
     exports = []
-    albums = []
-    persons = []
-    tags = []
+    # albums = []
     programs = []
+    database_path = None
     shift_pressed = BooleanProperty(False)
     cancel_scanning = BooleanProperty(False)
     export_target = StringProperty()
@@ -113,13 +122,6 @@ class PhotoManager(App):
     scanningpopup = None
     popup = None
     bubble = None
-
-    #Databases
-    photos = None
-    folders = None
-    thumbnails = None
-    tempthumbnails = None
-    imported = None
 
     about_text = StringProperty()
 
@@ -152,99 +154,7 @@ class PhotoManager(App):
             self.bubble = None
 
     def save_current_theme(self):
-        data = self.theme_to_data(self.theme)
-        themefile = os.path.realpath(os.path.join(self.data_directory, "theme.txt"))
-        self.save_theme_data(themefile, data)
-        self.message('Saved Current Theme Settings')
-
-    def theme_default(self):
-        data = themes[0]
-        self.data_to_theme(data)
-
-    def theme_to_data(self, theme):
-        data = {}
-        for color in theme.colors:
-            data[color] = list(eval('theme.'+color))
-        return data
-
-    def data_to_theme(self, data):
-        theme = self.theme
-        for color in theme.colors:
-            try:
-                new_color = data[color]
-                r = float(new_color[0])
-                g = float(new_color[1])
-                b = float(new_color[2])
-                a = float(new_color[3])
-                new_color = [r, g, b, a]
-                setattr(theme, color, new_color)
-            except:
-                pass
-        self.button_update = not self.button_update
-
-    def save_theme_data(self, theme_file, data):
-        try:
-            json.dump(data, open(theme_file, 'w'))
-            return True
-        except Exception as e:
-            return e
-
-    def load_theme_data(self, theme_file):
-        try:
-            data = json.load(open(theme_file))
-            return [True, data]
-        except Exception as e:
-            return [False, e]
-
-    def generate_thumbnail(self, fullpath, database_folder):
-        """Creates a thumbnail image for a photo.
-
-        Arguments:
-            fullpath: Path to file, relative to the screenDatabase folder.
-            database_folder: Database root folder where the file is.
-        Returns:
-            A thumbnail jpeg
-        """
-
-        thumbnail = ''
-        full_filename = os.path.join(database_folder, fullpath)
-        extension = os.path.splitext(fullpath)[1].lower()
-
-        try:
-            if extension in imagetypes:
-                #This is an image file, use PIL to generate a thumnail
-                image = Image.open(full_filename)
-                image.thumbnail((self.thumbsize, self.thumbsize), Image.ANTIALIAS)
-                if image.mode != 'RGB':
-                    image = image.convert('RGB')
-                output = BytesIO()
-                image.save(output, 'jpeg')
-                thumbnail = output.getvalue()
-
-            elif extension in movietypes:
-                #This is a video file, use ffpyplayer to generate a thumbnail
-                player = MediaPlayer(full_filename, ff_opts={'paused': True, 'ss': 1.0, 'an': True})
-                frame = None
-                while not frame:
-                    frame, value = player.get_frame(force_refresh=True)
-                player.close_player()
-                player = None
-                frame = frame[0]
-                frame_size = frame.get_size()
-                frame_converter = SWScale(frame_size[0], frame_size[1], frame.get_pixel_format(), ofmt='rgb24')
-                new_frame = frame_converter.scale(frame)
-                image_data = bytes(new_frame.to_bytearray()[0])
-
-                image = Image.frombuffer(mode='RGB', size=(frame_size[0], frame_size[1]), data=image_data, decoder_name='raw')
-                image = image.transpose(1)
-
-                image.thumbnail((self.thumbsize, self.thumbsize), Image.ANTIALIAS)
-                output = BytesIO()
-                image.save(output, 'jpeg')
-                thumbnail = output.getvalue()
-            return thumbnail
-        except:
-            return None
+        self.theme.save()
 
     def set_single_database(self):
         databases = self.get_database_directories()
@@ -273,7 +183,7 @@ class PhotoManager(App):
         if data:
             old_photoinfo = data
         else:
-            old_photoinfo = self.database_exists(fullpath)
+            old_photoinfo = self.Photo.exist(fullpath)
         if old_photoinfo:
             #Photo is in screenDatabase, check if it has been modified in any way
             photo_filename = os.path.join(old_photoinfo[2], old_photoinfo[0])
@@ -282,14 +192,14 @@ class PhotoManager(App):
                 modified_date = int(os.path.getmtime(photo_filename))
                 if modified_date != old_photoinfo[7] or force:
                     #file has been modified somehow, need to update data
-                    new_photoinfo = get_file_info([old_photoinfo[0], old_photoinfo[2]], import_mode=True, modified_date=modified_date)
+                    new_photoinfo = FileInfo([old_photoinfo[0], old_photoinfo[2]], import_mode=True, modified_date=modified_date)
                     photoinfo = list(old_photoinfo)
-                    photoinfo[7] = new_photoinfo[7]
-                    photoinfo[13] = new_photoinfo[13]
-                    self.database_item_update(photoinfo)
+                    photoinfo[7] = new_photoinfo.tags
+                    photoinfo[13] = new_photoinfo.edited
+                    self.Photo.update(photoinfo)
                     if not no_photoinfo:
                         self.update_photoinfo(folders=[photoinfo[1]])
-                    self.database_thumbnail_update(photoinfo[0], photoinfo[2], photoinfo[7], photoinfo[13], force=True)
+                    self.Photo.thumbnail_update(photoinfo[0], photoinfo[2], photoinfo[7], photoinfo[13], force=True)
                     if self.screen_manager.current == 'album':
                         album_screen = self.screen_manager.get_screen('album')
                         album_screen.clear_cache()
@@ -324,7 +234,7 @@ class PhotoManager(App):
     def print_photo(self):
         """Calls the operating system to print the currently viewed photo."""
 
-        photo_info = self.database_exists(self.fullpath)
+        photo_info = self.Photo.exist(self.fullpath)
         if photo_info:
             photo_file = os.path.abspath(os.path.join(photo_info[2], photo_info[0]))
             self.message("Printing photo...")
@@ -340,7 +250,7 @@ class PhotoManager(App):
         name, command, argument = self.programs[index]
         if os.path.isfile(command):
             button.disabled = True  # Disable the button so the user knows something is happening
-            photo_info = self.database_exists(self.fullpath)
+            photo_info = self.Photo.exist(self.fullpath)
             if photo_info:
                 photo_file = os.path.join(photo_info[2], photo_info[0])
                 abs_photo = os.path.abspath(photo_file)
@@ -437,24 +347,17 @@ class PhotoManager(App):
         #If photos are not provided, find them for the given target.
         if not photos:
             if container_type == 'tag':
-                photos = self.database_get_tag(target)
+                photos = self.Tag.photos(target)
                 title = "Photos tagged as '"+target+"'"
             elif container_type == 'person':
-                photos = self.database_get_person(target)
+                photos = self.Person.photos(target)
                 title = "Photos include person as '" + target + "'"
-            elif container_type == 'album':
-                index = self.album_find(target)
-                if index >= 0:
-                    album_info = self.albums[index]
-                    photos = album_info['photos']
-                    title = album_info['name']
-                    description = album_info['description']
             elif container_type == 'folder':
-                folder_info = self.database_folder_exists(target)
+                folder_info = self.Folder.exist(target)
                 if folder_info:
                     title = folder_info[1]
                     description = folder_info[2]
-                photos = self.database_get_folder(target)
+                photos = self.Photo.by_folder(target)
             else:
                 return
 
@@ -506,41 +409,7 @@ class PhotoManager(App):
                     if os.path.isdir(full_path):
                         self.save_photoinfo(target=folder, save_location=full_path)
 
-    def in_database(self, photo_info):
-        """Checks the photo screenDatabase to see if any matches are found for the given file.
-        Argument:
-            photo_info: List, a photoinfo object.
-        Returns: List of photoinfo matches, or False if none found.
-        """
 
-        photo_info = agnostic_photoinfo(photo_info)
-        original_file = photo_info[10]
-        filename_matches = list(self.photos.select('SELECT * FROM photos WHERE OriginalFile = ?', (original_file,)))
-        if filename_matches:
-            #filename match(es) found
-            for filename_match in filename_matches:
-                if photo_info[3] == filename_match[3]:
-                    #date match found
-                    return local_photoinfo(list(filename_match))
-        return False
-
-    def in_imported(self, photo_info):
-        """Checks the imported screenDatabase to see if any matches are found for the given file.
-        Argument:
-            photo_info: List, a photoinfo object.
-        Returns: True if matches, or False if none found.
-        """
-
-        photo_info = agnostic_photoinfo(photo_info)
-        original_file = photo_info[10]
-        filename_matches = list(self.imported.select('SELECT * FROM imported WHERE File = ?', (original_file,)))
-        if filename_matches:
-            #filename match(es) found
-            for filename_match in filename_matches:
-                if photo_info[3] == filename_match[2]:
-                    #date match found
-                    return True
-        return False
 
     def on_config_change(self, config, section, key, value):
         self.animations = to_bool(self.config.get("Settings", "animations"))
@@ -590,8 +459,6 @@ class PhotoManager(App):
             'Sorting', {
                 'database_sort': 'Name',
                 'database_sort_reverse': 0,
-                'album_sort': 'Name',
-                'album_sort_reverse': 0
             })
         config.setdefaults(
             'Presets', {
@@ -612,6 +479,13 @@ class PhotoManager(App):
             "section": "Settings",
             "key": "photoinfo"
         })
+        settingspanel.append({
+            "type": "backToLibrary",
+            "title": "Back to library",
+            "section": "Settings",
+            "key": "photoinfo"
+        })
+
         settingspanel.append({
             "type": "themescreen",
             "title": "",
@@ -683,7 +557,7 @@ class PhotoManager(App):
         settingspanel.append({
             "type": "bool",
             "title": "Save .photoinfo.ini Files",
-            "desc": "Auto-save .photoinfo.ini files in album folders when photos or albums are changed",
+            "desc": "Auto-save .photoinfo.ini files in folders when photos are changed",
             "section": "Settings",
             "key": "photoinfo"
         })
@@ -697,14 +571,14 @@ class PhotoManager(App):
         settingspanel.append({
             "type": "bool",
             "title": "Auto-Cache Images When Browsing",
-            "desc": "Automatically cache the next and previous images when browsing an album",
+            "desc": "Automatically cache the next and previous images when browsing photos",
             "section": "Settings",
             "key": "precache"
         })
         settingspanel.append({
             "type": "bool",
             "title": "Remember Last Album View",
-            "desc": "Remembers and returns to the last album or folder that was being viewed on last run",
+            "desc": "Remembers and returns to the last folder that was being viewed on last run",
             "section": "Settings",
             "key": "rememberview"
         })
@@ -787,11 +661,15 @@ class PhotoManager(App):
 
         if self.main_layout:
             self.config.write()
-            self.thumbnails.commit()
-            self.photos.commit()
-            self.folders.commit()
-            self.imported.commit()
+            self.__commit_database()
         return True
+
+    def __commit_database(self):
+        self.Photo.commit()
+        self.Face.commit()
+        self.Person.commit()
+        self.Location.commit()
+        self.Folder.commit()
 
     def on_resume(self):
         print('Resuming App...')
@@ -805,16 +683,16 @@ class PhotoManager(App):
             self.cancel_database_import()
             self.scanningthread.join()
         self.config.write()
-        self.tempthumbnails.close()
-        self.tempthumbnails.join()
-        self.thumbnails.close()
-        self.thumbnails.join()
-        self.photos.close()
-        self.photos.join()
-        self.folders.close()
-        self.folders.join()
-        self.imported.close()
-        self.imported.join()
+        # self.tempthumbnails.close()
+        # self.tempthumbnails.join()
+        self.__close_join_database()
+
+    def __close_join_database(self):
+        self.Folder.close().join()
+        self.Photo.close().join()
+        self.Face.close().join()
+        self.Person.close().join()
+        self.Location.close().join()
 
     def open_settings(self, *largs):
         self.clear_drags()
@@ -1130,26 +1008,26 @@ class PhotoManager(App):
 
     def database_backup(self):
         """Makes a copy of the photos, folders and imported databases to a backup directory"""
-        database_directory = self.data_directory + os.path.sep + 'Databases'
-        database_backup_dir = os.path.join(database_directory, 'backup')
-        if not os.path.exists(database_backup_dir):
-            os.makedirs(database_backup_dir)
+        database_directory = self.data_directory # + os.path.sep + 'Databases'
+        # database_backup_dir = os.path.join(database_directory, 'backup')
+        # if not os.path.exists(database_backup_dir):
+        #     os.makedirs(database_backup_dir)
 
-        photos_db = os.path.join(database_directory, 'photos.db')
-        photos_db_backup = os.path.join(database_backup_dir, 'photos.db')
-        self.__overwrite_file(photos_db, photos_db_backup)
+        gomp_db = os.path.join(database_directory, 'gomp.db')
+        gomp_db_backup = os.path.join(database_directory, 'gomp_backup.db')
+        self.__overwrite_file(gomp_db, gomp_db_backup)
 
-        folders_db = os.path.join(database_directory, 'folders.db')
-        folders_db_backup = os.path.join(database_backup_dir, 'folders.db')
-        self.__overwrite_file(folders_db, folders_db_backup)
+        # folders_db = os.path.join(database_directory, 'folders.db')
+        # folders_db_backup = os.path.join(database_backup_dir, 'folders.db')
+        # self.__overwrite_file(folders_db, folders_db_backup)
 
-        imported_db = os.path.join(database_directory, 'imported.db')
-        imported_db_backup = os.path.join(database_backup_dir, 'imported.db')
-        self.__overwrite_file(imported_db, imported_db_backup)
+        # imported_db = os.path.join(database_directory, 'imported.db')
+        # imported_db_backup = os.path.join(database_backup_dir, 'imported.db')
+        # self.__overwrite_file(imported_db, imported_db_backup)
 
-        persons_db = os.path.join(database_directory, 'persons.db')
-        persons_db_backup = os.path.join(database_backup_dir, 'persons.db')
-        self.__overwrite_file(persons_db, persons_db_backup)
+        # persons_db = os.path.join(database_directory, 'persons.db')
+        # persons_db_backup = os.path.join(database_backup_dir, 'persons.db')
+        # self.__overwrite_file(persons_db, persons_db_backup)
 
     def __overwrite_file(self, db, db_backup):
         if os.path.exists(db_backup):
@@ -1164,45 +1042,26 @@ class PhotoManager(App):
         if self.database_scanning:
             self.cancel_database_import()
             self.scanningthread.join()
-        self.photos.close()
-        self.photos.join()
-        self.folders.close()
-        self.folders.join()
-        self.imported.close()
-        self.imported.join()
-        self.persons.close()
-        self.persons.join()
+        #self.persons.close()
+        #self.persons.join()
+        self.__close_join_database()
         self.show_database_restore()
 
     def database_restore_process(self):
         database_directory = self.data_directory + os.path.sep + 'Databases'
-        database_backup_dir = os.path.join(database_directory, 'backup')
+        gomp_db = os.path.join(database_directory, 'gomp.db')
+        gomp_db_backup = os.path.join(database_directory, 'gomp_backup.db')
 
-        photos_db = os.path.join(database_directory, 'photos.db')
-        photos_db_backup = os.path.join(database_backup_dir, 'photos.db')
-        folders_db = os.path.join(database_directory, 'folders.db')
-        folders_db_backup = os.path.join(database_backup_dir, 'folders.db')
-        imported_db = os.path.join(database_directory, 'imported.db')
-        imported_db_backup = os.path.join(database_backup_dir, 'imported.db')
-
-        persons_db = os.path.join(database_directory, 'imported.db')
-        persons_db_backup = os.path.join(database_backup_dir, 'imported.db')
-
-        if not os.path.exists(database_backup_dir):
+        if not os.path.exists(database_directory):
             return "Backup does not exist"
-        files = [photos_db_backup, photos_db, folders_db_backup, folders_db, imported_db_backup, imported_db,persons_db_backup,persons_db]
+
+        files = [gomp_db_backup]
         for file in files:
             if not os.path.exists(file):
                 return "Backup does not exist"
         try:
-            os.remove(photos_db)
-            copyfile(photos_db_backup, photos_db)
-            os.remove(folders_db)
-            copyfile(folders_db_backup, folders_db)
-            os.remove(imported_db)
-            copyfile(imported_db_backup, imported_db)
-            os.remove(persons_db)
-            copyfile(persons_db_backup, imported_db)
+            os.remove(gomp_db)
+            copyfile(gomp_db_backup, gomp_db)
         except:
             return "Could not copy backups"
         return True
@@ -1210,242 +1069,29 @@ class PhotoManager(App):
     def setup_database(self, restore=False):
         """Set up various databases, create if needed."""
 
-        database_directory = self.data_directory+os.path.sep+'Databases'
+        database_directory = self.data_directory
         if not os.path.exists(database_directory):
             os.makedirs(database_directory)
 
-        photos_db = os.path.join(database_directory, 'photos.db')
-        self.photos = MultiThreadOK(photos_db)
-        self.photos.execute('''CREATE TABLE IF NOT EXISTS photos(
-                            FullPath text PRIMARY KEY,
-                            Folder text,
-                            DatabaseFolder text,
-                            OriginalDate integer,
-                            OriginalSize integer,
-                            Rename text,
-                            ImportDate integer,
-                            ModifiedDate integer,
-                            Tags text,
-                            Edited integer,
-                            OriginalFile text,
-                            Owner text,
-                            Export integer,
-                            Orientation integer,
-                            Persons text);''')
+        self.database_path = os.path.join(database_directory, 'gomp.db')
 
-        folders_db = os.path.join(database_directory, 'folders.db')
-        self.folders = MultiThreadOK(folders_db)
-        self.folders.execute('''CREATE TABLE IF NOT EXISTS folders(
-                             Path text PRIMARY KEY,
-                             Title text,
-                             Description text)''')
 
-        if not restore:
-            self.thumbnails = MultiThreadOK(os.path.join(database_directory, 'thumbnails.db'))
-            self.thumbnails.execute('''CREATE TABLE IF NOT EXISTS thumbnails(
-                                    FullPath text PRIMARY KEY,
-                                    ModifiedDate integer,
-                                    Thumbnail blob,
-                                    Orientation integer);''')
-            self.tempthumbnails = MultiThreadOK(':memory:')
-            self.tempthumbnails.execute('''CREATE TABLE IF NOT EXISTS thumbnails(
-                                        FullPath text PRIMARY KEY,
-                                        ModifiedDate integer,
-                                        Thumbnail blob,
-                                        Orientation integer);''')
+        #self.gomp_db = SQLMultiThreadOK(gomp_db)
+        self.gomp_db = sqlite3.connect(self.database_path)
+        self.Face = Face(self, self.gomp_db)
+        self.Folder = Folder(self, self.gomp_db)
+        self.Location = Location(self, self.gomp_db)
+        self.Person = Person(self, self.gomp_db)
+        self.Photo = Photo(self, self.gomp_db)
+        self.Tag = Tag(self, self.gomp_db)
 
-        imported_db = os.path.join(database_directory, 'imported.db')
-        self.imported = MultiThreadOK(imported_db)
-        self.imported.execute('''CREATE TABLE IF NOT EXISTS imported(
-                              FullPath text PRIMARY KEY,
-                              File text,
-                              ModifiedDate integer);''')
 
-        persons_db = os.path.join(database_directory, 'persons.db')
-        self.persons = MultiThreadOK(persons_db)
-        self.persons.execute('''CREATE TABLE IF NOT EXISTS imported(
-                                      fullname text PRIMARY KEY,
-                                     );''')
 
         if not restore and self.config.getboolean("Settings", "backupdatabase"):
             self.database_backup()
 
-    def album_load_all(self):
-        """Scans the album directory, and tries to load all album .ini files into the app.albums variable."""
-
-        self.albums = []
-        album_directory = self.album_directory
-        if not os.path.exists(album_directory):
-            os.makedirs(album_directory)
-        album_directory_contents = os.listdir(album_directory)
-        for item in album_directory_contents:
-            if os.path.splitext(item)[1] == '.ini':
-                try:
-                    configfile = ConfigParser(interpolation=None)
-                    configfile.read(os.path.join(album_directory, item))
-                    info = dict(configfile.items('info'))
-                    album_name = info['name']
-                    album_description = info['description']
-                    elements = configfile.items('photos')
-                    photos = []
-                    for element in elements:
-                        photo_path = local_path(element[1])
-                        if self.database_exists(photo_path):
-                            photos.append(photo_path)
-                    self.albums.append({'name': album_name, 'description': album_description, 'file': item, 'photos': photos})
-                except:
-                    pass
-
-    def persons_load(self):
-        """Scans the album directory, and tries to load all album .ini files into the app.albums variable."""
-
-        self.persons = []
-        person_directory = self.person_directory
-        if not os.path.exists(person_directory):
-            os.makedirs(person_directory)
-        person_directory_contents = os.listdir(person_directory)
-        for item in person_directory_contents:
-            filename, extension = os.path.splitext(item)
-            if extension == '.person':
-                self.persons.append(filename)
 
 
-    def tags_load(self):
-        """Scans the tags directory and loads saved tags into the app.tags variable."""
-
-        self.tags = []
-        tag_directory = self.tag_directory
-        if not os.path.exists(tag_directory):
-            os.makedirs(tag_directory)
-        tag_directory_contents = os.listdir(tag_directory)
-        for item in tag_directory_contents:
-            filename, extension = os.path.splitext(item)
-            if extension == '.tag':
-                self.tags.append(filename)
-
-    def tag_make(self, tag_name):
-        """Create a new photo tag.
-        Argument:
-            tag_name: String, name of the tag to create.
-        """
-
-        tag_name = tag_name.lower().strip(' ')
-        tag_filename = tag_name + '.tag'
-        filename = os.path.join(self.tag_directory, tag_filename)
-        if not os.path.isfile(filename) and tag_name != 'favorite':
-            self.tags.append(tag_name)
-            open(filename, 'a').close()
-
-
-    def person_make(self, person_name):
-        """Create a new person .
-        Argument:
-            person_name: String, name of the tag to create.
-        """
-
-        person_name = person_name.lower().strip(' ')
-        person_filename = person_name + '.person'
-        filename = os.path.join(self.person_directory, person_filename)
-        if not os.path.isfile(filename) and person_name != 'favorite':
-            self.persons.append(person_name)
-            open(filename, 'a').close()
-
-    def album_make(self, album_name, album_description=''):
-        """Create a new album file.
-        Arguments:
-            album_name: String, name of the album.
-            album_description: String, description of album, optional.
-        """
-
-        exists = False
-        for album in self.albums:
-            if album['name'].lower() == album_name.lower():
-                exists = True
-        if not exists:
-            album_filename = album_name + '.ini'
-            self.albums.append({'name': album_name, 'description': album_description, 'file': album_filename, 'photos': []})
-            self.album_save(self.albums[-1])
-
-    def album_delete(self, index):
-        """Deletes an album.
-        Argument:
-            index: Integer, index of album to delete."""
-
-        filename = os.path.join(self.album_directory, self.albums[index]['file'])
-        if os.path.isfile(filename):
-            os.remove(filename)
-        album_name = self.albums[index]['name']
-        del self.albums[index]
-        self.message("Deleted the album '"+album_name+"'")
-
-    def album_find(self, album_name):
-        """Find an album with a given name.
-        Argument:
-            album_name: Album name to get.
-        Returns: Integer, index of album or -1 if not found.
-        """
-
-        for index, album in enumerate(self.albums):
-            if album['name'] == album_name:
-                return index
-        return -1
-
-    def album_update_description(self, index, description):
-        """Update the description field for a specific album.
-        Arguments:
-            index: Integer, index of album to update.
-            description: String, new description text.
-        """
-
-        self.albums[index]['description'] = description
-        self.album_save(self.albums[index])
-
-    def album_save(self, album):
-        """Saves an album data file.
-        Argument:
-            album: Dictionary containing album information:
-                file: String, filename of the album (with extension)
-                name: String, name of the album.
-                description: String, description of the album.
-                photos: List of Strings, each is a screenDatabase-relative filepath to a photo in the album.
-        """
-
-        configfile = ConfigParser(interpolation=None)
-        filename = os.path.join(self.album_directory, album['file'])
-        configfile.add_section('info')
-        configfile.set('info', 'name', album['name'])
-        configfile.set('info', 'description', album['description'])
-        configfile.add_section('photos')
-        for index, photo in enumerate(album['photos']):
-            configfile.set('photos', str(index), agnostic_path(photo))
-        with open(filename, 'w') as config:
-            configfile.write(config)
-
-    def album_add_photo(self, index, photo):
-        """Add a photo to an album.
-        Arguments:
-            index: Integer, index of the album to update.
-            photo: String, screenDatabase-relative path to the new photo.
-        """
-
-        self.albums[index]['photos'].append(photo)
-        self.album_save(self.albums[index])
-
-    def album_remove_photo(self, index, fullpath, message=False):
-        """Find and remove a photo from an album.
-        Arguments:
-            index: Integer, index of the album to update.
-            fullpath: String, screenDatabase-relative path to the photo to remove.
-            message: Show an app message stating the photo was removed.
-        """
-
-        album = self.albums[index]
-        photos = album['photos']
-        if fullpath in photos:
-            photos.remove(fullpath)
-            self.album_save(album)
-            if message:
-                self.message("Removed photo from the album '"+album['name']+"'")
 
     def left_panel_width(self):
         """Returns the saved width for the left panel.
@@ -1555,7 +1201,7 @@ class PhotoManager(App):
     def save_encoding_preset(self):
         self.config.set("Presets", "selected_preset", self.selected_encoder_preset)
 
-    def rescale_interface(self, *_, force=False):
+    def rescale_interface(self, force=False):
         if self.last_width == 0:
             first_change = True
         else:
@@ -1574,7 +1220,7 @@ class PhotoManager(App):
             self.button_scale = int((Window.height / interface_multiplier) * int(self.config.get("Settings", "buttonsize")) / 100) * button_multiplier
             self.padding = self.button_scale / 4
             self.text_scale = int((self.button_scale / 3) * int(self.config.get("Settings", "textsize")) / 100)
-            Clock.schedule_once(self.show_database)
+            #Clock.schedule_once(self.show_database)  Yvan
 
     def set_transition(self):
         if self.animations:
@@ -1585,15 +1231,10 @@ class PhotoManager(App):
     def build(self):
         """Called when the app starts.  Load and set up all variables, data, and screen."""
 
-        self.theme = Theme()
-        self.theme_default()
-        themefile = os.path.realpath(os.path.join(self.data_directory, "theme.txt"))
-        if themefile and os.path.exists(themefile):
-            print('Loading theme file...')
-            loaded, data = self.load_theme_data(themefile)
-            if loaded:
-                self.data_to_theme(data)
+        self.theme = Theme(self)
+        self.theme.default()
         Window.clearcolor = list(self.theme.background)
+
         if int(self.config.get("Settings", "buttonsize")) < 50:
             self.config.set("Settings", "buttonsize", 50)
         if int(self.config.get("Settings", "textsize")) < 50:
@@ -1605,19 +1246,13 @@ class PhotoManager(App):
         self.simple_interface = to_bool(self.config.get("Settings", "simpleinterface"))
         #Load data
 
-        self.person_directory = os.path.join(self.data_directory, 'Persons')
-        self.tag_directory = os.path.join(self.data_directory, 'Tags')
-        self.album_directory = os.path.join(self.data_directory, 'Albums')
         about_file = open(os.path.join(self.app_location, 'about.txt'), 'r')
         self.about_text = about_file.read()
         about_file.close()
         self.program_import()  #Load external program presets
         self.setup_import_presets()  #Load import presets
         self.setup_export_presets()  #Load export presets
-        self.tags_load()  #Load tags
         self.setup_database()  #Import or set up databases
-        self.album_load_all()  #Load albums
-        self.persons_load() #load persons
         self.load_encoding_presets()
         self.set_single_database()
 
@@ -1641,7 +1276,7 @@ class PhotoManager(App):
                 viewtarget = self.config.get("Settings", "viewtarget")
                 viewdisplayable = to_bool(self.config.get("Settings", "viewdisplayable"))
         self.database_screen = ScreenDatabase(name='screenDatabase', type=viewtype, selected=viewtarget, displayable=viewdisplayable)
-        #self.screen_manager.add_widget(self.database_screen)
+        self.screen_manager.add_widget(self.database_screen)  # yvan
         self.database_restore_screen = ScreenDatabaseRestore(name='database_restore')
 
         #Set up keyboard catchers
@@ -1649,6 +1284,9 @@ class PhotoManager(App):
         Window.bind(on_key_up=self.key_up)
         if self.config.getboolean("Settings", "rescanstartup"):
             self.database_import()
+
+        inspector.create_inspector(Window,App.get_running_app)
+
         return self.main_layout
 
     def key_down(self, key, scancode=None, *_):
@@ -1665,63 +1303,14 @@ class PhotoManager(App):
         if scancode == 303 or scancode == 304:
             self.shift_pressed = False
 
-    def remove_tag(self, tag):
-        """Deletes a tag.
-        Argument:
-            tag: String, the tag to be deleted."""
 
-        tag = tag.lower()
-        tag_file = os.path.join(self.tag_directory, tag+'.tag')
-        if os.path.isfile(tag_file):
-            os.remove(tag_file)
-        if tag in self.tags:
-            self.tags.remove(tag)
-        self.message("Deleted the tag '"+tag+"'")
 
-    def remove_person(self, person):
-        """Deletes a person.
-        Argument:
-            person: String, the person to be deleted."""
 
-        person = person.lower()
-        person_file = os.path.join(self.person_directory, person+'.person')
-        if os.path.isfile(person_file):
-            os.remove(person_file)
-        if person in self.persons:
-            self.persons.remove(person)
-        self.message("Deleted the person '"+person+"'")
-
-    def delete_photo(self, fullpath, filename, message=False):
-        """Deletes a photo file, and removes it from the screenDatabase.
-        Arguments:
-            fullpath: String, screenDatabase identifier for the photo to delete.
-            filename: Full path to the photo to delete.
-            message: Display an app message that the file was deleted.
-        """
-
-        photoinfo = self.database_exists(fullpath)
-        if os.path.isfile(filename):
-            deleted = self.delete_file(filename)
-        else:
-            deleted = True
-        if deleted is True:
-            if os.path.isfile(photoinfo[10]):
-                self.delete_file(photoinfo[10])
-            fullpath = agnostic_path(fullpath)
-            self.photos.execute('DELETE FROM photos WHERE FullPath = ?', (fullpath,))
-            self.thumbnails.execute('DELETE FROM thumbnails WHERE FullPath = ?', (fullpath,))
-            if message:
-                self.message("Deleted the file '"+filename+"'")
-            return True
-        else:
-            if message:
-                self.popup_message(text='Could not delete file', title='Warning')
-            return deleted
 
     def delete_folder_original(self, folder):
         """Delete all original unedited files in a given folder"""
 
-        photos = self.database_get_folder(folder)
+        photos = self.Photo.by_folder(folder)
         deleted_photos = []
         for photoinfo in photos:
             original_file = local_path(photoinfo[10])
@@ -1759,179 +1348,6 @@ class PhotoManager(App):
             return ex
         return True
 
-    def database_remove_tag(self, fullpath, tag, message=False):
-        """Remove a tag from a photo.
-        Arguments:
-            fullpath: String, the screenDatabase-relative path to the photo.
-            tag: String, the tag to remove.
-            message: Display an app message stating that the tag was removed.
-        """
-
-        tag = tag.lower()
-        fullpath = agnostic_path(fullpath)
-        info = self.photos.select('SELECT * FROM photos WHERE FullPath = ?', (fullpath, ))
-        info = list(info)
-        if info:
-            info = list(info[0])
-            current_tags = info[8].split(',')
-            if tag in current_tags:
-                current_tags.remove(tag)
-                new_tags = ",".join(current_tags)
-                info[8] = new_tags
-                self.database_item_update(info)
-                self.update_photoinfo(folders=info[1])
-                if message:
-                    self.message("Removed tag '"+tag+"' from the photo.")
-
-    def database_remove_person(self, fullpath, person, message=False):
-        """Remove a person from a photo.
-        Arguments:
-            fullpath: String, the screenDatabase-relative path to the photo.
-            person: String, the person to remove.
-            message: Display an app message stating that the tag was removed.
-        """
-
-        person = person.lower()
-        fullpath = agnostic_path(fullpath)
-        info = self.photos.select('SELECT * FROM photos WHERE FullPath = ?', (fullpath, ))
-        info = list(info)
-        if info:
-            info = list(info[0])
-            current_persons = info[14].split(',')
-            if person in current_persons:
-                current_persons.remove(person)
-                new_tags = ",".join(current_persons)
-                info[14] = new_tags
-                self.database_item_update(info)
-                self.update_photoinfo(folders=info[1])
-                if message:
-                    self.message("Removed person '"+person+"' from the photo.")
-
-
-    def database_toggle_tag(self, fullpath, tag):
-        """Toggles a tag on a photo.  Used for enabling/disabling the 'favorite' tag.
-        Arguments:
-            fullpath: String, the screenDatabase-relative path to the photo.
-            tag: String, the tag to be toggled.
-        """
-
-        tag = tag.lower().strip(' ')
-        fullpath = agnostic_path(fullpath)
-        info = self.photos.select('SELECT * FROM photos WHERE FullPath = ?', (fullpath, ))
-        info = list(info)
-        if info:
-            info = list(info[0])
-            tags_unformatted = info[8].strip(' ')
-            original_tags = tags_unformatted.split(',')
-            if tag in original_tags:
-                original_tags.remove(tag)
-            else:
-                original_tags.append(tag)
-            new_tags = ",".join(original_tags)
-            info[8] = new_tags
-            self.database_item_update(info)
-            self.update_photoinfo(folders=info[1])
-
-    def database_add_tag(self, fullpath, tag):
-        """Adds a tag to a photo.
-        Arguments:
-            fullpath: String, the screenDatabase-relative path to the photo.
-            tag: String, the tag to be added.
-        """
-
-        tag = tag.lower().strip(' ')
-        fullpath = agnostic_path(fullpath)
-        info = self.photos.select('SELECT * FROM photos WHERE FullPath = ?', (fullpath, ))
-        info = list(info)
-        if info:
-            info = list(info[0])
-            original_tags = info[8].split(',')
-            current_tags = []
-            update = False
-            for original in original_tags:
-                if original.strip(' '):
-                    current_tags.append(original)
-                else:
-                    update = True
-            if tag not in current_tags:
-                current_tags.append(tag)
-                update = True
-            if update:
-                new_tags = ",".join(current_tags)
-                info[8] = new_tags
-                self.database_item_update(info)
-                self.update_photoinfo(folders=info[1])
-                return True
-        return False
-
-    def database_add_person(self, fullpath, person):
-        """Adds a person to a photo.
-        Arguments:
-            fullpath: String, the screenDatabase-relative path to the photo.
-            person: String, the person to be added.
-        """
-
-        person = person.lower().strip(' ')
-        fullpath = agnostic_path(fullpath)
-        info = self.photos.select('SELECT * FROM photos WHERE FullPath = ?', (fullpath, ))
-        info = list(info)
-        if info:
-            info = list(info[0])
-            original_persons = info[14].split(',')
-            current_persons = []
-            update = False
-            for original in original_persons:
-                if original.strip(' '):
-                    current_persons.append(original)
-                else:
-                    update = True
-            if person not in current_persons:
-                current_persons.append(person)
-                update = True
-            if update:
-                new_persons = ",".join(current_persons)
-                info[14] = new_persons
-                self.database_item_update(info)
-                self.update_photoinfo(folders=info[1])
-                return True
-        return False
-
-    def database_get_tag(self, tag):
-        """Gets all photos that have a tag applied to them.
-        Argument:
-            tag: String, the tag to search for.
-        Returns:
-            List of photoinfo Lists.
-        """
-
-        tag = tag.lower()
-        match = '%'+tag+'%'
-        photos = list(self.photos.select('SELECT * FROM photos WHERE Tags LIKE ?', (match, )))
-        checked_photos = []
-        for photo in photos:
-            tags = photo[8].split(',')
-            if tag in tags:
-                checked_photos.append(photo)
-        return local_paths(checked_photos)
-
-
-    def database_get_person(self, person):
-        """Gets all photos that have a person applied to them.
-        Argument:
-            person: String, the person to search for.
-        Returns:
-            List of photoinfo Lists.
-        """
-
-        person = person.lower()
-        match = '%' + person + '%'
-        photos = list(self.photos.select('SELECT * FROM photos WHERE Persons LIKE ?', (match,)))
-        checked_photos = []
-        for photo in photos:
-            persons = photo[14].split(',')
-            if person in persons:
-                checked_photos.append(photo)
-        return local_paths(checked_photos)
 
     def move_files(self, photo_paths, move_to):
         """Move files from one folder to another.  Will keep files in the same screenDatabase-relative path as they are in.
@@ -1943,7 +1359,7 @@ class PhotoManager(App):
         update_folders = []
         moved = 0
         for fullpath in photo_paths:
-            photo_info = self.database_exists(fullpath)
+            photo_info = self.Photo.exist(fullpath)
             if photo_info:
                 new_path = os.path.join(photo_info[2], move_to)
                 try:
@@ -1980,8 +1396,8 @@ class PhotoManager(App):
                         self.popup_message(text='Error: Could Not Move File', title='Error')
                         break
 
-                    self.database_item_update(photo_info)
-                    self.database_item_rename(fullpath, new_fullpath, move_to)
+                    self.Photo.update(photo_info)
+                    self.Photo.rename(fullpath, new_fullpath, move_to)
                     update_folders.append(photo_info[1])
                 moved = moved + 1
         if moved:
@@ -2027,14 +1443,14 @@ class PhotoManager(App):
                             else:
                                 new_folder = os.path.join(move_to, moving_folder)
                                 photo_path = folder
-                            self.database_folder_rename(photo_path, new_folder)
-                            photos = self.database_get_folder(photo_path)
+                            # self.database_folder_rename(photo_path, new_folder)
+                            photos = self.Photo.by_folder(photo_path)
                             update_folders.append(photo_path)
                             for photo in photos:
                                 if photo[2] == database:
                                     filename = os.path.basename(photo[0])
                                     new_fullpath = os.path.join(new_folder, filename)
-                                    self.database_item_rename(photo[0], new_fullpath, new_folder, dontcommit=True)
+                                    self.Photo.rename(photo[0], new_fullpath, new_folder, dontcommit=True)
                         #self.update_photoinfo(folders=update_folders)
                 else:
                     raise ValueError
@@ -2052,185 +1468,8 @@ class PhotoManager(App):
                     self.message("Moved the folder '" + folder + "' into Root")
                 else:
                     self.message("Moved the folder '"+folder+"' into '"+move_to+"'")
-        self.photos.commit()
-        self.thumbnails.commit()
+        self.Photo.commit()
 
-    def rename_folder(self, old_folder_path, new_name):
-        """Rename a folder in place.  Uses the self.move_folder function.
-        Arguments:
-            old_folder_path: String, path of the folder to rename.
-            new_name: String, new name for the folder.
-        """
-
-        folder_path, old_name = os.path.split(old_folder_path)
-        self.move_folder(old_folder_path, folder_path, rename=new_name)
-
-    def add_folder(self, folder):
-        """Attempts to create a new folder in every screenDatabase directory.
-        Argument:
-            folder: String, the folder path to create.  Must be screenDatabase-relative.
-        """
-
-        databases = self.get_database_directories()
-        created = False
-        for database in databases:
-            try:
-                if not os.path.isdir(os.path.join(database, folder)):
-                    os.makedirs(os.path.join(database, folder))
-                    created = True
-                self.database_folder_add([folder, '', ''])
-            except:
-                pass
-        if created:
-            self.message("Created the folder '"+folder+"'")
-
-    def delete_folder(self, folder):
-        """Delete a folder and all photos within it.  Removes the contained photos from the screenDatabase as well.
-        Argument:
-            folder: String, the folder to be deleted.  Must be a screenDatabase-relative path.
-        """
-
-        folders = []
-        update_folders = []
-        databases = self.get_database_directories()
-
-        deleted_photos = 0
-        deleted_folders = 0
-
-        #Detect all folders to delete
-        for database in databases:
-            full_folder = os.path.join(database, folder)
-            if os.path.isdir(full_folder):
-                folders.append([database, folder])
-            found_folders = list_folders(full_folder)
-            for found_folder in found_folders:
-                folders.append([database, os.path.join(folder, found_folder)])
-
-        #Delete photos from folders
-        for found_path in folders:
-            database, folder_name = found_path
-            photos = self.database_get_folder(folder_name)
-            if photos:
-                update_folders.append(folder_name)
-            for photo in photos:
-                photo_path = os.path.join(photo[2], photo[0])
-                deleted = self.delete_photo(photo[0], photo_path)
-                if not deleted:
-                    break
-                deleted_photos = deleted_photos + 1
-
-        #Delete folders
-        for found_path in folders:
-            database, folder_name = found_path
-            full_found_path = os.path.join(database, folder_name)
-            try:
-                rmtree(full_found_path)
-                deleted_folders = deleted_folders + 1
-            except:
-                pass
-        self.folders.execute('DELETE FROM folders WHERE Path = ?', (agnostic_path(folder), ))
-        if deleted_photos or deleted_folders:
-            self.message("Deleted "+str(deleted_photos)+" photos and "+str(deleted_folders)+" folders.")
-
-        self.folders.commit()
-        self.photos.commit()
-
-    def database_folder_rename(self, folder, newfolder):
-        """Rename a folder in the folders screenDatabase.  Does not modify the actual folder.
-        Arguments:
-            folder: String, path of the folder to rename.
-            newfolder: String, path of the new folder name..
-        """
-
-        folder = agnostic_path(folder)
-        newfolder = agnostic_path(newfolder)
-        folders = list(self.folders.select("SELECT * FROM folders WHERE Path = ?", (newfolder, )))
-        if folders:
-            #renamed folder already exists in screenDatabase
-            self.folders.execute("DELETE FROM folders WHERE Path = ?", (folder, ))
-        else:
-            self.folders.execute("UPDATE folders SET Path = ? WHERE Path = ?", (newfolder, folder, ))
-        self.folders.commit()
-
-    def database_get_folder(self, folder, database=False):
-        """Get photos in a folder.
-        Argument:
-            folder: String, screenDatabase-relative folder name to get.
-        Returns: List of photoinfo Lists.
-        """
-
-        folder = agnostic_path(folder)
-        if database:
-            database = agnostic_path(database)
-            photos = list(self.photos.select('SELECT * FROM photos WHERE Folder = ? AND DatabaseFolder = ?', (folder, database, )))
-        else:
-            photos = list(self.photos.select('SELECT * FROM photos WHERE Folder = ?', (folder, )))
-        return local_paths(photos)
-
-    def database_get_all_folder_info(self):
-        folders = []
-        folder_items = list(self.folders.select('SELECT * FROM folders'))
-        for item in folder_items:
-            folders.append([local_path(item[0]), item[1], item[2]])
-        return folders
-
-    def database_get_folders(self, database_folder=False, quick=False):
-        """Get all folders from the photo screenDatabase.
-        Returns: List of folder screenDatabase-relative paths.
-        """
-
-        folders = []
-        if database_folder:
-            database_folder = agnostic_path(database_folder)
-            folder_items = list(self.photos.select('SELECT Folder FROM photos WHERE DatabaseFolder = ? GROUP BY Folder', (database_folder, )))
-            for item in folder_items:
-                folders.append(local_path(item[0]))
-        else:
-            if quick:
-                folder_items = list(self.folders.select('SELECT Path FROM folders'))
-                for item in folder_items:
-                    folders.append(local_path(item[0]))
-            else:
-                folder_items = list(self.photos.select('SELECT Folder FROM photos GROUP BY Folder'))
-                for item in folder_items:
-                    folders.append(local_path(item[0]))
-
-                directories = self.config.get('Database Directories', 'paths')
-                directories = local_path(directories)
-                databases = directories.split(';')
-                real_folders = []
-                for database in databases:
-                    real_folders = real_folders + list_folders(database)
-                for folder in real_folders:
-                    if folder not in folders:
-                        folders.append(folder)
-
-        return folders
-
-    def database_add(self, fileinfo):
-        """Add a new photo to the screenDatabase.
-        Argument:
-            fileinfo: List, a photoinfo object.
-        """
-
-        fileinfo = agnostic_photoinfo(fileinfo)
-        #adds a photo to the photo screenDatabase
-        self.photos.execute("insert into photos values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)", (fileinfo[0], fileinfo[1], fileinfo[2], fileinfo[3], fileinfo[4], fileinfo[5], fileinfo[6], fileinfo[7], fileinfo[8], fileinfo[9], fileinfo[10], fileinfo[11], fileinfo[12], fileinfo[13]))
-
-    def database_exists(self, fullpath):
-        """Get photo data if it is in the photo screenDatabase.
-        Argument:
-            fullpath: String, screenDatabase-relative path to the photo.
-        Returns:
-            List of photoinfo if photo found, None if not found.
-        """
-
-        fullpath = agnostic_path(fullpath)
-        photo = self.photos.select('SELECT * FROM photos WHERE FullPath = ?', (fullpath,))
-        photo = list(photo)
-        if photo:
-            photo = local_photoinfo(list(photo[0]))
-        return photo
 
     def database_imported_exists(self, fullpath):
         """Get photo data if it is in the imported screenDatabase.
@@ -2239,36 +1478,8 @@ class PhotoManager(App):
         Returns:
             List of photoinfo if photo found, None if not found.
         """
+        self.Photo.find_by_fullpath(fullpath)
 
-        fullpath = agnostic_path(fullpath)
-        photo = self.imported.select('SELECT * FROM imported WHERE FullPath = ?', (fullpath, ))
-        photo = list(photo)
-        if photo:
-            photo = list(photo[0])
-            photo[0] = local_path(photo[0])
-        return photo
-
-    def database_imported_add(self, fullpath, file_path, modified_date):
-        """Add photo info to the imported files screenDatabase.
-        Arguments:
-            fullpath: String, the screenDatabase-relative path to the file.
-            file_path: String, the file's absolute path.
-            modified_date: Integer, the file's modified date.
-        """
-
-        exists = self.database_imported_exists(fullpath)
-        if not exists:
-            fullpath = agnostic_path(fullpath)
-            self.imported.execute("insert into imported values(?, ?, ?)", (fullpath, file_path, modified_date))
-
-    def database_imported_remove(self, fullpath):
-        """Removes a photo from the imported screenDatabase.
-        Argument:
-            fullpath: String, the screenDatabase-relative path to the photo.
-        """
-
-        fullpath = agnostic_path(fullpath)
-        self.imported.execute('DELETE FROM imported WHERE FullPath = ?', (fullpath, ))
 
     def null_image(self):
         """Returns a minimum photoinfo list pointing to 'null.jpg'.
@@ -2283,155 +1494,16 @@ class PhotoManager(App):
             deep: Boolean. If True, will remove all files that are currently not found.
         """
 
-        databases = self.get_database_directories()
-
-        #remove referenced files if the screenDatabase that contained them is no longer loaded
-        found_databases = list(self.photos.select('SELECT DatabaseFolder FROM photos GROUP BY DatabaseFolder'))
-        for database in found_databases:
-            if local_path(database[0]) not in databases:
-                self.photos.execute('DELETE FROM photos WHERE DatabaseFolder = ?', (database[0], ))
-
-        #remove references if the photos are not found
-        for database in databases:
-            if os.path.isdir(database) or deep:
-                database_renamed = agnostic_path(database)
-                photos = list(self.photos.select('SELECT * FROM photos WHERE DatabaseFolder = ?', (database_renamed, )))
-                for photo in photos:
-                    photo_file = os.path.join(local_path(photo[2]), local_path(photo[0]))
-                    if not isfile2(photo_file):
-                        self.database_item_delete(photo[0])
-
-        #remove folder references if the folder is not in any screenDatabase folder
-        folders = list(self.folders.select('SELECT * FROM folders'))
-        for folder in folders:
-            folder_renamed = local_path(folder[0])
-            check = len(databases)
-            for database in databases:
-                if os.path.isdir(database) or deep:
-                    full_folder = os.path.join(database, folder_renamed)
-                    if not os.path.isdir(full_folder):
-                        check = check - 1
-            if check == 0:
-                self.folders.execute('DELETE FROM folders WHERE Path = ?', (folder[0], ))
+        self.Photo.clean(deep)
 
         Clock.schedule_once(lambda *dt: self.screen_manager.current_screen.on_enter())
 
-    def database_item_delete(self, fullpath):
-        self.photos.execute('DELETE FROM photos WHERE FullPath = ?', (fullpath,))
-        self.thumbnails.execute('DELETE FROM thumbnails WHERE FullPath = ?', (fullpath,))
 
     def database_rescan(self):
         """Calls database_import."""
 
         self.database_import()
 
-    def database_thumbnail_get(self, fullpath, temporary=False):
-        """Gets a thumbnail image from the thumbnails screenDatabase.
-        Arguments:
-            fullpath: String, the screenDatabase-relative path of the photo to get the thumbnail of.
-            temporary: Boolean, set to True to get a thumbnail from the temporary thumbnail screenDatabase.
-        Returns: List containing thumbnail information and data, or None if not found.
-        """
-
-        fullpath = agnostic_path(fullpath)
-        if temporary:
-            thumbnail = self.tempthumbnails.select('SELECT * FROM thumbnails WHERE FullPath = ?', (fullpath,))
-        else:
-            thumbnail = self.thumbnails.select('SELECT * FROM thumbnails WHERE FullPath = ?', (fullpath,))
-        thumbnail = list(thumbnail)
-        if thumbnail:
-            thumbnail = local_thumbnail(list(thumbnail[0]))
-        return thumbnail
-
-    def database_thumbnail_write(self, fullpath, modified_date, thumbnail, orientation, temporary=False):
-        """Save or updates a thumbnail to the thumbnail screenDatabase.
-        Arguments:
-            fullpath: String, screenDatabase-relative path to the photo.
-            modified_date: Integer, the modified date of the original photo file.
-            thumbnail: Thumbnail image data.
-            orientation: Integer, EXIF orientation code.
-            temporary: Boolean, if True, save to the temporary thumbnails screenDatabase.
-        """
-
-        fullpath = agnostic_path(fullpath)
-        if temporary:
-            thumbs = self.tempthumbnails
-            matches = self.tempthumbnails.select('SELECT * FROM thumbnails WHERE FullPath = ?', (fullpath,))
-        else:
-            thumbs = self.thumbnails
-            matches = self.thumbnails.select('SELECT * FROM thumbnails WHERE FullPath = ?', (fullpath,))
-
-        #Check if thumbnail is already in screenDatabase.
-        matches = list(matches)
-        if not matches:
-            #No thumbnail, create a new screenDatabase entry
-            thumbs.execute("insert into thumbnails values(?, ?, ?, ?)", (fullpath, modified_date, thumbnail, orientation))
-        else:
-            #Thumbnail exist already, just update it
-            thumbs.execute("UPDATE thumbnails SET ModifiedDate = ?, Thumbnail = ?, Orientation = ? WHERE FullPath = ?", (modified_date, thumbnail, orientation, fullpath, ))
-
-    def database_thumbnail_update(self, fullpath, database, modified_date, orientation, temporary=False, force=False):
-        """Check if a thumbnail is already in screenDatabase, check if out of date, update if needed.
-        Arguments:
-            fullpath: String, the screenDatabase-relative path to the photo.
-            database: String, screenDatabase directory the photo is in.
-            modified_date: Integer, the modified date of the original photo.
-            orientation: Integer, EXIF orientation code.
-            temporary: Boolean, if True, uses the temporary thumbnails screenDatabase.
-            force: Boolean, if True, will always update thumbnail, regardless of modified date.
-        Returns: Boolean, True if thumbnail updated, False if not.
-        """
-
-        #check if thumbnail is already in screenDatabase, check if out of date, update if needed
-        matches = self.database_thumbnail_get(fullpath, temporary=temporary)
-        if matches:
-            if modified_date <= matches[1] and not force:
-                return False
-        thumbnail = self.generate_thumbnail(local_path(fullpath), local_path(database))
-        thumbnail = sqlite3.Binary(thumbnail)
-        self.database_thumbnail_write(fullpath=fullpath, modified_date=modified_date, thumbnail=thumbnail, orientation=orientation, temporary=temporary)
-        return True
-
-    def database_item_rename(self, fullpath, newname, newfolder, dontcommit=False):
-        """Changes the screenDatabase-relative path of a photo to another path.
-        Updates both photos and thumbnails databases.
-        Arguments:
-            fullpath: String, the original screenDatabase-relative path.
-            newname: String, the new screenDatabase-relative path.
-            newfolder: String, new screenDatabase-relative containing folder for the file.
-            dontcommit: Dont write to the screenDatabase when finished.
-        """
-
-        fullpath = agnostic_path(fullpath)
-        newname = agnostic_path(newname)
-        if self.database_exists(newname):
-            self.database_item_delete(newname)
-        newfolder_rename = agnostic_path(newfolder)
-        self.photos.execute("UPDATE photos SET FullPath = ?, Folder = ? WHERE FullPath = ?", (newname, newfolder_rename, fullpath, ))
-        if not dontcommit:
-            self.photos.commit()
-        self.thumbnails.execute("UPDATE thumbnails SET FullPath = ? WHERE FullPath = ?", (newname, fullpath, ))
-        if not dontcommit:
-            self.thumbnails.commit()
-
-    def database_item_database_move(self, fileinfo):
-        """Updates a photo's screenDatabase folder.
-        Argument:
-            fileinfo: list, a photoinfo object.
-        """
-
-        fileinfo = agnostic_photoinfo(fileinfo)
-        self.photos.execute("UPDATE photos SET DatabaseFolder = ? WHERE FullPath = ?", (fileinfo[2], fileinfo[0]))
-
-    def database_item_update(self, fileinfo):
-        """Updates a photo's screenDatabase entry with new info.
-        Argument:
-            fileinfo: List, a photoinfo object.
-        """
-
-        fileinfo = agnostic_photoinfo(fileinfo)
-        self.photos.execute("UPDATE photos SET Rename = ?, ModifiedDate = ?, Tags = ?, Edited = ?, OriginalFile= ?, Owner = ?, Export = ?, Orientation = ?, Persons = ? WHERE FullPath = ?", (fileinfo[5], fileinfo[7], fileinfo[8], fileinfo[9], fileinfo[10], fileinfo[11], fileinfo[12], fileinfo[13], fileinfo[14], fileinfo[0]))
-        self.photos.commit()
 
     def cancel_database_import(self, *_):
         """Signals the screenDatabase scanning thread to stop."""
@@ -2534,18 +1606,19 @@ class PhotoManager(App):
                 break
             extension = os.path.splitext(file_info[0])[1].lower()
             if extension in imagetypes or extension in movietypes:
-                exists = self.database_exists(file_info[0])
+                exists = self.Photo.exist(file_info[0])
                 if not exists:
                     #photo not in screenDatabase, add it or ceck if moved
-                    file_info = get_file_info(file_info)
+                    raise ValueError('must verify next function')
+                    #file_info = get_file_info(file_info)
                     found_file = self.database_find_file(file_info)
                     if found_file:
                         found_file = agnostic_photoinfo(list(found_file))
-                        self.database_item_rename(found_file[0], file_info[0], file_info[1], dontcommit=True)
+                        self.Photo.rename(found_file[0], file_info[0], file_info[1], dontcommit=True)
                         update_folders.append(found_file[1])
                         update_folders.append(file_info[1])
                     else:
-                        self.database_add(file_info)
+                        self.Photo.add(file_info)
                         update_folders.append(file_info[1])
                 else:
                     #photo is already in the screenDatabase
@@ -2555,20 +1628,20 @@ class PhotoManager(App):
                         update_folders.append(refreshed[1])
 
             self.database_update_text = 'Rescanning Database ('+str(int(90*(float(index+1)/float(total))))+'%)'
-        self.photos.commit()
+        self.Photo.commit()
 
         #Update folders
-        folders = self.database_get_folders()
+        folders = self.Folder.all()
         for folder in folders:
             if self.cancel_scanning:
                 break
-            exists = self.database_folder_exists(folder)
+            exists = self.Folder.exist(folder)
             if not exists:
                 folderinfo = get_folder_info(folder, databases)
-                self.database_folder_add(folderinfo)
+                self.Folder.insert(folderinfo)
                 update_folders.append(folderinfo[0])
         self.update_photoinfo(folders=folders)
-        self.folders.commit()
+        self.Photo.commit()
 
         #Clean up screenDatabase
         if not self.cancel_scanning:
@@ -2585,63 +1658,11 @@ class PhotoManager(App):
             self.database_screen.update_folders = True
             Clock.schedule_once(self.database_screen.update_treeview)
 
-    def database_folder_exists(self, folder):
-        """Get folder info from the folders screenDatabase if it exists.
-        Argument:
-            folder: String, the screenDatabase-relative path to the folder.
-        Returns: List, folderinfo if found, None if not found.
-        """
-
-        folder = agnostic_path(folder)
-        matches = self.folders.select('SELECT * FROM folders WHERE Path = ?', (folder,))
-        matches = list(matches)
-        if matches:
-            matches = list(matches[0])
-            matches[0] = local_path(matches[0])
-        return matches
-
-    def database_folder_add(self, folderinfo):
-        """Adds a folder to the folders screenDatabase.
-        Argument:
-            folderinfo: List, folderinfo object containing pth, title and description.
-        """
-
-        path, title, description = folderinfo
-        renamed_path = agnostic_path(path)
-        self.folders.execute("insert into folders values(?, ?, ?)", (renamed_path, title, description))
-
-    def database_folder_update_title(self, path, title):
-        """Updates the title of a folder in the folders screenDatabase.
-        Arguments:
-            path: String, screenDatabase-relative path to the folder.
-            title: String, the new folder title.
-        """
-
-        path = agnostic_path(path)
-        self.folders.execute("UPDATE folders SET Title = ? WHERE Path = ?", (title, path, ))
-
-    def database_folder_update_description(self, path, description):
-        """Updates the description of a folder in the folders screenDatabase.
-        Arguments:
-            path: String, screenDatabase-relative path to the folder.
-            description: String, the new folder description.
-        """
-
-        path = agnostic_path(path)
-        self.folders.execute("UPDATE folders SET Description = ? WHERE Path = ?", (description, path, ))
-
-    def database_folder_update(self, folderinfo):
-        """Updates a folder's screenDatabase entry with new info.
-        Argument:
-            folderinfo: List, a folderinfo object.
-        """
-
-        path, title, description = folderinfo
-        renamed_path = agnostic_path(path)
-        self.folders.execute("UPDATE folders SET Title = ?, Description = ? WHERE Path = ?", (title, description, renamed_path, ))
-
     def show_database(self, *_):
         """Switch to the screenDatabase screen layout."""
+        import datetime
+
+        print(datetime.datetime.now().time(),"show_database called")
 
         self.clear_drags()
         if 'screenDatabase' not in self.screen_manager.screen_names:
@@ -2663,7 +1684,7 @@ class PhotoManager(App):
 
         self.clear_drags()
         if 'theme' not in self.screen_manager.screen_names:
-            from screen.ScreenTheme import ScreenTheme
+            from screens.ScreenTheme import ScreenTheme
             self.screen_manager.add_widget(ScreenTheme(name='theme'))
         if self.animations:
             self.screen_manager.transition.direction = 'left'
@@ -2675,7 +1696,7 @@ class PhotoManager(App):
 
         self.clear_drags()
         if 'collage' not in self.screen_manager.screen_names:
-            from screen.screencollage import ScreenCollage
+            from screens.screencollage import ScreenCollage
             self.screen_manager.add_widget(ScreenCollage(name='collage'))
         self.type = self.database_screen.type
         self.target = self.database_screen.selected
@@ -2691,7 +1712,7 @@ class PhotoManager(App):
 
         self.clear_drags()
         if 'album' not in self.screen_manager.screen_names:
-            from screenAlbum import ScreenAlbum
+            from screens.screenAlbum import ScreenAlbum
             self.album_screen = ScreenAlbum(name='album')
             self.screen_manager.add_widget(self.album_screen)
         if self.animations:
@@ -2718,8 +1739,8 @@ class PhotoManager(App):
 
         self.clear_drags()
         if 'import' not in self.screen_manager.screen_names:
-            from screen.ScreenImportPreset import ScreenImportPreset
-            from screen.ScreenImporting import ScreenImporting
+            from screens.ScreenImportPreset import ScreenImportPreset
+            from screens.ScreenImporting import ScreenImporting
             self.importing_screen = ScreenImporting(name='importing')
             self.screen_manager.add_widget(ScreenImportPreset(name='import'))
         if self.animations:
@@ -2741,7 +1762,7 @@ class PhotoManager(App):
 
         self.clear_drags()
         if 'export' not in self.screen_manager.screen_names:
-            from screen.ScreenExporting import ScreenExporting
+            from screens.ScreenExporting import ScreenExporting
             self.screen_manager.add_widget(ScreenExporting(name='export'))
         if self.animations:
             self.screen_manager.transition.direction = 'left'
@@ -2849,32 +1870,8 @@ class PhotoManager(App):
         else:
             self.drag_treenode.pos = (position[0]-self.drag_treenode.offset[0], position[1]-self.drag_treenode.offset[1])
 
-    def test_description(self, string, *_):
-        """Removes unallowed characters from an album/folder description.
-        Argument:
-            string: String, the description.
-        """
 
-        return "".join(i for i in string if i not in "#%&*{}\\/:?<>+|\"=][;")
-
-    def test_album(self, string, *_):
-        """Removes unallowed characters from an album name.
-        Argument:
-            string: String, the album name.
-        """
-
-        return "".join(i for i in string if i not in "#%&*{}\\/:?<>+|\"=][;")
-
-    def test_tag(self, string, *_):
-        """Checks a tag input string, removes non-allowed characters and sets to lower-case.
-        Arguments:
-            string: String to replace.
-        Returns: A string.
-        """
-
-        return "".join(i for i in string if i not in "#%&*{}\\/:?<>+|\"=][;,").lower()
-
-    def test_person(self, string, *_):
+    def remove_unallowed_characters(self, string, *_):
         """Checks a person input string, removes non-allowed characters and sets to lower-case.
         Arguments:
             string: String to replace.
@@ -2895,13 +1892,9 @@ class PhotoManager(App):
             folder = root.selected
             description = description_editor.text
             if root.type == 'Folder':
-                self.database_folder_update_description(folder, description)
-                self.folders.commit()
+                self.Folder.update_description(folder, description)
+                self.Folder.commit()
                 self.update_photoinfo(folders=[folder])
-            elif root.type == 'Album':
-                index = self.album_find(folder)
-                if index >= 0:
-                    self.album_update_description(index, description)
 
     def new_title(self, title_editor, root):
         """Update the title of a folder or album.
@@ -2914,8 +1907,7 @@ class PhotoManager(App):
             folder = root.selected
             title = title_editor.text
             if root.type == 'Folder':
-                self.database_folder_update_title(folder, title)
-                self.folders.commit()
+                self.Folder.update_title(folder, title)
                 self.update_photoinfo(folders=[folder])
                 root.update_folders = True
                 root.update_treeview()
