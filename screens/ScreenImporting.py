@@ -253,7 +253,7 @@ class ScreenImporting(Screen):
 
                     extension = os.path.splitext(file_info[0])[1].lower()
                     if extension in imagetypes or extension in movietypes:
-                        file_info = FileInfo(file_info,import_mode=True)
+                        file_info = FileInfo(file_info)
 
                         is_in_database = photo_db.exist(file_info.new_folder_with_filename())
                         if not is_in_database:

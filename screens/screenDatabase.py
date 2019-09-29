@@ -1482,7 +1482,8 @@ class ScreenDatabase(Screen):
                 for photo in sorted_photos:
                     full_filename = os.path.join(photo[Photo.DATABASEFOLDER], photo[Photo.FULLPATH])
                     #tags = photo[8].split(',')
-                    favorite = True # if 'favorite' in tags else False
+                    #todo verify if photo is in favorite list
+                    favorite = False # if 'favorite' in tags else False
                     fullpath = photo[Photo.FULLPATH]
                     database_folder = photo[Photo.DATABASEFOLDER]
                     video = os.path.splitext(full_filename)[1].lower() in movietypes
