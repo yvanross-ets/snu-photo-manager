@@ -7,6 +7,7 @@ from kivy.uix.behaviors import ButtonBehavior
 from generalconstants import drag_delay
 from generalElements.views.RecycleItem import RecycleItem
 from kivy.lang.builder import Builder
+from models.PhotosTags import Tag,Folder,Photo
 
 Builder.load_string("""
 <RecycleTreeViewButton>:
@@ -84,7 +85,7 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
             if photo_type == 'Folder':
                 folder_id = data['id']
                 if folder_id:
-                    photos = app.Photo.by_folder_id(folder_id)
+                    photos = app.session.query(Folder).filter_by(id=int(folder_id)).first().photos
                     self.total_photos_numeric = len(photos)
             elif photo_type == 'Album':
                 for album in app.albums:
@@ -92,7 +93,7 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
                         self.total_photos_numeric = len(album['photos'])
                         break
             elif photo_type == 'Tag':
-                photos = app.Tag.photos(data['target'])
+                photos = app.session.query(Tag).filter_by(id=int(data['target'])).first().photos
                 self.total_photos_numeric = len(photos)
             elif photo_type == 'Person':
                 photos = app.Person.photos(data['target'])

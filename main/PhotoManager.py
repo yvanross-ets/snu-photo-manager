@@ -10,14 +10,11 @@ try:
     from configparser import ConfigParser
 except:
     from six.moves import configparser
+from sqlalchemy import create_engine
+from models.create_database import create_database
+from sqlalchemy.orm import sessionmaker
 
 from models.FileInfo import FileInfo
-from models.Photo import Photo
-from models.Face import Face
-from models.Location import Location
-from models.Person import Person
-from models.Folder import Folder
-from models.Tag import Tag
 
 from shutil import copyfile, move, rmtree
 from subprocess import call
@@ -122,6 +119,7 @@ class PhotoManager(App):
     scanningpopup = None
     popup = None
     bubble = None
+    session = None
 
     about_text = StringProperty()
 
@@ -664,13 +662,6 @@ class PhotoManager(App):
             self.__commit_database()
         return True
 
-    def __commit_database(self):
-        self.Photo.commit()
-        self.Face.commit()
-        self.Person.commit()
-        self.Location.commit()
-        self.Folder.commit()
-
     def on_resume(self):
         print('Resuming App...')
 
@@ -678,21 +669,10 @@ class PhotoManager(App):
         """Function called just before the app is closed.
         Saves all settings and data.
         """
-
         if self.database_scanning:
             self.cancel_database_import()
             self.scanningthread.join()
         self.config.write()
-        # self.tempthumbnails.close()
-        # self.tempthumbnails.join()
-        self.__close_join_database()
-
-    def __close_join_database(self):
-        self.Folder.close().join()
-        self.Photo.close().join()
-        self.Face.close().join()
-        self.Person.close().join()
-        self.Location.close().join()
 
     def open_settings(self, *largs):
         self.clear_drags()
@@ -1073,25 +1053,19 @@ class PhotoManager(App):
         if not os.path.exists(database_directory):
             os.makedirs(database_directory)
 
-        self.database_path = os.path.join(database_directory, 'gomp.db')
+        try:
+            self.database_path = 'sqlite:///'+os.path.join(database_directory, 'gomp.db')
+            engine = create_engine(self.database_path, echo=True)
+            create_database(engine)
+            Session = sessionmaker(bind=engine)
+            self.session = Session()
 
-
-        #self.gomp_db = SQLMultiThreadOK(gomp_db)
-        self.gomp_db = sqlite3.connect(self.database_path)
-        self.Face = Face(self, self.gomp_db)
-        self.Folder = Folder(self, self.gomp_db)
-        self.Location = Location(self, self.gomp_db)
-        self.Person = Person(self, self.gomp_db)
-        self.Photo = Photo(self, self.gomp_db)
-        self.Tag = Tag(self, self.gomp_db)
-
-
+        except Exception as e:
+            print(e)
+            raise ValueError(e)
 
         if not restore and self.config.getboolean("Settings", "backupdatabase"):
             self.database_backup()
-
-
-
 
     def left_panel_width(self):
         """Returns the saved width for the left panel.
@@ -1628,7 +1602,6 @@ class PhotoManager(App):
                         update_folders.append(refreshed[1])
 
             self.database_update_text = 'Rescanning Database ('+str(int(90*(float(index+1)/float(total))))+'%)'
-        self.Photo.commit()
 
         #Update folders
         folders = self.Folder.all()

@@ -21,9 +21,7 @@ from generalconstants import *
 from screenDatabase.databaseSortDropDown import DatabaseSortDropDown
 from screenDatabase.folderDetails import FolderDetails
 from screenDatabase.albumDetails import AlbumDetails
-from models.Tag import Tag
-from models.Folder import Folder
-from models.Photo import Photo
+from models.PhotosTags import *
 from generalElements.buttons.ToogleBase import ToggleBase
 
 from generalElements.buttons.ButtonBase import ButtonBase
@@ -959,10 +957,7 @@ class ScreenDatabase(Screen):
 
     def __append_folders_to_treeview(self,data):
         app = App.get_running_app()
-
-        # Add folders to tree
-        # Get and sort folder list
-        all_folders = app.Folder.all()
+        all_folders = app.session.query(Folder).order_by('path').all()
         expandable_folders = True if len(all_folders) > 0 else False
 
         folder_root = {
@@ -985,7 +980,7 @@ class ScreenDatabase(Screen):
 
         for folder in all_folders:
             total_photos = 0
-            menu_button = MenuButton(text=folder[Folder.PATH])
+            menu_button = MenuButton(text=folder.path)
             menu_button.bind(on_release=self.add_to_tag_menu)
             self.tag_menu.add_widget(menu_button)
             if self.expanded_folders:
@@ -995,11 +990,11 @@ class ScreenDatabase(Screen):
                     total_photos_text = ''
                 folder_item = {
                     'fullpath': 'Folder',
-                    'id': str(folder[Folder.ID]),
-                    'folder_name': folder[Folder.PATH],
+                    'id': str(folder.id),
+                    'folder_name': folder.path,
                     'total_photos': total_photos_text,
                     'total_photos_numeric': total_photos,
-                    'target': str(folder[Folder.ID]),
+                    'target': str(folder.id),
                     'type': 'Folder',
                     'expandable': False,
                     'displayable': True,
@@ -1018,7 +1013,7 @@ class ScreenDatabase(Screen):
         app = App.get_running_app()
 
         # add the tags tree item
-        sorted_tags = app.Tag.all()
+        sorted_tags = app.session.query(Tag).order_by('name').all()
         expandable_tags = True if len(sorted_tags) > 0 else False
         tag_root = {
             'fullpath': 'Tags',
@@ -1042,8 +1037,8 @@ class ScreenDatabase(Screen):
         menu_button.bind(on_release=self.add_to_tag_menu)
         self.tag_menu.add_widget(menu_button)
         for tag in sorted_tags:
-            total_photos = len(app.Tag.photos(tag))
-            menu_button = MenuButton(text=tag[Tag.NAME])
+            total_photos = len(tag.photos)
+            menu_button = MenuButton(text=tag.name)
             menu_button.bind(on_release=self.add_to_tag_menu)
             self.tag_menu.add_widget(menu_button)
             if self.expanded_tags:
@@ -1053,10 +1048,10 @@ class ScreenDatabase(Screen):
                     total_photos_text = ''
                 tag_item = {
                     'fullpath': 'Tag',
-                    'folder_name': tag[Tag.NAME],
+                    'folder_name': tag.name,
                     'total_photos': total_photos_text,
                     'total_photos_numeric': total_photos,
-                    'target': str(tag[Tag.ID]),
+                    'target': str(tag.id),
                     'type': 'Tag',
                     'expandable': False,
                     'displayable': True,
@@ -1114,7 +1109,7 @@ class ScreenDatabase(Screen):
                     'folder_name': person,
                     'total_photos': total_photos_text,
                     'total_photos_numeric': total_photos,
-                    'target': person,
+                    'target': str(person.id),
                     'type': 'Person',
                     'expandable': False,
                     'displayable': True,
@@ -1131,20 +1126,24 @@ class ScreenDatabase(Screen):
 
     def __append_favorites_to_treeview(self, data):
         app = App.get_running_app()
-        # add the favorites item
-        total_favorites = len(app.Tag.photos('favorite'))
-        if total_favorites > 0:
-            total_photos = '(' + str(total_favorites) + ')'
-        else:
-            total_photos = ''
+
+
+        tag = app.session.query(Tag).filter_by(name='Favorite').first()
+        if tag is  None:
+            tag = Tag(name='Favorite')
+            app.session.add(tag)
+            app.session.commit()
+
+        total_favorites = len(tag.photos)
+
         database_favorites = {
             'fullpath': 'Favorites',
-            'target': 'favorite',
+            'target': str(tag.id),
             'owner': self,
             'type': 'Tag',
             'folder_name': 'Favorites',
             'total_photos_numeric': total_favorites,
-            'total_photos': total_photos,
+            'total_photos': '('+str(total_favorites)+')',
             'expandable': False,
             'displayable': True,
             'indent': 0,
@@ -1376,6 +1375,8 @@ class ScreenDatabase(Screen):
         """Called when the selected folder/album/tag is changed.
         Clears and draws the photo list.
         """
+        app = App.get_running_app()
+
 
         if self.parent and self.ids:
             dragable = False
@@ -1439,7 +1440,7 @@ class ScreenDatabase(Screen):
                     delete_button.text = 'Remove Selected'
                     folder_title_type.text = 'Tagged As: '
                     folder_path.text = self.selected
-                    photos = app.Tag.photos(self.selected)
+                    photos = app.session.query(Tag).filter_by(id=int(self.selected)).first().photos
                 elif self.type == 'Person':
                     operation_label.text = 'Person:'
                     delete_button.text = 'Remove Selected person'
@@ -1455,50 +1456,51 @@ class ScreenDatabase(Screen):
                     folder_path.text = self.selected
                     folder_details.add_widget(self.folder_details)
 
-                    photos = app.Photo.by_folder_id(self.selected)
-                    folderinfo = app.Folder.by_id(self.selected)
-                    if folderinfo:
+                    folder = app.session.query(Folder).filter_by(id=self.selected).first()
+                    photos = [] if folder is None else folder.photos
+                    if folder:
                         folder_title = self.folder_details.ids['folderTitle']
                         folder_description = self.folder_details.ids['folderDescription']
-                        folder_title.text = folderinfo[Folder.TITLE] or ""
-                        folder_description.text = folderinfo[Folder.DESCRIPTION] or ""
+                        folder_title.text = folder.title or ""
+                        folder_description.text = folder.description or ""
 
 
                 if self.album_sort_method == 'Imported':
-                    sorted_photos = sorted(photos, key=lambda x: x[Photo.IMPORTDATE], reverse=self.album_sort_reverse)
+                    sorted_photos = sorted(photos, key=lambda x: x.import_date, reverse=self.album_sort_reverse)
                 elif self.album_sort_method == 'Modified':
-                    sorted_photos = sorted(photos, key=lambda x: x[Photo.MODIFYDATE], reverse=self.album_sort_reverse)
-                #elif self.album_sort_method == 'Owner':
-                #    sorted_photos = sorted(photos, key=lambda x: x[Photo.], reverse=self.album_sort_reverse)
+                    sorted_photos = sorted(photos, key=lambda x: x.modify_date, reverse=self.album_sort_reverse)
+                elif self.album_sort_method == 'Owner':
+                    sorted_photos = sorted(photos, key=lambda x: x.owner, reverse=self.album_sort_reverse)
                 elif self.album_sort_method == 'Name':
-                    sorted_photos = sorted(photos, key=lambda x: os.path.basename(x[Photo.RENAME]), reverse=self.album_sort_reverse)
+                    sorted_photos = sorted(photos, key=lambda x: os.path.basename(x.rename), reverse=self.album_sort_reverse)
                 else:
-                    sorted_photos = sorted(photos, key=lambda x: x[Photo.FULLPATH], reverse=self.album_sort_reverse)
+                    sorted_photos = sorted(photos, key=lambda x: x.full_path, reverse=self.album_sort_reverse)
 
                 self.photos = sorted_photos
                 if sorted_photos:
                     self.can_export = True
                 datas = []
+                import_to = app.imports[0]['import_to']
                 for photo in sorted_photos:
-                    full_filename = os.path.join(photo[Photo.DATABASEFOLDER], photo[Photo.FULLPATH])
-                    #tags = photo[8].split(',')
-                    #todo verify if photo is in favorite list
-                    favorite = False # if 'favorite' in tags else False
-                    fullpath = photo[Photo.FULLPATH]
-                    database_folder = photo[Photo.DATABASEFOLDER]
+                    full_filename = photo.new_full_filename(import_to)
+                    favorite = False
+                    for tag in photo.tags:
+                        if tag.name == 'favorite':
+                            favorite = True
+                            break
                     video = os.path.splitext(full_filename)[1].lower() in movietypes
                     data = {
-                        'fullpath': fullpath,
-                        'photoinfo': photo,
+                        'fullpath': photo.full_path,
+                        'photo': photo,
                         'folder': self.selected,
-                        'database_folder': database_folder,
+                        'database_folder': photo.database_folder,
                         'filename': full_filename,
-                        'target': str(photo[Photo.ID]),
+                        'target': str(photo.id),
                         'type': self.type,
                         'owner': self,
                         'favorite': favorite,
                         'video': video,
-                        'photo_orientation': photo[Photo.ORIENTATION],
+                        'photo_orientation': photo.orientation,
                         'source': full_filename,
                         'temporary': False,
                         'selected': False,
@@ -1507,7 +1509,6 @@ class ScreenDatabase(Screen):
                     }
                     datas.append(data)
                 self.data = datas
-                app.Photo.commit()
             self.update_can_browse()
             self.update_selected()
 

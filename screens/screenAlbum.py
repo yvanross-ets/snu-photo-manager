@@ -14,7 +14,6 @@ from screenAlbum.TagSelectButton import TagSelectButton
 from screenAlbum.VideoViewer import VideoViewer
 from screenAlbum.editBorderImage import EditBorderImage
 from screenAlbum.editColorImage import EditColorImage
-from models.Photo import Photo
 from generalElements.splitters.SplitterPanelRight import SplitterPanelRight
 from screenAlbum.PanelTabs import PanelTabs
 from generalElements.scrollers.ScrollerContainer import ScrollerContainer

@@ -5,6 +5,8 @@ import time
 from shutil import copy2
 from shutil import copyfile
 import sqlite3
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
 
 from kivy.app import App
 from kivy.clock import Clock
@@ -20,9 +22,7 @@ from generalElements.treeviews.TreeViewButton import TreeViewButton
 from generalElements.photos.PhotoRecycleThumbWide import PhotoRecycleThumbWide  # used in builder
 from screens.ScreenImportPreset import disk_usage
 from kivy.lang.builder import Builder
-from models.Folder import Folder
-from models.Photo import Photo
-
+from models.PhotosTags import Photo,Folder
 
 Builder.load_string("""
 <ScreenImporting>:
@@ -228,13 +228,9 @@ class ScreenImporting(Screen):
             Will import all files in directories.
         """
         app = App.get_running_app()
-
-        main_thread_database_connection = app.Photo.database
-        database = sqlite3.connect(app.database_path)
-        photo_db = Photo(app,database)
-        folder_db = Folder(app,database)
-
-
+        engine = create_engine(app.database_path, echo=True)
+        Session = sessionmaker(bind=engine)
+        session = Session()
         current_timestamp = time.time()
 
         #Scan the folders
@@ -253,28 +249,30 @@ class ScreenImporting(Screen):
 
                     extension = os.path.splitext(file_info[0])[1].lower()
                     if extension in imagetypes or extension in movietypes:
-                        file_info = FileInfo(file_info)
+                        photo = Photo()
+                        photo.from_file_info(file_info)
+                        self.import_photos.append(photo)
 
-                        is_in_database = photo_db.exist(file_info.new_folder_with_filename())
-                        if not is_in_database:
-                            self.total_size = self.total_size+file_info.original_size[0]
-                            self.import_photos.append(file_info)
-
-        nbPhoto = len(self.import_photos)
+        nb_photo = len(self.import_photos)
         current_photo_index = 0
-        app = App.get_running_app()
-        for photo_info in self.import_photos:
-            self.percent_completed = current_photo_index/nbPhoto * 100
+        for photo in self.import_photos:
+            self.percent_completed = current_photo_index/nb_photo * 100
             current_photo_index += 1
-            print('---------')
-            print(photo_info.old_full_filename())
-            print(photo_info.new_folder_name())
-            print(photo_info.new_full_filename(self.import_to))
+            photo_in_db = session.query(Photo).filter_by(full_path=photo.full_path).first()
+            if photo_in_db is None:
+                photo.update_thumbnail()
+                session.add(photo)
+                folder = session.query(Folder).filter_by(path=photo.folder_name()).first()
+                if folder is None:
+                    folder = Folder(path=photo.folder_name())
+                    session.add(folder)
+                    local_folder_path = os.path.join(self.import_to,folder.path)
+                    if not os.path.isdir(local_folder_path):
+                        os.makedirs(local_folder_path)
 
-            folder = folder_db.create_or_find(photo_info.new_folder_name())
-            if not photo_db.exist(photo_info.new_folder_with_filename()):
-                copyfile(photo_info.old_full_filename(), photo_info.new_full_filename(self.import_to))
-                photo_db.insert(folder[Folder.ID],photo_info.new_full_filename(self.import_to),photo_info)
+                folder.photos.append(photo)
+                copyfile(photo.old_full_filename(), photo.new_full_filename(self.import_to))
+                session.commit()
 
 
 
@@ -284,8 +282,6 @@ class ScreenImporting(Screen):
         self.import_scanning = False
         self.update_treeview()
         self.update_photolist()
-
-        database.close()
 
 
     def scanning_canceled(self):
@@ -430,8 +426,6 @@ class ScreenImporting(Screen):
 
 
         raise ValueError('muste complete import')
-        app.Photo.commit()
-        app.Folder.commit()
 
         app.update_photoinfo(folders=imported_folders)
         self.scanningpopup.dismiss()
@@ -733,7 +727,7 @@ class ScreenImporting(Screen):
             data = {
                 'fullpath': fullpath,
                 'temporary': True,
-                'photoinfo': photo.photoInfo(),
+                'photo': photo,
                 'folder': self.selected,
                 'database_folder': database_folder,
                 'filename': full_filename,

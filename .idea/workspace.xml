@@ -2,12 +2,33 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c18f69a3-776f-4dd6-998c-4d459ba95fe2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/tests/models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/models/test_fileInfo.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/codeStyles/codeStyleConfig.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/dataSources.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/sqldialects.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/FacePhoto.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/PhotosTags.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/models/create_database.py" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/tests/models/Locations.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/encodings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/encodings.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generalElements/photos/PhotoRecycleThumb.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalElements/photos/PhotoRecycleThumb.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/main/PhotoManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/main/PhotoManager.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Album.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__Album.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Database.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Face.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Face.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/models/FileInfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/FileInfo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Folder.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Location.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Location.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Person.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Person.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Photo.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/models/Tag.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/ScreenImporting.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/ScreenImporting.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/screens/screenAlbum.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/screenAlbum.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/screens/screenDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/screenDatabase.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/models/test_fileInfo.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/models/test_fileInfo.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/photos/IMG_0919.JPG" beforeDir="false" />
     </list>
     <ignored path=".idea/dataSources.local.xml" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -42,85 +63,134 @@
   <component name="CreatePatchCommitExecutor">
     <option name="PATCH_PATH" value="" />
   </component>
+  <component name="DatabaseView">
+    <option name="SHOW_INTERMEDIATE" value="true" />
+    <option name="GROUP_DATA_SOURCES" value="true" />
+    <option name="GROUP_SCHEMA" value="true" />
+    <option name="GROUP_CONTENTS" value="false" />
+    <option name="SORT_POSITIONED" value="false" />
+    <option name="SHOW_EMPTY_GROUPS" value="false" />
+    <option name="AUTO_SCROLL_FROM_SOURCE" value="false" />
+    <option name="HIDDEN_KINDS">
+      <set />
+    </option>
+    <expand>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="location_test_db" type="feb32156:DbDataSourceImpl" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="location_test_db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="location_test_db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="location_test_db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+        <item name="locations: table" type="3d80ac25:SqliteImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="location_test_db" type="feb32156:DbDataSourceImpl" />
+        <item name="schemas" type="d4e8921:DatabaseStructure$FamilyGroup" />
+        <item name="main: schema" type="981a47c2:SqliteImplModel$Schema" />
+        <item name="locations_photos: table" type="3d80ac25:SqliteImplModel$Table" />
+      </path>
+      <path>
+        <item name="Database" type="3277223f:DatabaseStructure$DbRootGroup" />
+        <item name="location_test_db" type="feb32156:DbDataSourceImpl" />
+        <item name="collations" type="d4e8921:DatabaseStructure$FamilyGroup" />
+      </path>
+    </expand>
+    <select />
+  </component>
   <component name="FavoritesManager">
     <favorites_list name="gompAppPy" />
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="143" selection-start-line="142" selection-end-line="143" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/main/PhotoManager.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="1685" selection-start-line="1685" selection-end-line="1685" />
+              <folding>
+                <element signature="e#0#11#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/lang/builder.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="707" column="18" lean-forward="true" selection-start-line="707" selection-start-column="18" selection-end-line="707" selection-end-column="18" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/loader.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="437" selection-start-line="437" selection-end-line="437" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/generalElements/photos/PhotoRecycleThumb.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="132" selection-start-line="132" selection-end-line="132" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/widget.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="151">
+              <caret line="548" selection-start-line="548" selection-end-line="548" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/scrollview.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="143">
+              <caret line="933" selection-start-line="933" selection-end-line="933" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/tests/models/test_fileInfo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="420">
-              <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
-              <folding>
-                <element signature="e#0#29#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/FileInfo.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="160" column="51" lean-forward="true" selection-start-line="160" selection-start-column="51" selection-end-line="160" selection-end-column="51" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/screens/screenDatabase.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="206">
-              <caret line="1484" column="61" selection-start-line="1484" selection-start-column="61" selection-end-line="1484" selection-end-column="61" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/posixpath.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="79" selection-start-line="79" selection-end-line="79" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generalcommands.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="543">
-              <caret line="74" selection-start-line="74" selection-end-line="74" />
-              <folding>
-                <element signature="e#0#9#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/screens/ScreenImporting.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="290">
-              <caret line="338" column="49" lean-forward="true" selection-start-line="338" selection-start-column="49" selection-end-line="338" selection-end-column="49" />
-              <folding>
-                <element signature="e#0#15#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/screens/screenAlbum.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="53">
-              <caret line="921" column="44" lean-forward="true" selection-start-line="921" selection-start-column="44" selection-end-line="921" selection-end-column="44" />
+            <state relative-caret-position="114">
+              <caret line="1169" selection-start-line="1169" selection-end-line="1169" />
               <folding>
                 <element signature="e#0#69#0" expanded="true" />
               </folding>
@@ -129,19 +199,10 @@
         </entry>
       </file>
       <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/models/Photo.py">
+        <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/recycleview/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="48">
-              <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1905">
-              <caret line="135" selection-start-line="135" selection-end-line="135" />
+            <state relative-caret-position="53">
+              <caret line="359" selection-start-line="359" selection-end-line="359" />
             </state>
           </provider>
         </entry>
@@ -157,36 +218,36 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>photoMan</find>
-      <find>self.import_to</find>
-      <find>SQLMultiThreadOK</find>
-      <find>thumbn</find>
-      <find>.database.select(</find>
-      <find>SQL</find>
-      <find>gomp_db</find>
-      <find>.sele</find>
-      <find>RecycleTreeViewButton</find>
-      <find>inspector</find>
-      <find>PhotoRecycleThumbWide</find>
-      <find>NormalRecycleView</find>
-      <find>PhotoRecycleThumb</find>
-      <find>photos</find>
-      <find>photosContainer</find>
-      <find>data</find>
-      <find>self.data</find>
+      <find>create_data</find>
+      <find>create_engine</find>
+      <find>export</find>
+      <find>old_full_filename</find>
+      <find>tags</find>
+      <find>imported_tags</find>
+      <find>file_info[1]</find>
+      <find>file_info[1]se</find>
+      <find>original_file</find>
+      <find>create_folder_directory</find>
+      <find>folder</find>
+      <find>original_size</find>
+      <find>import_to =</find>
+      <find>import_preset</find>
+      <find>import</find>
+      <find>imports</find>
+      <find>photoinfo</find>
+      <find>photo_info</find>
+      <find>nocache</find>
+      <find>import_to</find>
+      <find>sqlite3</find>
+      <find>generate</find>
+      <find>__generate_thumbnail</find>
+      <find>imagetypes</find>
       <find>thumbnail</find>
-      <find>root.data</find>
-      <find>update_title</find>
-      <find>target</find>
-      <find>selected</find>
+      <find>BytesIO</find>
+      <find>.__generate_thumbnail</find>
+      <find>MediaPlayer</find>
       <find>scan_folder</find>
-      <find>original</find>
-      <find>import_from</find>
-      <find>modified_date</find>
-      <find>original_date</find>
-      <find>Favorite</find>
-      <find>favorite</find>
-      <find>favorite =</find>
+      <find>Media</find>
     </findStrings>
     <replaceStrings>
       <replace />
@@ -211,16 +272,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/colorPickerCustom/ColorPickerCustom.py" />
-        <option value="$PROJECT_DIR$/screenExporting/ExportPreset.py" />
-        <option value="$PROJECT_DIR$/tests/__init__.py" />
-        <option value="$PROJECT_DIR$/__init__.py" />
-        <option value="$PROJECT_DIR$/tests/TesterApp.py" />
-        <option value="$PROJECT_DIR$/tests/test_buttons.py" />
-        <option value="$PROJECT_DIR$/tests/test_label.py" />
-        <option value="$PROJECT_DIR$/tests/test_input.py" />
-        <option value="$PROJECT_DIR$/tests/test_dropDown.py" />
-        <option value="$PROJECT_DIR$/tests/test_image.py" />
         <option value="$PROJECT_DIR$/screenAlbum/PhotoViewer.py" />
         <option value="$PROJECT_DIR$/testUtils/TesterApp.py" />
         <option value="$PROJECT_DIR$/tests/test_ScreenImportPreset.py" />
@@ -238,38 +289,48 @@
         <option value="$PROJECT_DIR$/models/Theme.py" />
         <option value="$PROJECT_DIR$/models/MyTheme.py" />
         <option value="$PROJECT_DIR$/main/Theme.py" />
-        <option value="$PROJECT_DIR$/models/Database.py" />
         <option value="$PROJECT_DIR$/screens/ScreenTheme.py" />
         <option value="$PROJECT_DIR$/models/Album.py" />
         <option value="$PROJECT_DIR$/screens/screenDatabaseTransfer.py" />
         <option value="$PROJECT_DIR$/screens/ScreenExporting.py" />
         <option value="$PROJECT_DIR$/screens/screencollage.py" />
         <option value="$PROJECT_DIR$/main/SQLMultiThreadOK.py" />
-        <option value="$PROJECT_DIR$/screens/screenAlbum.py" />
-        <option value="$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py" />
         <option value="$PROJECT_DIR$/generalcommands.py" />
         <option value="$PROJECT_DIR$/screens/ScreenImportPreset.py" />
-        <option value="$PROJECT_DIR$/models/Face.py" />
-        <option value="$PROJECT_DIR$/models/Location.py" />
-        <option value="$PROJECT_DIR$/models/Person.py" />
-        <option value="$PROJECT_DIR$/models/Tag.py" />
-        <option value="$PROJECT_DIR$/models/Photo.py" />
-        <option value="$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py" />
-        <option value="$PROJECT_DIR$/models/Folder.py" />
-        <option value="$PROJECT_DIR$/main/PhotoManager.py" />
         <option value="$PROJECT_DIR$/models/test_fileInfo.py" />
-        <option value="$PROJECT_DIR$/screens/ScreenImporting.py" />
-        <option value="$PROJECT_DIR$/models/FileInfo.py" />
-        <option value="$PROJECT_DIR$/screens/screenDatabase.py" />
         <option value="$PROJECT_DIR$/tests/models/test_fileInfo.py" />
+        <option value="$PROJECT_DIR$/models/Database.py" />
+        <option value="$PROJECT_DIR$/models/create_tables.py" />
+        <option value="$PROJECT_DIR$/tests/gomp_test_create_database.py" />
+        <option value="$PROJECT_DIR$/tests/models/Locations.py" />
+        <option value="$PROJECT_DIR$/models/Location.py" />
+        <option value="$PROJECT_DIR$/models/Face.py" />
+        <option value="$PROJECT_DIR$/models/FacePhoto.py" />
+        <option value="$PROJECT_DIR$/models/Person.py" />
+        <option value="$PROJECT_DIR$/models/Folder.py" />
+        <option value="$PROJECT_DIR$/models/PhotoTag.py" />
+        <option value="$PROJECT_DIR$/models/photos_tags_impl.py" />
+        <option value="$PROJECT_DIR$/models/many.py" />
+        <option value="$PROJECT_DIR$/models/Photo.py" />
+        <option value="$PROJECT_DIR$/models/Tag.py" />
+        <option value="$PROJECT_DIR$/models/create_database.py" />
+        <option value="$PROJECT_DIR$/models/FileInfo.py" />
+        <option value="$PROJECT_DIR$/main/PhotoManager.py" />
+        <option value="$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py" />
+        <option value="$PROJECT_DIR$/generalElements/photos/PhotoRecycleThumb.py" />
+        <option value="$PROJECT_DIR$/screens/screenDatabase.py" />
+        <option value="$PROJECT_DIR$/screens/ScreenImporting.py" />
+        <option value="$PROJECT_DIR$/models/PhotosTags.py" />
+        <option value="$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py" />
+        <option value="$PROJECT_DIR$/screens/screenAlbum.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="258" />
-    <option name="y" value="539" />
-    <option name="width" value="1920" />
-    <option name="height" value="1178" />
+    <option name="x" value="-1600" />
+    <option name="y" value="322" />
+    <option name="width" value="1600" />
+    <option name="height" value="878" />
   </component>
   <component name="ProjectLevelVcsManager">
     <ConfirmationsSetting value="2" id="Add" />
@@ -282,17 +343,13 @@
       <foldersAlwaysOnTop value="false" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="generalcommands.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -345,32 +402,6 @@
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
               <item name="generalElements" type="462c0819:PsiDirectoryNode" />
-              <item name="photos" type="462c0819:PsiDirectoryNode" />
-              <item name="PhotoRecycleThumbWide.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
-              <item name="scrollers" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
-              <item name="selectables" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
-              <item name="selectables" type="462c0819:PsiDirectoryNode" />
-              <item name="SelectableRecycleGrid.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
               <item name="treeviews" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -387,27 +418,6 @@
               <item name="treeviews" type="462c0819:PsiDirectoryNode" />
               <item name="RecycleTreeViewButton.py" type="8704e2dd:PyFileNode" />
               <item name="RecycleTreeViewButton" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="NormalRecycleView.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="generalElements" type="462c0819:PsiDirectoryNode" />
-              <item name="views" type="462c0819:PsiDirectoryNode" />
-              <item name="NormalRecycleView.py" type="8704e2dd:PyFileNode" />
-              <item name="NormalRecycleView" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -436,40 +446,7 @@
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Album.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Album.py" type="8704e2dd:PyFileNode" />
-              <item name="Album" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Database.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Database.py" type="8704e2dd:PyFileNode" />
-              <item name="Database" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Face.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Face.py" type="8704e2dd:PyFileNode" />
-              <item name="Face" type="dd8bbb05:PyElementNode" />
+              <item name="create_database.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -488,53 +465,25 @@
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Folder.py" type="8704e2dd:PyFileNode" />
+              <item name="PhotosTags.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Folder.py" type="8704e2dd:PyFileNode" />
-              <item name="Folder" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Location.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Location.py" type="8704e2dd:PyFileNode" />
-              <item name="Location" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Person.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Person.py" type="8704e2dd:PyFileNode" />
-              <item name="Person" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Photo.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="Photo.py" type="8704e2dd:PyFileNode" />
+              <item name="PhotosTags.py" type="8704e2dd:PyFileNode" />
               <item name="Photo" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="screenAlbum" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="screenAlbum" type="462c0819:PsiDirectoryNode" />
+              <item name="customImage.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -571,6 +520,12 @@
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
               <item name="screens" type="462c0819:PsiDirectoryNode" />
+              <item name="ScreenExporting.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="screens" type="462c0819:PsiDirectoryNode" />
               <item name="ScreenImporting.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
@@ -583,50 +538,44 @@
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="screens" type="462c0819:PsiDirectoryNode" />
+              <item name="ScreenImportPreset.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="screens" type="462c0819:PsiDirectoryNode" />
+              <item name="ScreenImportPreset.py" type="8704e2dd:PyFileNode" />
+              <item name="ScreenImportPreset" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="test_label.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="test_label.py" type="8704e2dd:PyFileNode" />
-              <item name="LabelTestCase" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="models" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="test_fileInfo.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
               <item name="tests" type="462c0819:PsiDirectoryNode" />
               <item name="models" type="462c0819:PsiDirectoryNode" />
-              <item name="test_fileInfo.py" type="8704e2dd:PyFileNode" />
+              <item name="Locations.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
+              <item name="tests" type="462c0819:PsiDirectoryNode" />
+              <item name="models" type="462c0819:PsiDirectoryNode" />
+              <item name="Locations.py" type="8704e2dd:PyFileNode" />
               <item name="TestFileInfo" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="gompAppPy" type="462c0819:PsiDirectoryNode" />
-              <item name="tests" type="462c0819:PsiDirectoryNode" />
-              <item name="photos" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
             </path>
             <path>
@@ -639,42 +588,6 @@
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="python3.7" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
-              <item name="configparser.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
-              <item name="configparser.py" type="8704e2dd:PyFileNode" />
-              <item name="RawConfigParser" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
-              <item name="genericpath.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
-              <item name="pkgutil.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
-              <item name="posixpath.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -702,40 +615,6 @@
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
-              <item name="sqlite3" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="python3.7" type="462c0819:PsiDirectoryNode" />
-              <item name="sqlite3" type="462c0819:PsiDirectoryNode" />
-              <item name="dbapi2.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="1437855905" type="70582d5e:PySkeletonsNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="1437855905" type="70582d5e:PySkeletonsNode" />
-              <item name="posix.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -744,74 +623,6 @@
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="app.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="app.py" type="8704e2dd:PyFileNode" />
-              <item name="App" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="base.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="base.py" type="8704e2dd:PyFileNode" />
-              <item name="EventLoopBase" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="clock.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="clock.py" type="8704e2dd:PyFileNode" />
-              <item name="ClockBaseBehavior" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="config.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="config.py" type="8704e2dd:PyFileNode" />
-              <item name="ConfigParser" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -820,15 +631,6 @@
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
               <item name="loader.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="loader.py" type="8704e2dd:PyFileNode" />
-              <item name="_Worker" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -838,61 +640,6 @@
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
               <item name="loader.py" type="8704e2dd:PyFileNode" />
               <item name="LoaderBase" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="logger.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="logger.py" type="8704e2dd:PyFileNode" />
-              <item name="LogFile" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="window" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="window" type="462c0819:PsiDirectoryNode" />
-              <item name="window_sdl2.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="window" type="462c0819:PsiDirectoryNode" />
-              <item name="window_sdl2.py" type="8704e2dd:PyFileNode" />
-              <item name="WindowSDL" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -927,23 +674,6 @@
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="modules" type="462c0819:PsiDirectoryNode" />
-              <item name="inspector.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
               <item name="uix" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -953,7 +683,7 @@
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
               <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="screenmanager.py" type="8704e2dd:PyFileNode" />
+              <item name="image.py" type="8704e2dd:PyFileNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -962,8 +692,8 @@
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
               <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="screenmanager.py" type="8704e2dd:PyFileNode" />
-              <item name="ScreenManager" type="dd8bbb05:PyElementNode" />
+              <item name="image.py" type="8704e2dd:PyFileNode" />
+              <item name="Image" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -983,44 +713,6 @@
               <item name="uix" type="462c0819:PsiDirectoryNode" />
               <item name="scrollview.py" type="8704e2dd:PyFileNode" />
               <item name="ScrollView" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="textinput.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="textinput.py" type="8704e2dd:PyFileNode" />
-              <item name="TextInput" type="dd8bbb05:PyElementNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="treeview.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="treeview.py" type="8704e2dd:PyFileNode" />
-              <item name="TreeView" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -1049,27 +741,6 @@
               <item name="kivy" type="462c0819:PsiDirectoryNode" />
               <item name="uix" type="462c0819:PsiDirectoryNode" />
               <item name="recycleview" type="462c0819:PsiDirectoryNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="recycleview" type="462c0819:PsiDirectoryNode" />
-              <item name="layout.py" type="8704e2dd:PyFileNode" />
-            </path>
-            <path>
-              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
-              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
-              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
-              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="kivy" type="462c0819:PsiDirectoryNode" />
-              <item name="uix" type="462c0819:PsiDirectoryNode" />
-              <item name="recycleview" type="462c0819:PsiDirectoryNode" />
-              <item name="layout.py" type="8704e2dd:PyFileNode" />
-              <item name="RecycleLayoutManagerBehavior" type="dd8bbb05:PyElementNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
@@ -1108,36 +779,56 @@
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="numpy" type="462c0819:PsiDirectoryNode" />
+              <item name="sqlalchemy" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="numpy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
+              <item name="sqlalchemy" type="462c0819:PsiDirectoryNode" />
+              <item name="orm" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
               <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
               <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
               <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
               <item name="site-packages" type="462c0819:PsiDirectoryNode" />
-              <item name="numpy" type="462c0819:PsiDirectoryNode" />
-              <item name="core" type="462c0819:PsiDirectoryNode" />
-              <item name="arrayprint.py" type="8704e2dd:PyFileNode" />
+              <item name="sqlalchemy" type="462c0819:PsiDirectoryNode" />
+              <item name="orm" type="462c0819:PsiDirectoryNode" />
+              <item name="attributes.py" type="8704e2dd:PyFileNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="sqlalchemy" type="462c0819:PsiDirectoryNode" />
+              <item name="orm" type="462c0819:PsiDirectoryNode" />
+              <item name="attributes.py" type="8704e2dd:PyFileNode" />
+              <item name="CollectionAttributeImpl" type="dd8bbb05:PyElementNode" />
+            </path>
+            <path>
+              <item name="gompAppPy" type="b2602c69:ProjectViewProjectNode" />
+              <item name="External Libraries" type="cb654da1:ExternalLibrariesNode" />
+              <item name="&lt; Python 3.7 (gomp) &gt;" type="70bed36:NamedLibraryElementNode" />
+              <item name="site-packages" type="462c0819:PsiDirectoryNode" />
+              <item name="sqlalchemy" type="462c0819:PsiDirectoryNode" />
+              <item name="orm" type="462c0819:PsiDirectoryNode" />
+              <item name="attributes.py" type="8704e2dd:PyFileNode" />
+              <item name="InstrumentedAttribute" type="dd8bbb05:PyElementNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="database.console.LAST_STATE" value="false" />
     <property name="js-jscs-nodeInterpreter" value="$USER_HOME$/.nvm/versions/node/v8.4.0/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js.eslint.nodeInterpreter" value="/usr/local/bin/node" />
@@ -1152,7 +843,7 @@
     <property name="nodejs_npm_path_reset_for_default_project" value="true" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
+    <property name="settings.editor.selected.configurable" value="preferences.keymap" />
   </component>
   <component name="PyConsoleOptionsProvider">
     <option name="myPythonConsoleState">
@@ -1166,8 +857,8 @@
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/tests/models" />
       <recent name="$PROJECT_DIR$/tests" />
+      <recent name="$PROJECT_DIR$/tests/models" />
       <recent name="$PROJECT_DIR$/testUtils" />
       <recent name="$PROJECT_DIR$/screen" />
       <recent name="$PROJECT_DIR$/screens" />
@@ -1206,6 +897,50 @@
       <option name="USE_PATTERN" value="false" />
       <method />
     </configuration>
+    <configuration name="Location" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="gomp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/Location.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
+    <configuration name="Photo" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="gomp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/Photo.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration default="true" type="PythonConfigurationType" factoryName="Python">
       <module name="gomp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1228,6 +963,28 @@
       <option name="INPUT_FILE" value="" />
       <method v="2" />
     </configuration>
+    <configuration name="create_database" type="PythonConfigurationType" factoryName="Python" temporary="true">
+      <module name="gomp" />
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
+      <option name="IS_MODULE_SDK" value="true" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
+      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/models/create_database.py" />
+      <option name="PARAMETERS" value="" />
+      <option name="SHOW_COMMAND_LINE" value="true" />
+      <option name="EMULATE_TERMINAL" value="false" />
+      <option name="MODULE_MODE" value="false" />
+      <option name="REDIRECT_INPUT" value="false" />
+      <option name="INPUT_FILE" value="" />
+      <method v="2" />
+    </configuration>
     <configuration name="main" type="PythonConfigurationType" factoryName="Python" temporary="true">
       <module name="gomp" />
       <option name="INTERPRETER_OPTIONS" value="" />
@@ -1239,28 +996,6 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="SCRIPT_NAME" value="$PROJECT_DIR$/main.py" />
-      <option name="PARAMETERS" value="" />
-      <option name="SHOW_COMMAND_LINE" value="true" />
-      <option name="EMULATE_TERMINAL" value="false" />
-      <option name="MODULE_MODE" value="false" />
-      <option name="REDIRECT_INPUT" value="false" />
-      <option name="INPUT_FILE" value="" />
-      <method v="2" />
-    </configuration>
-    <configuration name="test_geolocalisation" type="PythonConfigurationType" factoryName="Python" temporary="true">
-      <module name="gomp" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="SCRIPT_NAME" value="$PROJECT_DIR$/tests/test_geolocalisation.py" />
       <option name="PARAMETERS" value="" />
       <option name="SHOW_COMMAND_LINE" value="true" />
       <option name="EMULATE_TERMINAL" value="false" />
@@ -1293,22 +1028,7 @@
       <option name="_new_targetType" value="&quot;PATH&quot;" />
       <method v="2" />
     </configuration>
-    <configuration name="Unittests for test_ScreenImportPreset.ScreenImportPresetTestCase.test_ScreenImportPreset" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="gomp" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/tests" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_ScreenImportPreset.ScreenImportPresetTestCase.test_ScreenImportPreset&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
+    <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
       <module name="gomp" />
       <option name="INTERPRETER_OPTIONS" value="" />
       <option name="PARENT_ENVS" value="true" />
@@ -1319,22 +1039,7 @@
       <option name="ADD_SOURCE_ROOTS" value="true" />
       <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
       <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;test_fileInfo.TestFileInfo.test_photoInfo_original_date&quot;" />
-      <option name="_new_targetType" value="&quot;PYTHON&quot;" />
-      <method v="2" />
-    </configuration>
-    <configuration name="Unittests for tests.models.test_fileInfo.TestFileInfo.test_photoInfo" type="tests" factoryName="Unittests" temporary="true" nameIsGenerated="true">
-      <module name="gomp" />
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$/models" />
-      <option name="IS_MODULE_SDK" value="true" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <EXTENSION ID="PythonCoverageRunConfigurationExtension" runner="coverage.py" />
-      <option name="_new_additionalArguments" value="&quot;&quot;" />
-      <option name="_new_target" value="&quot;tests.models.test_fileInfo.TestFileInfo.test_photoInfo&quot;" />
+      <option name="_new_target" value="&quot;Locations.TestFileInfo.test_sqlalchemy&quot;" />
       <option name="_new_targetType" value="&quot;PYTHON&quot;" />
       <method v="2" />
     </configuration>
@@ -1422,22 +1127,22 @@
       <method v="2" />
     </configuration>
     <list>
+      <item itemvalue="Python.Location" />
+      <item itemvalue="Python.create_database" />
       <item itemvalue="Python.main" />
-      <item itemvalue="Python.test_geolocalisation" />
+      <item itemvalue="Python.Photo" />
       <item itemvalue="Python tests.Unittests in test_geolocalisation.py" />
       <item itemvalue="Python tests.button unit test" />
       <item itemvalue="Python tests.UnitTest" />
-      <item itemvalue="Python tests.Unittests for test_ScreenImportPreset.ScreenImportPresetTestCase.test_ScreenImportPreset" />
-      <item itemvalue="Python tests.Unittests for tests.models.test_fileInfo.TestFileInfo.test_photoInfo" />
-      <item itemvalue="Python tests.Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" />
+      <item itemvalue="Python tests.Unittests for Locations.TestFileInfo.test_sqlalchemy" />
     </list>
     <recent_temporary>
       <list>
         <item itemvalue="Python.main" />
-        <item itemvalue="Python tests.Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" />
-        <item itemvalue="Python tests.Unittests for tests.models.test_fileInfo.TestFileInfo.test_photoInfo" />
-        <item itemvalue="Python.test_geolocalisation" />
-        <item itemvalue="Python tests.Unittests for test_ScreenImportPreset.ScreenImportPresetTestCase.test_ScreenImportPreset" />
+        <item itemvalue="Python.Photo" />
+        <item itemvalue="Python.create_database" />
+        <item itemvalue="Python.Location" />
+        <item itemvalue="Python tests.Unittests for Locations.TestFileInfo.test_sqlalchemy" />
       </list>
     </recent_temporary>
   </component>
@@ -1481,43 +1186,50 @@
       <workItem from="1569621618903" duration="3684000" />
       <workItem from="1569760480361" duration="4552000" />
       <workItem from="1569770716910" duration="5718000" />
+      <workItem from="1569845448363" duration="1118000" />
+      <workItem from="1569864055369" duration="10587000" />
+      <workItem from="1569935340896" duration="6314000" />
+      <workItem from="1570025116047" duration="1010000" />
+      <workItem from="1570029600653" duration="13733000" />
+      <workItem from="1570049336733" duration="1036000" />
+      <workItem from="1570050417846" duration="9481000" />
     </task>
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 18m 45s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 16h 37m 29s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 20m 20s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 16h 49m 16s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 21m 54s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 16h 53m 17s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 22m 12s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 16h 53m 57s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 22m 23s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 17h 00m 27s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 23m 17s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 17h 01m 21s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 23m 50s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 17h 01m 31s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 24m 05s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 17h 03m 47s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 24m 14s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 17h 04m 15s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
-    <history-entry file="Unittests_for_test_fileInfo_TestFileInfo_test_photoInfo_original_date - 2019.09.29 at 12h 24m 38s.xml">
-      <configuration name="Unittests for test_fileInfo.TestFileInfo.test_photoInfo_original_date" configurationId="tests" />
+    <history-entry file="Unittests_for_Locations_TestFileInfo_test_sqlalchemy - 2019.09.30 at 17h 04m 54s.xml">
+      <configuration name="Unittests for Locations.TestFileInfo.test_sqlalchemy" configurationId="tests" />
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="186059000" />
+    <option name="totallyTimeSpent" value="229338000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -1529,28 +1241,29 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="0" y="22" width="1920" height="1178" extended-state="6" />
+    <frame x="-1600" y="322" width="1600" height="878" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Favorites" order="0" sideWeight="0.1696086" side_tool="true" weight="0.36258936" />
-      <window_info id="Project" order="1" sideWeight="0.8303914" visible="true" weight="0.17252396" />
+      <window_info id="Project" order="1" sideWeight="0.8303914" visible="true" weight="0.17522465" />
       <window_info id="Structure" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.327654" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5019255" side_tool="true" weight="0.37483618" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.32896462" />
       <window_info anchor="bottom" id="Application Servers" order="3" />
-      <window_info anchor="bottom" id="Python Console" order="4" sideWeight="0.49946752" weight="0.23800564" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="4" sideWeight="0.49946752" visible="true" weight="0.4836173" />
       <window_info anchor="bottom" id="Message" order="5" />
-      <window_info anchor="bottom" id="Find" order="6" weight="0.3283161" />
-      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49946752" weight="0.47789276" />
-      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.49807444" weight="0.37158984" />
+      <window_info anchor="bottom" id="Find" order="6" weight="0.32737535" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49946752" weight="0.47735995" />
+      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.49807444" weight="0.3695937" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" weight="0.32896462" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="bottom" id="Database Console" order="14" weight="0.32847276" />
       <window_info anchor="right" id="Coverage" order="0" side_tool="true" weight="0.32991013" />
-      <window_info anchor="right" id="Database" order="1" />
+      <window_info anchor="right" id="Database" order="1" weight="0.32962668" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
@@ -1558,24 +1271,25 @@
     </layout>
     <layout-to-restore>
       <window_info id="Favorites" order="0" sideWeight="0.1696086" side_tool="true" weight="0.36258936" />
-      <window_info id="Project" order="1" sideWeight="0.8303914" visible="true" weight="0.17039403" />
+      <window_info id="Project" order="1" sideWeight="0.8303914" visible="true" weight="0.18157615" />
       <window_info id="Structure" order="2" weight="0.25" />
       <window_info anchor="bottom" id="Terminal" order="0" weight="0.327654" />
       <window_info anchor="bottom" id="Event Log" order="1" sideWeight="0.5019255" side_tool="true" weight="0.37483618" />
       <window_info anchor="bottom" id="Version Control" order="2" weight="0.32896462" />
       <window_info anchor="bottom" id="Application Servers" order="3" />
-      <window_info active="true" anchor="bottom" id="Python Console" order="4" sideWeight="0.49946752" visible="true" weight="0.23894638" />
+      <window_info active="true" anchor="bottom" id="Python Console" order="4" sideWeight="0.49946752" visible="true" weight="0.23706491" />
       <window_info anchor="bottom" id="Message" order="5" />
-      <window_info anchor="bottom" id="Find" order="6" weight="0.3283161" />
-      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49946752" weight="0.47837484" />
-      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.49807444" weight="0.37347132" />
+      <window_info anchor="bottom" id="Find" order="6" weight="0.32737535" />
+      <window_info anchor="bottom" id="Run" order="7" sideWeight="0.49946752" weight="0.47735995" />
+      <window_info anchor="bottom" id="Debug" order="8" sideWeight="0.49807444" weight="0.3706491" />
       <window_info anchor="bottom" id="Cvs" order="9" weight="0.25" />
       <window_info anchor="bottom" id="Inspection" order="10" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="11" weight="0.32896462" />
       <window_info anchor="bottom" id="Docker" order="12" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="13" />
+      <window_info anchor="bottom" id="Database Console" order="14" weight="0.32847276" />
       <window_info anchor="right" id="Coverage" order="0" side_tool="true" weight="0.32991013" />
-      <window_info anchor="right" id="Database" order="1" />
+      <window_info anchor="right" id="Database" order="1" weight="0.32962668" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="2" type="SLIDING" weight="0.4" />
       <window_info anchor="right" id="Ant Build" order="3" weight="0.25" />
       <window_info anchor="right" content_ui="combo" id="Hierarchy" order="4" weight="0.25" />
@@ -1612,62 +1326,62 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py</url>
-          <line>140</line>
+          <line>138</line>
           <option name="timeStamp" value="5" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py</url>
-          <line>165</line>
+          <line>163</line>
           <option name="timeStamp" value="7" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py</url>
-          <line>203</line>
+          <line>201</line>
           <option name="timeStamp" value="8" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>249</line>
+          <line>247</line>
           <option name="timeStamp" value="29" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1261</line>
+          <line>1260</line>
           <option name="timeStamp" value="41" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1273</line>
+          <line>1272</line>
           <option name="timeStamp" value="42" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>933</line>
+          <line>932</line>
           <option name="timeStamp" value="43" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1398</line>
+          <line>1397</line>
           <option name="timeStamp" value="44" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1224</line>
+          <line>1223</line>
           <option name="timeStamp" value="45" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1615</line>
+          <line>1614</line>
           <option name="timeStamp" value="46" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1676</line>
+          <line>1675</line>
           <option name="timeStamp" value="47" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
-          <line>812</line>
+          <line>806</line>
           <option name="timeStamp" value="52" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1677,7 +1391,7 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1720</line>
+          <line>1719</line>
           <option name="timeStamp" value="55" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1722,12 +1436,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>1762</line>
+          <line>1735</line>
           <option name="timeStamp" value="82" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>1697</line>
+          <line>1670</line>
           <option name="timeStamp" value="84" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1747,17 +1461,12 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>777</line>
+          <line>757</line>
           <option name="timeStamp" value="110" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>1712</line>
-          <option name="timeStamp" value="111" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>780</line>
+          <line>760</line>
           <option name="timeStamp" value="113" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1772,17 +1481,17 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1127</line>
+          <line>1126</line>
           <option name="timeStamp" value="117" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
-          <line>296</line>
+          <line>292</line>
           <option name="timeStamp" value="119" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>197</line>
+          <line>195</line>
           <option name="timeStamp" value="145" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1791,58 +1500,43 @@
           <option name="timeStamp" value="146" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/Photo.py</url>
-          <line>174</line>
-          <option name="timeStamp" value="149" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/Photo.py</url>
-          <line>167</line>
-          <option name="timeStamp" value="150" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
-          <line>399</line>
+          <line>395</line>
           <option name="timeStamp" value="154" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>1633</line>
+          <line>1606</line>
           <option name="timeStamp" value="160" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>1634</line>
+          <line>1607</line>
           <option name="timeStamp" value="161" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>196</line>
+          <line>194</line>
           <option name="timeStamp" value="162" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
-          <line>380</line>
+          <line>376</line>
           <option name="timeStamp" value="163" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
-          <line>347</line>
+          <line>343</line>
           <option name="timeStamp" value="165" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>194</line>
+          <line>192</line>
           <option name="timeStamp" value="166" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
-          <line>432</line>
-          <option name="timeStamp" value="171" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
-          <line>765</line>
+          <line>759</line>
           <option name="timeStamp" value="175" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1852,97 +1546,82 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>918</line>
+          <line>917</line>
           <option name="timeStamp" value="201" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>926</line>
+          <line>925</line>
           <option name="timeStamp" value="202" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1237</line>
+          <line>1236</line>
           <option name="timeStamp" value="203" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1961</line>
+          <line>1960</line>
           <option name="timeStamp" value="204" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>1999</line>
+          <line>1998</line>
           <option name="timeStamp" value="205" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>2060</line>
+          <line>2059</line>
           <option name="timeStamp" value="206" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenAlbum.py</url>
-          <line>2071</line>
+          <line>2070</line>
           <option name="timeStamp" value="207" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/Photo.py</url>
-          <line>162</line>
-          <option name="timeStamp" value="213" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>967</line>
+          <line>962</line>
           <option name="timeStamp" value="216" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>508</line>
+          <line>506</line>
           <option name="timeStamp" value="238" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>532</line>
+          <line>530</line>
           <option name="timeStamp" value="239" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>913</line>
+          <line>911</line>
           <option name="timeStamp" value="250" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>525</line>
+          <line>523</line>
           <option name="timeStamp" value="262" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>549</line>
+          <line>547</line>
           <option name="timeStamp" value="263" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>709</line>
+          <line>707</line>
           <option name="timeStamp" value="264" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>1261</line>
+          <line>1260</line>
           <option name="timeStamp" value="265" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/Photo.py</url>
-          <line>301</line>
-          <option name="timeStamp" value="282" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
-          <line>1078</line>
-          <option name="timeStamp" value="285" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/screenDatabase.py</url>
-          <line>490</line>
+          <line>488</line>
           <option name="timeStamp" value="293" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
@@ -1956,19 +1635,64 @@
           <option name="timeStamp" value="303" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/FileInfo.py</url>
+          <line>56</line>
+          <option name="timeStamp" value="324" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/models/Locations.py</url>
+          <line>17</line>
+          <option name="timeStamp" value="329" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/Location.py</url>
+          <line>36</line>
+          <option name="timeStamp" value="330" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/Location.py</url>
+          <line>40</line>
+          <option name="timeStamp" value="331" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/models/Locations.py</url>
+          <line>24</line>
+          <option name="timeStamp" value="332" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/unittest/case.py</url>
+          <line>610</line>
+          <option name="timeStamp" value="333" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/Location.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="334" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/models/Location.py</url>
+          <line>46</line>
+          <option name="timeStamp" value="335" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/tests/models/Locations.py</url>
+          <line>51</line>
+          <option name="timeStamp" value="337" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
+          <url>file://$PROJECT_DIR$/main/PhotoManager.py</url>
+          <line>1063</line>
+          <option name="timeStamp" value="342" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
           <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
-          <line>274</line>
-          <option name="timeStamp" value="313" />
+          <line>180</line>
+          <option name="timeStamp" value="363" />
         </line-breakpoint>
         <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/Photo.py</url>
-          <line>42</line>
-          <option name="timeStamp" value="314" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" suspend="THREAD" type="python-line">
-          <url>file://$PROJECT_DIR$/models/Photo.py</url>
-          <line>43</line>
-          <option name="timeStamp" value="323" />
+          <url>file://$PROJECT_DIR$/screens/ScreenImporting.py</url>
+          <line>178</line>
+          <option name="timeStamp" value="364" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
@@ -1982,6 +1706,11 @@
         <watch expression="self.selected" language="Python" />
         <watch expression="photo_info.old_full_filename()" />
         <watch expression="photo_info.new_full_filename(self.import_to)" />
+        <watch expression="photo.old_full_filename()" />
+        <watch expression=" photo.new_full_filename(self.import_to)" />
+        <watch expression="photo" />
+        <watch expression="app.imports['import_to']" />
+        <watch expression="app.imports" />
       </configuration>
     </watches-manager>
   </component>
@@ -1992,6 +1721,7 @@
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_PhotoManagerApp_PhotoManagerTestCase_test_show_transfer.coverage" NAME="Unittests for test_PhotoManagerApp.PhotoManagerTestCase.test_show_transfer Coverage Results" MODIFIED="1569418012216" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$pytest_in_tests.coverage" NAME="pytest in tests Coverage Results" MODIFIED="1568836361129" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_album_detail_MyTestCase.coverage" NAME="Unittests for test_album_detail.MyTestCase Coverage Results" MODIFIED="1568839431128" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_Locations_TestFileInfo_test_sqlalchemy.coverage" NAME="Unittests for Locations.TestFileInfo.test_sqlalchemy Coverage Results" MODIFIED="1569877457327" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/models" />
     <SUITE FILE_PATH="coverage/gompAppPy$Doctests_in_tests.coverage" NAME="Doctests in tests Coverage Results" MODIFIED="1568810138343" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/gompAppPy$pytest_geolocalisation.coverage" NAME="pytest geolocalisation Coverage Results" MODIFIED="1568818563634" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_ScreenImportPreset_ScreenImportPresetTestCase_test_ScreenImportPreset.coverage" NAME="Unittests for test_ScreenImportPreset.ScreenImportPresetTestCase.test_ScreenImportPreset Coverage Results" MODIFIED="1569439885744" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
@@ -2016,6 +1746,7 @@
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_buttons_ButtonTestCase_test_explandable_base.coverage" NAME="Unittests for test_buttons.ButtonTestCase.test_explandable_base Coverage Results" MODIFIED="1569419763930" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_input_InputTestCase_test_NormalInput.coverage" NAME="Unittests for test_input.InputTestCase.test_NormalInput Coverage Results" MODIFIED="1568922910131" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_PhotoManagerApp_PhotoManagerTestCase_test_show_collage.coverage" NAME="Unittests for test_PhotoManagerApp.PhotoManagerTestCase.test_show_collage Coverage Results" MODIFIED="1569271887276" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_fileInfo_TestFileInfo_test_load_gps.coverage" NAME="Unittests for test_fileInfo.TestFileInfo.test_load_gps Coverage Results" MODIFIED="1569867185548" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/models" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_input_InputTestCase_test_FloadInput.coverage" NAME="Unittests for test_input.InputTestCase.test_FloadInput Coverage Results" MODIFIED="1568922029042" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_PhotoManagerApp_PhotoManagerTestCase_test_show_theme.coverage" NAME="Unittests for test_PhotoManagerApp.PhotoManagerTestCase.test_show_theme Coverage Results" MODIFIED="1569272468624" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gomp$Unittests_for_test_main_MyTest_test.coverage" NAME="Unittests for test_main.MyTest.test Coverage Results" MODIFIED="1568392128945" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/test" />
@@ -2025,7 +1756,7 @@
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_input_InputTestCase_test_IntegerInput.coverage" NAME="Unittests for test_input.InputTestCase.test_IntegerInput Coverage Results" MODIFIED="1568922195675" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_buttons_ButtonTestCase_test_remove_button.coverage" NAME="Unittests for test_buttons.ButtonTestCase.test_remove_button Coverage Results" MODIFIED="1569419750661" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_tests_test_buttons_ButtonTestCase_test_remove_button.coverage" NAME="Unittests for tests.test_buttons.ButtonTestCase.test_remove_button Coverage Results" MODIFIED="1569418713927" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="" />
-    <SUITE FILE_PATH="coverage/gompAppPy$main.coverage" NAME="main Coverage Results" MODIFIED="1569776400380" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
+    <SUITE FILE_PATH="coverage/gompAppPy$main.coverage" NAME="main Coverage Results" MODIFIED="1570074427139" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_input_InputTestCase_test_FloadInput2.coverage" NAME="Unittests for test_input.InputTestCase.test_FloadInput2 Coverage Results" MODIFIED="1568922085521" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_buttons_ButtonTestCase_test_Vertical_button.coverage" NAME="Unittests for test_buttons.ButtonTestCase.test_Vertical_button Coverage Results" MODIFIED="1569420402409" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_PhotoManagerApp_PhotoManagerTestCase_test_show_database_restore.coverage" NAME="Unittests for test_PhotoManagerApp.PhotoManagerTestCase.test_show_database_restore Coverage Results" MODIFIED="1569272048955" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
@@ -2037,8 +1768,37 @@
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_PhotoManagerApp_PhotoManagerTestCase_test_show_importing.coverage" NAME="Unittests for test_PhotoManagerApp.PhotoManagerTestCase.test_show_importing Coverage Results" MODIFIED="1569272302746" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_in_test_PhotoManagerApp_py.coverage" NAME="Unittests in test_PhotoManagerApp.py Coverage Results" MODIFIED="1569267376455" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
     <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_test_buttons_ButtonTestCase.coverage" NAME="Unittests for test_buttons.ButtonTestCase Coverage Results" MODIFIED="1569420413048" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests" />
+    <SUITE FILE_PATH="coverage/gompAppPy$Unittests_for_Locations_TestFileInfo_test_insert_location.coverage" NAME="Unittests for Locations.TestFileInfo.test_insert_location Coverage Results" MODIFIED="1569869548637" SOURCE_PROVIDER="com.intellij.coverage.DefaultCoverageFileProvider" RUNNER="coverage.py" COVERAGE_BY_TEST_ENABLED="true" COVERAGE_TRACING_ENABLED="false" WORKING_DIRECTORY="$PROJECT_DIR$/tests/models" />
   </component>
   <component name="debuggerHistoryManager">
+    <expressions id="evaluateCodeFragment">
+      <expression>
+        <expression-string>photo</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>len(result)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>result.len()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>result.size()</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+      <expression>
+        <expression-string>result.size
+)</expression-string>
+        <language-id>Python</language-id>
+        <evaluation-mode>CODE_FRAGMENT</evaluation-mode>
+      </expression>
+    </expressions>
     <expressions id="watch">
       <expression>
         <expression-string>self.selected</expression-string>
@@ -2048,236 +1808,333 @@
     </expressions>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/screenAlbum/customImage.py">
+    <entry file="file://$PROJECT_DIR$/models/Location.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="114">
-          <caret line="633" column="26" selection-start-line="633" selection-start-column="26" selection-end-line="633" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/logger.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="92">
-          <caret line="110" lean-forward="true" selection-start-line="110" selection-end-line="110" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/main.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="908">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/core/window/window_sdl2.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="293">
-          <caret line="752" selection-start-line="752" selection-end-line="752" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/base.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="94" column="51" selection-start-line="94" selection-start-column="51" selection-end-line="94" selection-end-column="51" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/clock.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="104">
-          <caret line="590" selection-start-line="590" selection-end-line="590" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/pkgutil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="144" selection-start-line="144" selection-end-line="144" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Album.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="154">
-          <caret line="46" column="18" selection-start-line="46" selection-start-column="18" selection-end-line="46" selection-end-column="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalElements/buttons/ButtonBase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="254">
-          <caret line="41" selection-start-line="41" selection-end-line="41" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalElements/views/RecycleItem.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="188">
-          <caret line="46" selection-start-line="46" selection-end-line="46" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/scrollview.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="894" selection-start-line="894" selection-end-line="894" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/app.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="179">
-          <caret line="830" selection-start-line="830" selection-end-line="830" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/textinput.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="3101" column="29" lean-forward="true" selection-start-line="3101" selection-start-column="29" selection-end-line="3101" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/recycleview/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="73" selection-start-line="73" selection-end-line="73" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/screenmanager.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="142">
-          <caret line="991" selection-start-line="991" selection-end-line="991" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/recycleview/layout.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="383">
-          <caret line="252" selection-start-line="252" selection-end-line="252" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/shutil.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="162">
-          <caret line="120" selection-start-line="120" selection-end-line="120" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/numpy/core/arrayprint.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="149">
-          <caret line="1526" selection-start-line="1526" selection-end-line="1526" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screenImporting/ImportPreset.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="337">
-          <caret line="26" selection-start-line="26" selection-end-line="26" />
+        <state relative-caret-position="678">
+          <caret line="98" selection-start-line="98" selection-end-line="98" />
           <folding>
-            <element signature="e#0#24#0" expanded="true" />
+            <element signature="e#0#53#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/screens/ScreenImportPreset.py">
+    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/posixpath.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="204" selection-start-line="204" selection-end-line="204" />
+        <state relative-caret-position="206">
+          <caret line="80" selection-start-line="80" selection-end-line="80" />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/sqlite3/dbapi2.py">
+    <entry file="file://$PROJECT_DIR$/gomp_test.db" />
+    <entry file="file:///usr/local/lib/python3.7/site-packages/numpy/core/arrayprint.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="52" selection-start-line="52" selection-end-line="52" />
+        <state relative-caret-position="213">
+          <caret line="1526" selection-start-line="1526" selection-end-line="1526" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Face.py">
+    <entry file="file://$PROJECT_DIR$/tests/models/test_fileInfo.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" selection-start-line="19" selection-end-line="19" />
+        <state relative-caret-position="390">
+          <caret line="26" column="55" selection-start-line="26" selection-start-column="55" selection-end-line="26" selection-end-column="55" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Location.py">
+    <entry file="file://$PROJECT_DIR$/tests/gomp_test_create_database.py" />
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/app.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="16" column="19" selection-start-line="16" selection-start-column="19" selection-end-line="16" selection-end-column="19" />
+        <state relative-caret-position="261">
+          <caret line="828" selection-start-line="828" selection-end-line="828" />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/tests/mock.py">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/FacePhoto.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="300">
+          <caret line="20" column="6" selection-start-line="20" selection-start-column="6" selection-end-line="20" selection-end-column="6" />
+          <folding>
+            <element signature="e#0#58#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/sql/schema.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6780">
+          <caret line="477" selection-start-line="477" selection-end-line="477" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/util/langhelpers.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="854" selection-start-line="854" selection-end-line="854" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/python_stubs/1437855905/builtins.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-1246">
+          <caret line="839" column="8" selection-start-line="839" selection-start-column="8" selection-end-line="839" selection-end-column="8" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/orm/instrumentation.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="206">
+          <caret line="375" selection-start-line="375" selection-end-line="375" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/ext/declarative/clsregistry.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="168">
+          <caret line="302" column="30" selection-start-line="302" selection-start-column="30" selection-end-line="302" selection-end-column="30" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/event/attr.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="313">
+          <caret line="325" lean-forward="true" selection-start-line="325" selection-end-line="325" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/orm/mapper.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="253">
+          <caret line="3359" selection-start-line="3359" selection-end-line="3359" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/photos_tags_impl.py" />
     <entry file="file://$PROJECT_DIR$/models/Person.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="225">
-          <caret line="15" selection-start-line="15" selection-end-line="15" />
+        <state relative-caret-position="1725">
+          <caret line="115" selection-start-line="115" selection-end-line="115" />
+          <folding>
+            <element signature="e#0#46#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/orm/relationships.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="10299">
+          <caret line="1888" selection-start-line="1888" selection-end-line="1888" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/Photo.py" />
+    <entry file="file://$PROJECT_DIR$/models/Tag.py" />
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/sql/elements.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="261">
+          <caret line="4555" selection-start-line="4555" selection-end-line="4555" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/many.py" />
+    <entry file="file://$PROJECT_DIR$/models/Folder.py" />
+    <entry file="file://$APPLICATION_HOME_DIR$/helpers/pydev/_pydev_bundle/pydev_import_hook.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="270">
+          <caret line="20" selection-start-line="20" selection-end-line="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/engine/default.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="8025">
+          <caret line="551" selection-start-line="551" selection-end-line="551" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/create_database.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" column="10" lean-forward="true" selection-start-line="7" selection-start-column="10" selection-end-line="7" selection-end-column="10" />
+          <folding>
+            <element signature="e#1#37#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/FileInfo.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="52" column="42" lean-forward="true" selection-start-line="52" selection-start-column="42" selection-end-line="52" selection-end-column="42" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/argparse.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="465">
+          <caret line="31" column="52" lean-forward="true" selection-start-line="31" selection-start-column="52" selection-end-line="31" selection-end-column="52" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/sqlalchemy/orm/attributes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="158">
+          <caret line="279" selection-start-line="279" selection-end-line="279" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/threading.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="586">
+        <state relative-caret-position="213">
           <caret line="869" selection-start-line="869" selection-end-line="869" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/main/SQLMultiThreadOK.py">
+    <entry file="file://$PROJECT_DIR$/screens/ScreenImportPreset.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="22" selection-start-line="5" selection-start-column="6" selection-end-line="5" selection-end-column="22" />
+        <state relative-caret-position="114">
+          <caret line="226" column="13" selection-start-line="226" selection-start-column="13" selection-end-line="226" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="114">
+          <caret line="87" selection-start-line="87" selection-end-line="87" />
           <folding>
-            <element signature="e#0#14#0" expanded="true" />
+            <element signature="e#0#11#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/models/Database.py">
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/image.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="360">
-          <caret line="24" selection-start-line="24" selection-end-line="24" />
+        <state relative-caret-position="708">
+          <caret line="324" column="13" selection-start-line="324" selection-start-column="13" selection-end-line="324" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screens/screenDatabase.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="123">
+          <caret line="1493" column="30" selection-start-line="1493" selection-start-column="30" selection-end-line="1493" selection-end-column="30" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/shutil.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="196">
+          <caret line="105" selection-start-line="105" selection-end-line="105" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/tests/models/Locations.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="15">
+          <caret line="1" column="9" selection-start-line="1" selection-end-line="2" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screens/ScreenExporting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="9" column="22" lean-forward="true" selection-start-line="9" selection-end-line="9" selection-end-column="22" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screenAlbum/customImage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="166">
+          <caret line="14" column="34" lean-forward="true" selection-start-line="13" selection-end-line="14" selection-end-column="34" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models/PhotosTags.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="134">
+          <caret line="304" selection-start-line="304" selection-end-line="304" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/main.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="105">
+          <caret line="7" selection-start-line="7" selection-end-line="7" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/screens/ScreenImporting.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="273">
+          <caret line="269" selection-start-line="269" selection-end-line="269" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/recycleview/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="53">
+          <caret line="359" selection-start-line="359" selection-end-line="359" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/loader.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="437" selection-start-line="437" selection-end-line="437" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="143" selection-start-line="142" selection-end-line="143" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/generalElements/photos/PhotoRecycleThumb.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="143">
+          <caret line="132" selection-start-line="132" selection-end-line="132" />
         </state>
       </provider>
     </entry>
     <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/widget.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="351">
+        <state relative-caret-position="151">
           <caret line="548" selection-start-line="548" selection-end-line="548" />
         </state>
       </provider>
     </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/modules/inspector.py">
+    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/uix/scrollview.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="13" lean-forward="true" selection-start-line="13" selection-end-line="13" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalElements/photos/PhotoRecycleThumbWide.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="120">
-          <caret line="11" column="14" lean-forward="true" selection-start-line="11" selection-start-column="14" selection-end-line="11" selection-end-column="14" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalElements/selectables/SelectableRecycleGrid.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="195">
-          <caret line="18" column="31" lean-forward="true" selection-start-line="18" selection-start-column="31" selection-end-line="18" selection-end-column="31" />
+        <state relative-caret-position="143">
+          <caret line="933" selection-start-line="933" selection-end-line="933" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main/PhotoManager.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="28470">
-          <caret line="1905" selection-start-line="1905" selection-end-line="1905" />
+        <state relative-caret-position="151">
+          <caret line="1685" selection-start-line="1685" selection-end-line="1685" />
           <folding>
             <element signature="e#0#11#0" expanded="true" />
           </folding>
@@ -2286,160 +2143,17 @@
     </entry>
     <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/lang/builder.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="660">
-          <caret line="63" selection-start-line="63" selection-end-line="63" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalElements/photos/PhotoRecycleThumb.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1290">
-          <caret line="95" selection-start-line="95" selection-end-line="95" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="855">
-          <caret line="73" column="48" selection-start-line="73" selection-start-column="48" selection-end-line="73" selection-end-column="48" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/lib/python3.7/site-packages/kivy/loader.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="7740">
-          <caret line="529" selection-start-line="529" selection-end-line="529" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalElements/views/NormalRecycleView.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="240">
-          <caret line="18" selection-start-line="18" selection-end-line="18" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Folder.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2265">
-          <caret line="153" selection-start-line="153" selection-end-line="153" />
-          <folding>
-            <element signature="e#1#10#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Tag.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="37" column="32" selection-start-line="37" selection-start-column="32" selection-end-line="37" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#36#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/test_label.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="160">
-          <caret line="47" column="29" lean-forward="true" selection-start-line="47" selection-start-column="29" selection-end-line="47" selection-end-column="29" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$USER_HOME$/Library/Caches/PyCharm2019.1/python_stubs/1437855905/posix.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="1406" column="4" selection-start-line="1406" selection-start-column="4" selection-end-line="1406" selection-end-column="4" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/genericpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="54" column="33" selection-start-line="54" selection-start-column="29" selection-end-line="54" selection-end-column="37" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file:///usr/local/Cellar/python/3.7.4/Frameworks/Python.framework/Versions/3.7/lib/python3.7/posixpath.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="79" selection-start-line="79" selection-end-line="79" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalcommands.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="543">
-          <caret line="74" selection-start-line="74" selection-end-line="74" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/FileInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="160" column="51" lean-forward="true" selection-start-line="160" selection-start-column="51" selection-end-line="160" selection-end-column="51" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/models/Photo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="48">
-          <caret line="24" column="10" lean-forward="true" selection-start-line="24" selection-start-column="10" selection-end-line="24" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screens/ScreenImporting.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="290">
-          <caret line="338" column="49" lean-forward="true" selection-start-line="338" selection-start-column="49" selection-end-line="338" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="151">
+          <caret line="707" column="18" lean-forward="true" selection-start-line="707" selection-start-column="18" selection-end-line="707" selection-end-column="18" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/screens/screenAlbum.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="53">
-          <caret line="921" column="44" lean-forward="true" selection-start-line="921" selection-start-column="44" selection-end-line="921" selection-end-column="44" />
+        <state relative-caret-position="114">
+          <caret line="1169" selection-start-line="1169" selection-end-line="1169" />
           <folding>
             <element signature="e#0#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/screens/screenDatabase.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="206">
-          <caret line="1484" column="61" selection-start-line="1484" selection-start-column="61" selection-end-line="1484" selection-end-column="61" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1905">
-          <caret line="135" selection-start-line="135" selection-end-line="135" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/tests/models/test_fileInfo.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="420">
-          <caret line="28" column="4" selection-start-line="28" selection-start-column="4" selection-end-line="28" selection-end-column="4" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>

@@ -97,7 +97,7 @@ class PhotoRecycleThumb(DragBehavior, BoxLayout, RecycleDataViewBehavior):
         self.data = data
         thumbnail = self.ids['thumbnail']
         thumbnail.temporary = self.data['temporary']
-        thumbnail.photoinfo = self.data['photoinfo']
+        thumbnail.photo = self.data['photo']
         thumbnail.source = self.data['source']
         self.image = thumbnail
         return super(PhotoRecycleThumb, self).refresh_view_attrs(rv, index, data)

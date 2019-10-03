@@ -14,7 +14,7 @@ from kivy.uix.image import Image as KivyImage
 
 from generalcommands import isfile2, to_bool
 from kivy.lang.builder import Builder
-from models.Photo import Photo
+from models.PhotosTags import Photo
 Builder.load_string("""
 
 <AsyncThumbnail>:
@@ -64,18 +64,18 @@ class AsyncThumbnail(KivyImage):
         if root_widget or self.loadanyway:
             app = App.get_running_app()
             full_filename = filename
-            photo = self.photoinfo
+            photo = self.photo
 
             file_found = isfile2(full_filename)
-            if file_found:
-                modified_date = int(os.path.getmtime(full_filename))
-                if modified_date > photo[Photo.MODIFYDATE]:
+            # if file_found:
+            #     modified_date = int(os.path.getmtime(full_filename))
+            #     if modified_date > photo.modify_date:
                     #if not self.temporary:
                     #    app.Photo.update(photo)
                     #    app.update_photoinfo(folders=[photo[1]])
-                    app.Photo.thumbnail_update(photo[Photo.FULLPATH], photo[Photo.DATABASEFOLDER], modified_date, photo[Photo.ORIENTATION], temporary=self.temporary)
+                    #app.Photo.thumbnail_update(photo[Photo.FULLPATH], photo[Photo.DATABASEFOLDER], modified_date, photo[Photo.ORIENTATION], temporary=self.temporary)
 
-            thumbnail_image = photo[Photo.THUMBNAIL]
+            thumbnail_image = photo.thumbnail
             if thumbnail_image:
                 imagedata = bytes(thumbnail_image)
                 data = BytesIO()
@@ -83,15 +83,15 @@ class AsyncThumbnail(KivyImage):
                 data.seek(0)
                 image = CoreImage(data, ext='jpg')
             else:
-                if file_found:
-                    updated = app.Photo.thumbnail_update(photo[Photo.FULLPATH], photo[Photo.DATABASEFOLDER], modified_date, photo[Photo.ORIENTATION], temporary=self.temporary)
-                    if updated:
-                        thumbnail_image = app.Photo.thumbnail(photo[Photo.FULLPATH], temporary=self.temporary)
-                        data = BytesIO(thumbnail_image[2])
-                        image = CoreImage(data, ext='jpg')
-                    else:
-                        image = ImageLoader.load(full_filename)
-                else:
+                # if file_found:
+                #     updated = app.Photo.thumbnail_update(photo[Photo.FULLPATH], photo[Photo.DATABASEFOLDER], modified_date, photo[Photo.ORIENTATION], temporary=self.temporary)
+                #     if updated:
+                #         thumbnail_image = app.Photo.thumbnail(photo[Photo.FULLPATH], temporary=self.temporary)
+                #         data = BytesIO(thumbnail_image[2])
+                #         image = CoreImage(data, ext='jpg')
+                #     else:
+                #         image = ImageLoader.load(full_filename)
+                # else:
                     image = ImageLoader.load('data/null.jpg')
             return image
         else:
@@ -99,7 +99,7 @@ class AsyncThumbnail(KivyImage):
 
     def set_angle(self):
         if not self.disable_rotate:
-            orientation = self.photoinfo[Photo.ORIENTATION]
+            orientation = self.photo.orientation
             if orientation in [2, 4, 5, 7]:
                 self.mirror = True
             else:
@@ -118,21 +118,19 @@ class AsyncThumbnail(KivyImage):
 
     def _load_source(self, *_):
         self.set_angle()
-        source = self.source
-        photo = self.photoinfo
         self.nocache = True
-        if not source and not photo:
+        if not  self.source and not self.photo:
             if self._coreimage is not None:
                 self._coreimage.unbind(on_texture=self._on_tex_change)
             self.texture = None
             self._coreimage = None
-        elif not photo:
+        elif not self.photo:
             Clock.schedule_once(lambda *dt: self._load_source(), .25)
         else:
             ThumbLoader.max_upload_per_frame = 50
             ThumbLoader.num_workers = 4
             ThumbLoader.loading_image = 'data/loadingthumbnail.png'
-            self._coreimage = image = ThumbLoader.image(source, load_callback=self.load_thumbnail, nocache=self.nocache, mipmap=self.mipmap, anim_delay=self.anim_delay)
+            self._coreimage = image = ThumbLoader.image(self.source, load_callback=self.load_thumbnail, nocache=self.nocache, mipmap=self.mipmap, anim_delay=self.anim_delay)
             image.bind(on_load=self._on_source_load)
             image.bind(on_texture=self._on_tex_change)
             self.texture = image.texture
