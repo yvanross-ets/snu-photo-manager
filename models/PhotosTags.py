@@ -14,7 +14,7 @@ from ffpyplayer.player import MediaPlayer
 from ffpyplayer.pic import SWScale
 from generalcommands import naming
 from kivy.app import App
-
+from models.BaseModel import BaseModel
 try:
     from configparser import ConfigParser
 except:
@@ -42,7 +42,7 @@ photos_tags = Table('photos_tags', Base.metadata,
 #         PhotosTags.__table__
 #         Base.metadata.create_all(engine)
 
-class Photo(Base):
+class Photo(Base, BaseModel):
     __tablename__ = 'photo'
 
     id = Column(Integer, Sequence('photo_id_seq'), primary_key=True)
@@ -63,9 +63,10 @@ class Photo(Base):
     thumbnail = Column(BLOB)
     folder_id = Column(Integer, ForeignKey('folder.id'))
     imported_tags = ""
-
     tags = relationship('Tag', secondary=photos_tags, back_populates='photos')
     folder = relationship('Folder', back_populates='photos')
+    name = 'Photo 1234'
+    fullpath = "12345678"
 
     def __repr__(self):
         if (self.longitude):
@@ -270,7 +271,6 @@ class Photo(Base):
         app = App.get_running_app()
         full_filename = self.old_full_filename()
         thumbnail = ''
-        # full_filename = os.path.join(database_folder, fullpath)
         extension = os.path.splitext(full_filename)[1].lower()
 
         try:
@@ -312,7 +312,7 @@ class Photo(Base):
             return None
 
 
-class Tag(Base):
+class Tag(Base,BaseModel):
     __tablename__ = 'tag'
 
     id = Column(Integer, Sequence('tag_id_seq'), primary_key=True)
@@ -320,29 +320,39 @@ class Tag(Base):
 
     photos = relationship('Photo', secondary=photos_tags, back_populates='tags')
 
+    can_delete_folder = True
+    can_new_folder = True
+    can_rename_folder = True
+
     def __repr__(self):
         return "<Tag( id='%s', name='%s')>" % (
             self.id, self.name)
+
+    def delete(self):
+        app = App.get_running_app()
+        app.session.delete(self)
+        app.session.commit()
 
     def create_table(engine):
         Tag.__table__
         Base.metadata.create_all(engine)
 
 
-class Folder(Base):
+class Folder(Base,BaseModel):
     __tablename__ = 'folder'
 
     id = Column(Integer, Sequence('folder_id_seq'), primary_key=True)
-    path = Column(String)
+    name = Column(String)
     title = Column(Integer)
     description = Column(Integer)
     nb_photos = Column(Integer, default=0)
-
+    can_delete_folder = True
     photos = relationship('Photo', order_by=Photo.rename, back_populates='folder')
+    fullname = 'F1234'
 
     def __repr__(self):
-        return "<Folder( id='%s',path='%s', title='%s', description='%s')>" % (
-            self.id, self.path, self.title, self.description)
+        return "<Folder( id='%s',name='%s', title='%s', description='%s')>" % (
+            self.id, self.name, self.title, self.description)
 
     def create_table(engine):
         Folder.__table__

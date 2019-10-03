@@ -12,7 +12,6 @@ from kivy.app import App
 from kivy.clock import Clock
 from kivy.properties import StringProperty, BooleanProperty, ListProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
-from models.FileInfo import FileInfo
 from generalcommands import list_files, format_size, naming
 from generalconstants import imagetypes, movietypes
 from generalElements.popups.ScanningPopup import ScanningPopup
@@ -262,11 +261,11 @@ class ScreenImporting(Screen):
             if photo_in_db is None:
                 photo.update_thumbnail()
                 session.add(photo)
-                folder = session.query(Folder).filter_by(path=photo.folder_name()).first()
+                folder = session.query(Folder).filter_by(name=photo.folder_name()).first()
                 if folder is None:
-                    folder = Folder(path=photo.folder_name())
+                    folder = Folder(name=photo.folder_name())
                     session.add(folder)
-                    local_folder_path = os.path.join(self.import_to,folder.path)
+                    local_folder_path = os.path.join(self.import_to,folder.name)
                     if not os.path.isdir(local_folder_path):
                         os.makedirs(local_folder_path)
 

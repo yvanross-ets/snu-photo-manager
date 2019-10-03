@@ -59,7 +59,7 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
 
     displayable = BooleanProperty(True)
     target = StringProperty()  #Folder, Album, Tag, or Person
-    fullpath = StringProperty()  #Folder name, used only on folder type targets
+    #fullpath = StringProperty()  #Folder name, used only on folder type targets
     folder = StringProperty()
     database_folder = StringProperty()
     type = StringProperty()  #The type the target is: folder, album, tag, extra
@@ -79,31 +79,10 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
         """Called when widget is loaded into recycleview layout"""
 
         app = App.get_running_app()
-        self.total_photos_numeric = 0
-        if data['displayable']:
-            photo_type = data['type']
-            if photo_type == 'Folder':
-                folder_id = data['id']
-                if folder_id:
-                    photos = app.session.query(Folder).filter_by(id=int(folder_id)).first().photos
-                    self.total_photos_numeric = len(photos)
-            elif photo_type == 'Album':
-                for album in app.albums:
-                    if album['name'] == data['target']:
-                        self.total_photos_numeric = len(album['photos'])
-                        break
-            elif photo_type == 'Tag':
-                photos = app.session.query(Tag).filter_by(id=int(data['target'])).first().photos
-                self.total_photos_numeric = len(photos)
-            elif photo_type == 'Person':
-                photos = app.Person.photos(data['target'])
-                self.total_photos_numeric = len(photos)
-
-        if self.total_photos_numeric > 0:
-            self.total_photos = '(' + str(self.total_photos_numeric) + ')'
-        else:
-            self.total_photos = ''
-        self.ids['mainText'].text = data['folder_name'] + '   [b]' + self.total_photos + '[/b]'
+        if data.displayable:
+            photos = data.item.photos
+            nb_photos = '(' + str(len(photos)) + ')' if len(photos) > 0 else ''
+            self.ids['mainText'].text = data.target + '   [b]' + nb_photos + '[/b]'
         return super(RecycleTreeViewButton, self).refresh_view_attrs(rv, index, data)
 
     def on_touch_down(self, touch):
@@ -115,7 +94,7 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
                         app.show_album(self)
             else:
                 self.parent.selected = {}
-                self.parent.selected = self.data
+                self.parent.selected = self.data.displayable_dict()
                 self.on_press()
             if self.dragable:
                 self.drag = True
@@ -128,9 +107,9 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
     def on_press(self):
         self.owner.type = self.type
         self.owner.displayable = self.displayable
-        #self.owner.set_selected(self.target)
-        self.owner.selected = ''
-        self.owner.selected = self.target
+        self.owner.selected_item = self.item
+        self.owner.selected =self.item.name
+
 
     def on_release(self):
         if self.expandable:

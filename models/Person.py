@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String
 from sqlalchemy import Sequence
 from sqlalchemy.ext.declarative import declarative_base
-
+from models.BaseModel import BaseModel
 Base = declarative_base()
 
 
-class Person(Base):
+class Person(Base,BaseModel):
     __tablename__ = 'persons'
 
     id = Column(Integer, Sequence('person_id_seq'), primary_key=True)
@@ -13,6 +13,7 @@ class Person(Base):
     first_name = Column(String)
     last_name = Column(String)
     email = Column(String)
+    name = 'Person Name'
 
     def __repr__(self):
         return "<Person( id='%s',uuid='%s', first_name='%s', last_name='%s', email='%s')>" % (

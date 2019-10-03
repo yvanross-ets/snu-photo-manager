@@ -1,11 +1,11 @@
 from sqlalchemy import Column, Integer, String, Float
 from sqlalchemy import Sequence
 from sqlalchemy.ext.declarative import declarative_base
-
+from models.BaseModel import BaseModel
 Base = declarative_base()
 
 
-class Location(Base):
+class Location(Base,BaseModel):
     __tablename__ = 'locations'
 
     id = Column(Integer, Sequence('location_id_seq'),primary_key=True)
@@ -20,6 +20,7 @@ class Location(Base):
     gps_radius = Column(Float)
     nb_photos = Column(Integer)
     description = Column(String)
+    name = 'Location'
 
 
     def __repr__(self):

@@ -13,8 +13,7 @@ except:
 from sqlalchemy import create_engine
 from models.create_database import create_database
 from sqlalchemy.orm import sessionmaker
-
-from models.FileInfo import FileInfo
+from models.PhotosTags import Folder
 
 from shutil import copyfile, move, rmtree
 from subprocess import call
@@ -1332,52 +1331,56 @@ class PhotoManager(App):
 
         update_folders = []
         moved = 0
-        for fullpath in photo_paths:
-            photo_info = self.Photo.exist(fullpath)
-            if photo_info:
-                new_path = os.path.join(photo_info[2], move_to)
-                try:
-                    if not os.path.isdir(new_path):
-                        os.makedirs(new_path)
-                except:
-                    self.popup_message(text='Error: Could Not Create Folder', title='Error')
-                    break
-                photo_path = os.path.join(photo_info[2], photo_info[0])
-                current_folder, current_file = os.path.split(photo_path)
-                new_photo_path = os.path.join(new_path, current_file)
-                new_fullpath = os.path.join(move_to, current_file)
-                backup_path = photo_info[10]
-                if os.path.exists(backup_path):
-                    new_backup_path = os.path.join(new_path, '.originals')
-                    new_backup_file = os.path.join(new_backup_path, current_file)
-                    try:
-                        os.makedirs(new_backup_path)
-                        os.rename(backup_path, new_backup_file)
-                    except:
-                        self.popup_message(text='Error: Could Not Move Backup File', title='Error')
-                        break
-                    if not os.path.exists(new_backup_file):
-                        self.popup_message(text='Error: Could Not Move Backup File', title='Error')
-                        break
-                    photo_info[10] = new_backup_file
-                if os.path.exists(photo_path):
-                    try:
-                        os.rename(photo_path, new_photo_path)
-                    except:
-                        self.popup_message(text='Error: Could Not Move File', title='Error')
-                        break
-                    if not os.path.exists(new_photo_path):
-                        self.popup_message(text='Error: Could Not Move File', title='Error')
-                        break
+        folder = self.session.query(Folder).filter_by(name=move_to).first()
+        for photo in photo_paths:
+            photo.folder = folder
+            self.session.commit()
+            moved = moved + 1
 
-                    self.Photo.update(photo_info)
-                    self.Photo.rename(fullpath, new_fullpath, move_to)
-                    update_folders.append(photo_info[1])
-                moved = moved + 1
+            # photo_info = self.Photo.exist(fullpath)
+            # if photo_info:
+            #     new_path = os.path.join(photo_info[2], move_to)
+            #     try:
+            #         if not os.path.isdir(new_path):
+            #             os.makedirs(new_path)
+            #     except:
+            #         self.popup_message(text='Error: Could Not Create Folder', title='Error')
+            #         break
+            #     photo_path = os.path.join(photo_info[2], photo_info[0])
+            #     current_folder, current_file = os.path.split(photo_path)
+            #     new_photo_path = os.path.join(new_path, current_file)
+            #     new_fullpath = os.path.join(move_to, current_file)
+            #     backup_path = photo_info[10]
+            #     if os.path.exists(backup_path):
+            #         new_backup_path = os.path.join(new_path, '.originals')
+            #         new_backup_file = os.path.join(new_backup_path, current_file)
+            #         try:
+            #             os.makedirs(new_backup_path)
+            #             os.rename(backup_path, new_backup_file)
+            #         except:
+            #             self.popup_message(text='Error: Could Not Move Backup File', title='Error')
+            #             break
+            #         if not os.path.exists(new_backup_file):
+            #             self.popup_message(text='Error: Could Not Move Backup File', title='Error')
+            #             break
+            #         photo_info[10] = new_backup_file
+            #     if os.path.exists(photo_path):
+            #         try:
+            #             os.rename(photo_path, new_photo_path)
+            #         except:
+            #             self.popup_message(text='Error: Could Not Move File', title='Error')
+            #             break
+            #         if not os.path.exists(new_photo_path):
+            #             self.popup_message(text='Error: Could Not Move File', title='Error')
+            #             break
+            #
+            #         self.Photo.update(photo_info)
+            #         self.Photo.rename(fullpath, new_fullpath, move_to)
+            #         update_folders.append(photo_info[1])
         if moved:
             self.message("Moved "+str(moved)+" files.")
-        update_folders.append(move_to)
-        self.update_photoinfo(folders=update_folders)
+        # update_folders.append(move_to)
+        # self.update_photoinfo(folders=update_folders)
 
     def move_folder(self, folder, move_to, rename=False):
         """Move a folder and all files in it to another location.  Also updates screenDatabase entries.
@@ -1862,12 +1865,10 @@ class PhotoManager(App):
         """
 
         if not description_editor.focus:
-            folder = root.selected
-            description = description_editor.text
+            folder = root.selected_item
             if root.type == 'Folder':
-                self.Folder.update_description(folder, description)
-                self.Folder.commit()
-                self.update_photoinfo(folders=[folder])
+                folder.description = description_editor.text
+                self.session.commit()
 
     def new_title(self, title_editor, root):
         """Update the title of a folder or album.
@@ -1877,13 +1878,10 @@ class PhotoManager(App):
         """
 
         if not title_editor.focus:
-            folder = root.selected
-            title = title_editor.text
+            folder = root.selected_item
             if root.type == 'Folder':
-                self.Folder.update_title(folder, title)
-                self.update_photoinfo(folders=[folder])
-                root.update_folders = True
-                root.update_treeview()
+                folder.title = title_editor.text
+                self.session.commit()
 
     def edit_add_watermark(self, imagedata, watermark_image, watermark_opacity, watermark_horizontal, watermark_vertical, watermark_size):
         """Adds a watermark overlay to an image

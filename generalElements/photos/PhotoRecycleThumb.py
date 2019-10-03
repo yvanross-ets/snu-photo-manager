@@ -59,7 +59,7 @@ class PhotoRecycleThumb(DragBehavior, BoxLayout, RecycleDataViewBehavior):
     target = StringProperty()
     type = StringProperty('None')
     filename = StringProperty()
-    fullpath = StringProperty()
+    #fullpath = StringProperty()
     folder = StringProperty()
     database_folder = StringProperty()
     selected = BooleanProperty(False)
@@ -145,7 +145,8 @@ class PhotoRecycleThumb(DragBehavior, BoxLayout, RecycleDataViewBehavior):
                 temp_coords = self.to_parent(touch.opos[0], touch.opos[1])
                 widget_coords = (temp_coords[0] - thumbnail.pos[0], temp_coords[1] - thumbnail.pos[1])
                 window_coords = self.to_window(touch.pos[0], touch.pos[1])
-                app.drag(self, 'start', window_coords, image=self.image, offset=widget_coords, fullpath=self.fullpath)
+                #app.drag(self, 'start', window_coords, image=self.image, offset=widget_coords, fullpath=self.fullpath)
+                app.drag(self, 'start', window_coords, image=self.image, offset=widget_coords)
 
     def on_touch_move(self, touch):
         #super().on_touch_move(touch)

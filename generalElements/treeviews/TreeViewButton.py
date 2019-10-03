@@ -24,7 +24,7 @@ Builder.load_string("""
         markup: True
         text_size: (self.width - 20, None)
         halign: 'left'
-        text: root.folder_name + '   [b]' + root.total_photos + '[/b]'
+        text: root.target + '   [b]' + root.total_photos + '[/b]'
     NormalLabel:
         mipmap: True
         id: subtext

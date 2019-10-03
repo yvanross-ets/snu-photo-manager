@@ -44,7 +44,7 @@ class RecycleItem(RecycleDataViewBehavior, BoxLayout):
         self.index = index
         self.data = data
         self.set_color()
-        return super(RecycleItem, self).refresh_view_attrs(rv, index, data)
+        return super(RecycleItem, self).refresh_view_attrs(rv, index, data.displayable_dict())
 
     def apply_selection(self, rv, index, is_selected):
         self.selected = is_selected
