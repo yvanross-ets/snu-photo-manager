@@ -9,7 +9,7 @@ class PhotoListRecycleView(RecycleView):
         box = self.children[0]
         selected = box.selected
         for i, item in enumerate(self.data):
-            if item == selected:
+            if item.target == selected.target:
                 self.selected_index = i
                 break
         index = self.selected_index
@@ -40,3 +40,8 @@ class PhotoListRecycleView(RecycleView):
         else:
             sy = 1
         return sx, sy
+
+    def accept(self, treeViewItem):
+        treeViewItem.visit(self)
+
+

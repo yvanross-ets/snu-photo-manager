@@ -45,6 +45,7 @@ class AsyncThumbnail(KivyImage):
     thumbnail = ObjectProperty()
     is_full_size = BooleanProperty(False)
     disable_rotate = BooleanProperty(False)
+    photo = None
 
     def __init__(self, **kwargs):
         self._coreimage = None
@@ -117,15 +118,18 @@ class AsyncThumbnail(KivyImage):
                 self.angle = 0
 
     def _load_source(self, *_):
-        self.set_angle()
+        #  self.set_angle()
         self.nocache = True
-        if not  self.source and not self.photo:
+        if not self.source and not self.photo:
             if self._coreimage is not None:
                 self._coreimage.unbind(on_texture=self._on_tex_change)
             self.texture = None
             self._coreimage = None
         elif not self.photo:
-            Clock.schedule_once(lambda *dt: self._load_source(), .25)
+            if self.photoinfo:
+                app = App.get_running_app()
+                self.photo = app.session.query(Photo).filter_by(id=self.photoinfo['id']).first()
+            #Clock.schedule_once(lambda *dt: self._load_source(), .25)
         else:
             ThumbLoader.max_upload_per_frame = 50
             ThumbLoader.num_workers = 4
@@ -134,6 +138,8 @@ class AsyncThumbnail(KivyImage):
             image.bind(on_load=self._on_source_load)
             image.bind(on_texture=self._on_tex_change)
             self.texture = image.texture
+
+        self.set_angle()
 
     def on_loadfullsize(self, *_):
         if self.thumbnail and not self.is_full_size and self.loadfullsize:

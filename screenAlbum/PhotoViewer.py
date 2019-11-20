@@ -50,6 +50,7 @@ Builder.load_string("""
                     canvas.after:
                         PopMatrix
                     photoinfo: root.photoinfo
+                    photo_id: root.photo_id
                     loadanyway: True
                     loadfullsize: True
                     source: root.file
@@ -84,7 +85,7 @@ Builder.load_string("""
 class PhotoViewer(BoxLayout):
     """Holds the fullsized photo image in album view mode."""
 
-    photoinfo = ListProperty()
+    photoinfo = ListProperty([0, 0])
     favorite = BooleanProperty(False)
     angle = NumericProperty(0)
     mirror = BooleanProperty(False)
@@ -99,6 +100,7 @@ class PhotoViewer(BoxLayout):
     fullscreen = BooleanProperty(False)
     _fullscreen_state = None
     exit_button = ObjectProperty()
+    photo_id = 999
 
     def on_height(self, *_):
         self.reset_zoompos()

@@ -14,6 +14,9 @@ from TreeViewItem.TreeViewItemTag import TreeViewItemTag
 from TreeViewItem.TreeViewItemPersons import TreeViewItemPersons
 from TreeViewItem.TreeViewItemPerson import TreeViewItemPerson
 from TreeViewItem.TreeViewItemFavorites import TreeViewItemFavorites
+from TreeViewItem.TreeViewItemCountries import TreeViewItemCountries
+from TreeViewItem.TreeViewItemDaysOfPhotosWithoutPlace import TreeViewItemDaysOfPhotosWithoutPlace
+
 from generalcommands import to_bool, get_folder_info, local_path
 from generalElements.buttons.MenuButton import MenuButton
 from generalElements.dropDowns.NormalDropDown import NormalDropDown
@@ -24,10 +27,15 @@ from generalElements.popups.NormalPopup import NormalPopup
 from generalElements.popups.ConfirmPopup import ConfirmPopup
 from generalElements.dropDowns.AlbumSortDropDown import AlbumSortDropDown
 from generalconstants import *
-from screenDatabase.databaseSortDropDown import DatabaseSortDropDown
-from screenDatabase.folderDetails import FolderDetails
-from screenDatabase.albumDetails import AlbumDetails
+from screenDatabaseUtil.databaseSortDropDown import DatabaseSortDropDown
+from screenDatabaseUtil.folderDetails import FolderDetails
+from screenDatabaseUtil.albumDetails import AlbumDetails
 from models.PhotosTags import *
+from models.Countries import Countries
+from models.DaysOfPhotosWithoutPlace import DaysOfPhotosWithoutPlace
+from TreeViewItem.TreeViewItem import TreeViewItem
+
+
 from generalElements.buttons.ToogleBase import ToggleBase
 
 from generalElements.buttons.ButtonBase import ButtonBase
@@ -299,7 +307,7 @@ class ScreenDatabase(Screen):
     """Screen layout for the main photo screenDatabase."""
     selected_item = ObjectProperty()
     type = StringProperty('folder')  #Currently selected type: folder, album, tag
-    selected = StringProperty('') #Currently selected album in the screenDatabase, may be blank
+    selected = ObjectProperty('') #Currently selected album in the screenDatabase, may be blank
     displayable = BooleanProperty(False)
     sort_dropdown = ObjectProperty()  #Database sorting menu
     sort_method = StringProperty('Name')  #Currently selected screenDatabase sort mode
@@ -321,7 +329,9 @@ class ScreenDatabase(Screen):
     expanded_albums = BooleanProperty(True)
     expanded_tags = BooleanProperty(True)
     expanded_persons = BooleanProperty(True)
-    expanded_folders =  BooleanProperty(True)
+    expanded_folders = BooleanProperty(True)
+    expanded_countries = BooleanProperty(True)
+
     folders = []
     update_folders = True
     search_text = StringProperty()
@@ -416,7 +426,7 @@ class ScreenDatabase(Screen):
             self.previous_album()
             self.update_folders = True
         self.dismiss_popup()
-        self.update_treeview()
+        #self.update_treeview()
 
     def get_selected_photos(self):
         photos = self.ids['photos']
@@ -530,7 +540,7 @@ class ScreenDatabase(Screen):
             if current_index == 0:
                 next_index = len(data) - 1
             else:
-                next_index = current_index - 1
+                next_index = current_index + 1
             new_folder = data[next_index].displayable_dict()
             self.displayable = new_folder['displayable']
             self.type = new_folder['type']
@@ -554,13 +564,16 @@ class ScreenDatabase(Screen):
             if current_index == len(data) - 1:
                 next_index = 0
             else:
-                next_index = current_index + 1
+                next_index = current_index - 1
             new_folder = data[next_index].displayable_dict()
             self.displayable = new_folder['displayable']
             self.type = new_folder['type']
             self.selected = new_folder['target']
             database_interior.selected = new_folder
             database.scroll_to_selected()
+
+
+
 
     def show_selected(self):
         """Scrolls the treeview to the currently selected folder"""
@@ -647,7 +660,7 @@ class ScreenDatabase(Screen):
 
             self.on_selected('', '')
         self.dismiss_popup()
-        self.update_treeview()
+        #self.update_treeview()
 
     def drop_widget(self, fullpath, position, dropped_type='file', aspect=1):
         """Called when a widget is dropped after being dragged.
@@ -718,7 +731,7 @@ class ScreenDatabase(Screen):
             app = App.get_running_app()
             app.move_files(self.popup.photos, self.popup.target)
             self.selected = self.popup.target
-            self.update_treeview()
+            #self.update_treeview()
         self.dismiss_popup()
 
     def toggle_select(self):
@@ -769,7 +782,7 @@ class ScreenDatabase(Screen):
                     self.on_selected()
 
                 app.session.commit()
-                self.update_treeview()
+                #self.update_treeview()
                 app.message("Added tag '"+tag.name+"' to "+str(added_tag)+" files.")
 
     def add_to_person(self, person_name, selected_photos=None):
@@ -794,7 +807,7 @@ class ScreenDatabase(Screen):
                 if person_name == 'favorite':
                     self.on_selected()
                 app.photos.commit()
-                self.update_treeview()
+                #self.update_treeview()
                 app.message("Added person '"+person_name+"' to "+str(added_person)+" files.")
 
     # def add_to_person(self, person_name, selected_photos=None):
@@ -824,6 +837,10 @@ class ScreenDatabase(Screen):
         self.add_to_tag(instance.item)
         self.tag_menu.dismiss()
 
+    def show_provinces(self, instance):
+        self.add_to_tag(instance.item)
+        self.tag_menu.dismiss()
+
     def add_to_person_menu(self, instance):
         self.add_to_person(instance.text)
         self.person_menu.dismiss()
@@ -836,9 +853,8 @@ class ScreenDatabase(Screen):
         """
 
         app = App.get_running_app()
-        tag_name = tag_name.lower().strip(' ')
-        tags = app.tags
-        if tag_name and (tag_name not in tags) and (tag_name.lower() != 'favorite'):
+        tag = app.session.query(Tag).filter_by(name=tag_name)
+        if tag_name and (tag is not None) and (tag.name.lower() != 'favorite'):
             return True
         else:
             return False
@@ -875,7 +891,7 @@ class ScreenDatabase(Screen):
             tag = Tag(name=tag_name)
             app.session.add(tag)
             app.session.commit()
-            self.update_treeview()
+            #self.update_treeview()
         self.dismiss_popup()
 
 
@@ -913,14 +929,15 @@ class ScreenDatabase(Screen):
                 return False
         return True
 
-
+    def accept(self, visitor):
+        visitor.item.visit(self)
 
     def toggle_expanded_folder(self, folder):
         if folder in self.expanded_folders:
             self.expanded_folders.remove(folder)
         else:
             self.expanded_folders.append(folder)
-        self.update_treeview()
+      #  self.update_treeview()
 
     def update_treeview(self, *_):
         """Updates the treeview's data"""
@@ -932,6 +949,7 @@ class ScreenDatabase(Screen):
         database.data = []
         self.__append_favorites_to_treeview( database.data)
         self.__append_tags_to_treeview( database.data)
+        self.__append_countries_to_treeview(database.data)
         self.__append_folders_to_treeview( database.data)
 
         self.show_selected()
@@ -958,9 +976,96 @@ class ScreenDatabase(Screen):
 
         return data
 
+    def __append_countries_to_treeview(self, data):
+        app = App.get_running_app()
+
+        photosWithNoPlace = DaysOfPhotosWithoutPlace()
+        photosWithNoPlace_root = TreeViewItemDaysOfPhotosWithoutPlace(self,photosWithNoPlace, app.button_scale)
+        data.append(photosWithNoPlace_root)
+
+        countries = Countries()
+        country_root = TreeViewItemCountries(self,countries, app.button_scale)
+        data.append(country_root)
+
+    def update_gps(self):
+        app = App.get_running_app()
+
+        for folder in app.session.query(Folder).all():
+            longitude = 0
+            latitude = 0
+            nb_photos = 0
+            for photo in folder.photos:
+                if photo.longitude:
+                    longitude += photo.longitude
+                    latitude += photo.latitude
+                    nb_photos += 1
+            if nb_photos != 0:
+                folder.longitude = longitude / nb_photos
+                folder.latitude = latitude / nb_photos
+                folder.nb_photos = nb_photos
+        app.session.commit()
+
+
+        for country in app.session.query(Country).all():
+            country_latitude = 0
+            country_longitude = 0
+            country_nb_photos = 0
+            for province in country.provinces:
+                province_latitude = 0
+                province_longitude = 0
+                province_nb_photos = 0
+                for locality in province.localities:
+                    locality_longitude = 0
+                    locality_latitude = 0
+                    locality_nb_photos = 0
+                    for place in locality.places:
+                        longitude = 0
+                        latitude = 0
+                        nb_photos = 0
+                        for photo in place.photos:
+                            if photo.longitude:
+                                longitude += photo.longitude
+                                latitude += photo.latitude
+                                nb_photos +=1
+                        if nb_photos != 0:
+                            place.longitude = longitude / nb_photos
+                            place.latitude = latitude / nb_photos
+                            place.nb_photos  = nb_photos
+
+
+                            locality_longitude += place.longitude
+                            locality_latitude += place.latitude
+                            locality_nb_photos += place.nb_photos
+
+                    if locality_nb_photos != 0:
+                        locality.latitude = locality_latitude / locality_nb_photos
+                        locality.longitude = locality_longitude / locality_nb_photos
+                        locality.nb_photos = locality_nb_photos
+
+                        province_latitude += locality.latitude
+                        province_longitude += locality.longitude
+                        province_nb_photos += locality.nb_photos
+
+                if province_nb_photos != 0:
+                    province.latitude = province_latitude / province_nb_photos
+                    province.longitude = province_longitude / province_nb_photos
+                    province.nb_photos = province_nb_photos
+
+                    country_longitude += province.longitude
+                    country_latitude += province.latitude
+                    country_nb_photos += province.nb_photos
+
+            if country_nb_photos != 0:
+                country.latitude = country_latitude / country_nb_photos
+                country.longitude = country_longitude / country_nb_photos
+                country.nb_photos = country_nb_photos
+
+        app.session.commit()
+
+
     def __append_folders_to_treeview(self,data):
         app = App.get_running_app()
-        all_folders = app.session.query(Folder).order_by('name').all()
+        all_folders = app.session.query(Folder).order_by(Folder.name.desc()).all()
         expandable_folders = True if len(all_folders) > 0 else False
 
         expanded= True if (self.expanded_folders and expandable_folders) else False,
@@ -1133,7 +1238,7 @@ class ScreenDatabase(Screen):
             self.update_folders = True
             self.selected = text
         self.dismiss_popup()
-        self.update_treeview()
+       # self.update_treeview()
 
     def new_tag(self):
         """Starts the new tag process, creates an input text popup."""
@@ -1187,7 +1292,7 @@ class ScreenDatabase(Screen):
                 app.Folder.add(text)
                 self.update_folders = True
         self.dismiss_popup()
-        self.update_treeview()
+       # self.update_treeview()
 
 
 
@@ -1211,7 +1316,7 @@ class ScreenDatabase(Screen):
             self.previous_album()
             self.update_folders = True
         self.dismiss_popup()
-        self.update_treeview()
+       # self.update_treeview()
 
     def move_folder_answer(self, folder, move_to, instance, answer):
         """Tells the app to move the folder if the dialog is confirmed.
@@ -1229,9 +1334,9 @@ class ScreenDatabase(Screen):
             self.previous_album()
             self.update_folders = True
         self.dismiss_popup()
-        self.update_treeview()
+        #self.update_treeview()
 
-    def on_selected(self, *_):
+    def on_selected(self, screenDatabase, selected_treeViewItem):
         """Called when the selected folder/album/tag is changed.
         Clears and draws the photo list.
         """
@@ -1342,9 +1447,8 @@ class ScreenDatabase(Screen):
                 if sorted_photos:
                     self.can_export = True
                 datas = []
-                import_to = app.imports[0]['import_to']
                 for photo in sorted_photos:
-                    full_filename = photo.new_full_filename(import_to)
+                    full_filename = photo.new_full_filename()
                     favorite = False
                     for tag in photo.tags:
                         if tag.name == 'favorite':
@@ -1384,7 +1488,7 @@ class ScreenDatabase(Screen):
         app = App.get_running_app()
         app.config.set('Sorting', 'database_sort', method)
         self.update_folders = True
-        self.update_treeview()
+        #self.update_treeview()
 
     def resort_reverse(self, reverse):
         """Sets the screenDatabase sort reverse.
@@ -1397,7 +1501,7 @@ class ScreenDatabase(Screen):
         app.config.set('Sorting', 'database_sort_reverse', sort_reverse)
         self.sort_reverse = sort_reverse
         self.update_folders = True
-        self.update_treeview()
+        #self.update_treeview()
 
     def album_resort_method(self, method):
         """Sets the album sort method.
@@ -1459,7 +1563,7 @@ class ScreenDatabase(Screen):
 
         self.update_folders = True
         self.update_treeview()
-        self.on_selected()
+        #self.on_selected()
 
 
 

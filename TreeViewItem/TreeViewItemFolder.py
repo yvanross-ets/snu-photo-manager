@@ -1,3 +1,4 @@
+import os
 from TreeViewItem.TreeViewItem import TreeViewItem
 
 class TreeViewItemFolder(TreeViewItem):
@@ -31,9 +32,19 @@ class TreeViewItemFolder(TreeViewItem):
         self.height = height
         self.expandable = expandable
         self.expanded = expanded
-        self.name = 'allo123'
-        self.fullpath='tv2345'
+        self.name = owner.name
+        self.fullpath='y1234'
 
 
+
+    def visit(self, visitor):
+        screenDatabase = self.owner
+        datas = []
+        for photo in self.item.photos:
+            datas.append(photo.data_item(screenDatabase))
+
+        screenDatabase.data = datas
+        screenDatabase.update_can_browse()
+        screenDatabase.update_selected()
 
 

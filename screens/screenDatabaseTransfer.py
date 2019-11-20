@@ -13,7 +13,7 @@ from generalElements.popups.ScanningPopup import ScanningPopup
 from generalElements.popups.MoveConfirmPopup import MoveConfirmPopup
 from generalElements.popups.ConfirmPopup import ConfirmPopup
 from generalconstants import *
-from screenDatabase.databaseSortDropDown import DatabaseSortDropDown
+from screenDatabaseUtil.databaseSortDropDown import DatabaseSortDropDown
 
 from kivy.lang.builder import Builder
 Builder.load_string("""

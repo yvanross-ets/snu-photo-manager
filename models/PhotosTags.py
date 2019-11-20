@@ -15,6 +15,10 @@ from ffpyplayer.pic import SWScale
 from generalcommands import naming
 from kivy.app import App
 from models.BaseModel import BaseModel
+from utils.StringEx import *
+from TreeViewItem.TreeViewItem import TreeViewItem
+
+
 try:
     from configparser import ConfigParser
 except:
@@ -58,26 +62,28 @@ class Photo(Base, BaseModel):
     edited = Column(Boolean)
     export = Column(Boolean)
     orientation = Column(Integer)
-    latitude = Column(Float, default=0)
-    longitude = Column(Float, default=0)
+    latitude = Column(Float, default=None)
+    longitude = Column(Float, default=None)
     thumbnail = Column(BLOB)
     folder_id = Column(Integer, ForeignKey('folder.id'))
+    place_id = Column(Integer, ForeignKey('place.id'))
+    original_filepath = None
+
     imported_tags = ""
     tags = relationship('Tag', secondary=photos_tags, back_populates='photos')
     folder = relationship('Folder', back_populates='photos')
-    name = 'Photo 1234'
-    fullpath = "12345678"
+    place = relationship('Place', back_populates='photos')
 
     def __repr__(self):
         if (self.longitude):
-            return "<Photo( id='%s',fullpath='%s', folder='%s', database_folder='%s', original_file='%s',original_date='%s', original_size='%s', rename='%s', import_date='%s', modify_date='%s',edited='%s', orientation='%s', latitude='%s', longitude='%s', owner='%s')>" % (
-                self.id, self.full_path, self.folder, self.database_folder, self.original_file, self.original_date,
+            return "<Photo( id='%s',fullpath='%s', database_folder='%s', original_file='%s',original_date='%s', original_size='%s', rename='%s', import_date='%s', modify_date='%s',edited='%s', orientation='%s', latitude='%s', longitude='%s', owner='%s')>" % (
+                self.id, self.full_path,  self.database_folder, self.original_file, self.original_date,
                 self.original_size,
                 self.rename, self.import_date, self.modify_date, self.edited, self.orientation, self.latitude,
                 self.longitude, self.owner)
         else:
-            return "<Photo( id='%s',fullpath='%s', folder='%s', database_folder='%s', original_file='%s',original_date='%s', original_size='%s', rename='%s', import_date='%s', modify_date='%s',edited='%s', orientation='%s', owner='%s')>" % (
-                self.id, self.full_path, self.folder, self.database_folder, self.original_file, self.original_date,
+            return "<Photo( id='%s',fullpath='%s',  database_folder='%s', original_file='%s',original_date='%s', original_size='%s', rename='%s', import_date='%s', modify_date='%s',edited='%s', orientation='%s', owner='%s')>" % (
+                self.id, self.full_path,  self.database_folder, self.original_file, self.original_date,
                 self.original_size,
                 self.rename, self.import_date, self.modify_date, self.edited, self.orientation, self.owner)
 
@@ -85,51 +91,72 @@ class Photo(Base, BaseModel):
         Photo.__table__
         Base.metadata.create_all(engine)
 
-    def from_file_info(self, file_info):
+    def data_item(self,screenDatabase):
+        full_filename = self.new_full_filename()
+        video = os.path.splitext(full_filename)[1].lower() in movietypes
+        info = {
+            'fullpath': self.full_path,
+            'photo': self,
+            'folder': screenDatabase.selected,
+            'database_folder': self.database_folder,
+            'filename': full_filename,
+            'target': str(self.id),
+            'type': screenDatabase.type,
+            'owner': screenDatabase,
+            'favorite': False,
+            'video': video,
+            'photo_orientation': self.orientation,
+            'source': full_filename,
+            'temporary': False,
+            'selected': False,
+            'selectable': True,
+            'dragable': True
+        }
+        return info
 
-        filepath, filename = os.path.split(file_info[0])
-        database_folder = file_info[1]
-        full_folder = os.path.join(database_folder, filepath)
-        full_filename = os.path.join(full_folder, filename)
-        full_folder = os.path.join(database_folder, filepath)
-        original_file = filename
-        original_date = int(os.path.getmtime(full_filename))
-        modify_date = original_date
-        original_size = int(os.path.getsize(full_filename))
-        import_date = int(time.time() - time.timezone)
-        longitude = latitude = None
-        orientation = 0
+    def from_file_info(self, import_to,file_info):
+        filepath, filename = os.path.split(os.path.join(file_info[1],file_info[0]))
+        full_filename = os.path.join(filepath, filename)
+
+        self.original_filepath = filepath
+        self.database_folder = import_to
+        self.original_file = filename
+        self.original_date = int(os.path.getmtime(full_filename))
+        self.modify_date = int(os.path.getmtime(full_filename))
+        self.original_size = int(os.path.getsize(full_filename))
+        self.import_date = int(time.time() - time.timezone)
+        self.longitude = self.latitude = None
+        self.orientation = 0
 
         if not self.modify_date:
-            modify_date = int(os.path.getmtime(full_filename))
+            self.modify_date = int(os.path.getmtime(full_filename))
 
-        edited = 0
-        owner = ''
-        export = 1
-        rename = filename
+        self.edited = 0
+        self.export = 1
+        self.rename = filename
 
         # Try to read various information from info files that may exist.
-        infofile = os.path.join(full_folder, '.picasaoriginals')
+        infofile = os.path.join(filepath, '.picasaoriginals')
         if os.path.isdir(infofile):
             originals = os.listdir(infofile)
             if filename in originals:
-                original_file = os.path.join('.picasaoriginals', filename)
-                full_original_file = os.path.join(full_folder, original_file)
-                original_date = int(os.path.getmtime(full_original_file))
-                original_size = int(os.path.getsize(full_original_file))
-                edited = 1
+                self.original_file = os.path.join('.picasaoriginals', filename)
+                full_original_file = os.path.join(filepath, self.original_file)
+                self.original_date = int(os.path.getmtime(full_original_file))
+                self.original_size = int(os.path.getsize(full_original_file))
+                self.edited = 1
 
-        infofile = os.path.join(full_folder, '.originals')
+        infofile = os.path.join(filepath, '.originals')
         if os.path.isdir(infofile):
             originals = os.listdir(infofile)
             if filename in originals:
-                original_file = os.path.join('.originals', filename)
-                full_original_file = os.path.join(full_folder, original_file)
-                original_date = int(os.path.getmtime(full_original_file))
-                original_size = int(os.path.getsize(full_original_file))
-                edited = 1
+                self.original_file = os.path.join('.originals', filename)
+                full_original_file = os.path.join(filepath, self.original_file)
+                self.original_date = int(os.path.getmtime(full_original_file))
+                self.original_size = int(os.path.getsize(full_original_file))
+                self.edited = 1
 
-        infofile = os.path.join(full_folder, '.picasa.ini')
+        infofile = os.path.join(filepath, '.picasa.ini')
         if os.path.isfile(infofile):
             configfile = ConfigParser(interpolation=None)
             try:
@@ -140,7 +167,7 @@ class Photo(Base, BaseModel):
             except:
                 pass
 
-        infofile = os.path.join(full_folder, '.photoinfo.ini')
+        infofile = os.path.join(filepath, '.photoinfo.ini')
         if os.path.isfile(infofile):
             configfile = ConfigParser(interpolation=None)
             try:
@@ -149,61 +176,56 @@ class Photo(Base, BaseModel):
                 if 'tags' in configitems:
                     self.imported_tags += configitems['tags']
                 if 'owner' in configitems:
-                    owner = configitems['owner']
+                    self.owner = configitems['owner']
                 if 'edited' in configitems:
-                    edited = int(configitems['edited'])
+                    self.edited = int(configitems['edited'])
                 if 'import_date' in configitems:
-                    import_date = int(configitems['import_date'])
+                    self.import_date = int(configitems['import_date'])
                 if 'rename' in configitems:
-                    rename = configitems['rename']
+                    self.rename = configitems['rename']
                 if 'export' in configitems:
-                    export = int(configitems['export'])
+                    self.export = int(configitems['export'])
             except:
                 pass
 
         # try to read the photo orientation from the exif tag
         # http: // geospatialtraining.com / extracting - geographic - coordinates -
         # = Degrees + Minutes / 60 + Seconds / 3600
-        orientation = 1
         try:
 
             image = Image.open(full_filename)
 
             exif_tag = image._getexif()
+
             if 274 in exif_tag:
-                orientation = exif_tag[274]
+                self.orientation = exif_tag[274]
             if 36867 in exif_tag:
-                original_exif_date = exif_tag[36867]
-                extracted_date = datetime.strptime(original_exif_date, '%Y:%m:%d  %H:%M:%S')
-                original_date = extracted_date.timestamp()
+                extracted_date = datetime.strptime(exif_tag[36867], '%Y:%m:%d  %H:%M:%S')
+                self.original_date = extracted_date.timestamp()
             if 34853 in exif_tag:
-                latitude, longitude = self.get_lat_lon4(exif_tag[34853][1], exif_tag[34853][2], exif_tag[34853][3],
+                self.latitude, self.longitude = self.get_lat_lon4(exif_tag[34853][1], exif_tag[34853][2], exif_tag[34853][3],
                                                         exif_tag[34853][4])
 
         except Exception as e:
-            print("ERROR:", e)
-            pass
+            print("ERROR:", e, full_filename)
 
-        # always set original_date and original_file before calling new_folder_name
-        self.original_date = original_date
-        self.original_file = original_file
+        creation_date = creation_date_from_full_filename(full_filename)
+        if creation_date != None and creation_date < self.original_date:
+            self. original_date = creation_date
 
-        self.database_folder = database_folder
-        self.original_size = original_size
-        self.import_date = import_date
-        self.modify_date = modify_date
-        self.edited = edited
-        self.owner = owner
-        self.export = export
-        self.orientation = orientation
-        self.rename = rename
+        # always set original_date and original_file before calling folder_with_filename
         self.full_path = self.folder_with_filename()
-        self.latitude = latitude
-        self.longitude = longitude
 
     def update_thumbnail(self):
         thumbnail = self.__generate_thumbnail()
-        self.thumbnail = sqlite3.Binary(thumbnail)
+        try:
+            if thumbnail is not None:
+                self.thumbnail = sqlite3.Binary(thumbnail)
+        except Exception as e:
+            print("ERROR: update_thumbnail",e,self.old_full_filename())
+
+    def is_photo(self):
+        return os.path.splitext(self.original_file)[1].lower() in imagetypes
 
     def folder_name(self):
         date_info = datetime.fromtimestamp(self.original_date)
@@ -215,11 +237,13 @@ class Photo(Base, BaseModel):
         return naming('%Y-%M-%D/%T>', title=self.original_file, year=date_info.year, month=date_info.month,
                       day=date_info.day)
 
-    def new_full_filename(self, import_to):
-        return os.path.join(import_to, self.folder_with_filename())
+    def new_full_filename(self):
+        return os.path.join(self.database_folder, self.folder_with_filename())
 
     def old_full_filename(self):
-        return os.path.join(self.database_folder, self.original_file)
+        if self.original_filepath is None:
+            raise ValueError('Must only use this function when first creating photo and reading file info')
+        return os.path.join(self.original_filepath, self.original_file)
 
     def get_lat_lon4(self, gps_latitude_ref, gps_latitude, gps_longitude_ref, gps_longitude):
         """Returns the latitude and longitude, if available, from the provided exif_data (obtained through get_exif_data above)"""
@@ -288,24 +312,30 @@ class Photo(Base, BaseModel):
                 # This is a video file, use ffpyplayer to generate a thumbnail
                 player = MediaPlayer(full_filename, ff_opts={'paused': True, 'ss': 1.0, 'an': True})
                 frame = None
-                while not frame:
+                index = 0
+                while not frame and index < 100:
                     frame, value = player.get_frame(force_refresh=True)
+                    index += 1  #prevent infinite loop
+
                 player.close_player()
                 player = None
-                frame = frame[0]
-                frame_size = frame.get_size()
-                frame_converter = SWScale(frame_size[0], frame_size[1], frame.get_pixel_format(), ofmt='rgb24')
-                new_frame = frame_converter.scale(frame)
-                image_data = bytes(new_frame.to_bytearray()[0])
+                if frame is not None:
+                    frame = frame[0]
+                    frame_size = frame.get_size()
+                    frame_converter = SWScale(frame_size[0], frame_size[1], frame.get_pixel_format(), ofmt='rgb24')
+                    new_frame = frame_converter.scale(frame)
+                    image_data = bytes(new_frame.to_bytearray()[0])
 
-                image = Image.frombuffer(mode='RGB', size=(frame_size[0], frame_size[1]), data=image_data,
-                                         decoder_name='raw')
-                image = image.transpose(1)
+                    image = Image.frombuffer(mode='RGB', size=(frame_size[0], frame_size[1]), data=image_data,
+                                             decoder_name='raw')
+                    image = image.transpose(1)
 
-                image.thumbnail((app.thumbsize, app.thumbsize), Image.ANTIALIAS)
-                output = BytesIO()
-                image.save(output, 'jpeg')
-                thumbnail = output.getvalue()
+                    image.thumbnail((app.thumbsize, app.thumbsize), Image.ANTIALIAS)
+                    output = BytesIO()
+                    image.save(output, 'jpeg')
+                    thumbnail = output.getvalue()
+                else:
+                    thumbnail = None
             return thumbnail
         except Exception as e:
             print(e)
@@ -319,6 +349,7 @@ class Tag(Base,BaseModel):
     name = Column(String)
 
     photos = relationship('Photo', secondary=photos_tags, back_populates='tags')
+
 
     can_delete_folder = True
     can_new_folder = True
@@ -347,7 +378,7 @@ class Folder(Base,BaseModel):
     description = Column(Integer)
     nb_photos = Column(Integer, default=0)
     can_delete_folder = True
-    photos = relationship('Photo', order_by=Photo.rename, back_populates='folder')
+    photos = relationship('Photo', order_by=Photo.original_date, back_populates='folder')
     fullname = 'F1234'
 
     def __repr__(self):
@@ -357,6 +388,155 @@ class Folder(Base,BaseModel):
     def create_table(engine):
         Folder.__table__
         Base.metadata.create_all
+
+
+
+class Country(Base,BaseModel):
+    __tablename__ = 'country'
+    photos = []
+    title = ""
+    description = ""
+    expandable = True
+    expanded = False
+    state = 'must_load'
+
+    id = Column(Integer, Sequence('country_id_seq'),primary_key=True)
+    name = Column(String)
+    provinces = relationship('Province',  back_populates='country', order_by="Province.name")
+    nb_photos = Column(Integer,default=0)
+    latitude = Column(Float, default=None)
+    longitude = Column(Float, default=None)
+
+    def __repr__(self):
+        return "<Country(id='%s',name='%s')>" % (
+                                self.id,self.name)
+    def create_table(engine):
+        Country.__table__
+        Base.metadata.create_all(engine)
+
+class Province(Base, BaseModel):
+    __tablename__ = 'province'
+    photos = []
+    expandable = True
+
+    id = Column(Integer, Sequence('province_id_seq'), primary_key=True)
+    name = Column(String)
+    nb_photos = Column(Integer, default=0)
+    latitude = Column(Float, default=None)
+    longitude = Column(Float, default=None)
+
+    localities = relationship('Locality', back_populates='province', order_by='Locality.name')
+
+    country_id = Column(Integer, ForeignKey('country.id'))
+    country = relationship('Country', back_populates='provinces')
+    state = 'must_load'
+
+    def __repr__(self):
+        return "<Province(id='%s',name='%s')>" % (self.id, self.name)
+
+
+
+    def create_table(engine):
+        Province.__table__
+        Base.metadata.create_all(engine)
+
+class Locality(Base,BaseModel):
+    __tablename__ = 'locality'
+    photos = []
+    expandable = True
+
+    id = Column(Integer, Sequence('locality_id_seq'),primary_key=True)
+    name = Column(String)
+    nb_photos = Column(Integer, default=0)
+    latitude = Column(Float, default=None)
+    longitude = Column(Float, default=None)
+
+    province_id = Column(Integer, ForeignKey('province.id'))
+    province = relationship('Province', back_populates='localities')
+
+    places = relationship('Place', back_populates='locality',order_by='Place.street_number')
+    state = 'must_load'
+
+    def __repr__(self):
+        return "<Locality( id='%s',name='%s')>" % (self.id,self.name)
+
+    def visit(self, screenDatabase):
+        photoListRecyclerView = screenDatabase.ids['screenDatabase']
+
+
+        if self.state == 'must_load':
+            index = None
+            idx = 0
+            for data in photoListRecyclerView.data:
+                if data.item == self:
+                    index = idx
+                    break
+                idx += 1
+
+            for place in self.places:
+                index += 1
+                place_item = TreeViewItem(screenDatabase, place, 'Place')
+                place_item.indent = 4
+                place.parent=self
+                photoListRecyclerView.data.insert(index, place_item)
+            self.state = 'loaded'
+            return
+
+        if self.state == 'loaded':
+            photoListRecyclerView.data = self.deleteChild(photoListRecyclerView.data, self)
+            self.state = 'must_load'
+            return
+
+    def create_table(engine):
+        Locality.__table__
+        Base.metadata.create_all(engine)
+
+
+class Place(Base,BaseModel):
+    __tablename__ = 'place'
+
+    photos = []
+    expandable = True
+
+    id = Column(Integer, Sequence('place_id_seq'),primary_key=True)
+    street_number = Column(String)
+    route = Column(String)
+    postal_code = Column(String)
+    gps_radius = Column(Float)
+    title = Column(String)
+    description = Column(String)
+    latitude = Column(Float, default=None)
+    longitude = Column(Float, default=None)
+    nb_photos = Column(Integer, default=0)
+
+
+    locality_id = Column(Integer, ForeignKey('locality.id'))
+    photos = relationship('Photo', order_by=Photo.original_date, back_populates='place')
+    locality = relationship('Locality', back_populates='places')
+    state = 'must_load'
+
+    def name2(self):
+        return "%s, %s, %s" % (self.street_number, self.route, self.postal_code)
+
+    def visit(self,screenDatabase):
+        if self.state == 'must_load':
+            print('must show photo')
+            return
+
+        if self.state == 'loaded':
+            print('must remove photo')
+            return
+
+    def __repr__(self):
+        return "<Place( id='%s', title='%s', description='%s',street_number='%s', route='%s', postal_code='%s')>" % (
+            self.id, self.title, self.description, self.street_number, self.route, self.postal_code)
+
+    def create_table(engine):
+
+        Place.__table__
+        Base.metadata.create_all(engine)
+
+
 
 #      FOLDER *************************
 #  def by_id(self,id):
@@ -432,10 +612,10 @@ class Folder(Base,BaseModel):
 #
 #    # Detect all folders to delete
 #    for database in databases:
-#      full_folder = os.path.join(database, folder)
-#      if os.path.isdir(full_folder):
+#      filepath = os.path.join(database, folder)
+#      if os.path.isdir(filepath):
 #        folders.append([database, folder])
-#      found_folders = list_folders(full_folder)
+#      found_folders = list_folders(filepath)
 #      for found_folder in found_folders:
 #        folders.append([database, os.path.join(folder, found_folder)])
 #

@@ -34,6 +34,7 @@ import datetime
 from shutil import copy2
 import subprocess
 import time
+from models.PhotosTags import Tag, Photo
 
 #all these are needed to get ffpyplayer working on linux
 
@@ -349,8 +350,16 @@ class ScreenAlbum(Screen):
     type = StringProperty('None')  #'Folder', 'Album', 'Tag'
     target = StringProperty()  #The identifier of the album/folder/tag that is being viewed
     photos = []  #Photoinfo of all photos in the album
+
+
     sort_method = StringProperty('Name')  #Current album sort method
     sort_reverse = BooleanProperty(False)
+
+    # yvan not sure!
+    app = App.get_running_app()
+    app.config.set('Sorting', 'album_sort', sort_method)
+    app.config.set('Sorting', 'album_sort_reverse', sort_reverse)
+
 
     #Variables relating to the photo view
     photoinfo = []  #photoinfo for the currently viewed photo
@@ -915,7 +924,7 @@ class ScreenAlbum(Screen):
             except:
                 pass
 
-            xself.photoinfo[13] = orientation
+            self.photoinfo[13] = orientation
             self.photoinfo[9] = 0
             self.photoinfo[7] = int(os.path.getmtime(new_original_file))
             app.Photo.update(self.photoinfo)
@@ -1167,9 +1176,9 @@ class ScreenAlbum(Screen):
         """
 
         app = App.get_running_app()
-        tags = app.tags
-        tag_name = tag_name.lower().strip(' ')
-        if tag_name and (tag_name not in tags) and (tag_name.lower() != 'favorite'):
+        tag = app.session.query(Tag).filter_by(name=tag_name).first()
+
+        if tag_name and (tag_name.lower() != 'favorite') and (tag is not None):
             return True
         else:
             return False
@@ -1191,25 +1200,25 @@ class ScreenAlbum(Screen):
         app = App.get_running_app()
         display_tags = self.ids['panelDisplayTags']
         display_tags.clear_widgets()
-        photo_info = app.Photo.exist(self.fullpath)
-        if photo_info:
-            tags = photo_info[8].split(',')
+        photo = app.session.query(Photo).filter_by(id=app.target).first()
+        self.photo = str(photo.id)
+        if photo:
+            tags = photo.tags
             if 'favorite' in tags:
                 self.favorite = True
             else:
                 self.favorite = False
             for tag in tags:
-                if tag.strip(' '):
-                    display_tags.add_widget(NormalLabel(text=tag, size_hint_x=1))
-                    display_tags.add_widget(RemoveFromTagButton(to_remove=tag, remove_from=photo_info[0], owner=self))
+                    display_tags.add_widget(NormalLabel(text=tag.name, size_hint_x=1))
+                    display_tags.add_widget(RemoveFromTagButton(to_remove=tag.name, remove_from=photo.new_full_filename(), owner=self))
 
         tag_list = self.ids['panelTags']
         tag_list.clear_widgets()
         tag_list.add_widget(TagSelectButton(type='Tag', text='favorite', target='favorite', owner=self))
         tag_list.add_widget(ShortLabel())
-        for tag in app.tags:
-            tag_list.add_widget(TagSelectButton(type='Tag', text=tag, target=tag, owner=self))
-            tag_list.add_widget(RemoveTagButton(to_remove=tag, owner=self))
+        for tag in app.session.query(Tag).order_by(Tag.name):
+            tag_list.add_widget(TagSelectButton(type='Tag', text=tag.name, target=str(tag.id), owner=self))
+            tag_list.add_widget(RemoveTagButton(to_remove=tag.name, owner=self))
 
     def fullscreen(self):
         """Tells the viewer to switch to fullscreen mode."""
@@ -1232,9 +1241,9 @@ class ScreenAlbum(Screen):
         #Set up photo viewer
         container = self.ids['photoViewerContainer']
         container.clear_widgets()
-        self.photoinfo = app.Photo.exist(self.fullpath)
+        self.photoinfo = app.session.query(Photo).filter_by(id=self.photo).first()
         if self.photoinfo:
-            self.orientation = self.photoinfo[13]
+            self.orientation = self.photoinfo.orientation
         else:
             self.orientation = 1
             self.photoinfo = app.null_image()
@@ -1250,7 +1259,8 @@ class ScreenAlbum(Screen):
             self.mirror = True
         else:
             self.mirror = False
-        if os.path.splitext(self.photo)[1].lower() in imagetypes:
+
+        if self.photoinfo.is_photo():
             #a photo is selected
             self.view_image = True
             if app.canprint():
@@ -1258,7 +1268,7 @@ class ScreenAlbum(Screen):
                 print_button.disabled = False
             if not self.photo:
                 self.photo = 'data/null.jpg'
-            self.viewer = PhotoViewer(favorite=self.favorite, angle=self.angle, mirror=self.mirror, file=self.photo, photoinfo=self.photoinfo)
+            self.viewer = PhotoViewer(favorite=self.favorite, angle=self.angle, mirror=self.mirror, photo_id=str(self.photoinfo.id), file=self.photoinfo.new_full_filename(),photoinfo=self.photoinfo.dict())
             container.add_widget(self.viewer)
             self.refresh_photoinfo_simple()
             self.refresh_photoinfo_full()
@@ -1270,7 +1280,7 @@ class ScreenAlbum(Screen):
                 print_button.disabled = True
             if not self.photo:
                 self.photo = 'data/null.jpg'
-            self.viewer = VideoViewer(favorite=self.favorite, angle=self.angle, mirror=self.mirror, file=self.photo, photoinfo=self.photoinfo)
+            self.viewer = VideoViewer(favorite=self.favorite, angle=self.angle, mirror=self.mirror, file=self.photoinfo.new_full_filename(), photoinfo=self.photoinfo.dict())
             container.add_widget(self.viewer)
             self.refresh_photoinfo_simple()
 
@@ -1355,19 +1365,20 @@ class ScreenAlbum(Screen):
             self.photos = app.Tag.photos(self.target)
         else:
             self.folder_title = 'Folder: "'+self.target+'"'
-            self.photos = app.Photo.by_folder(self.target)
+            self.photo = app.session.query(Photo).filter_by(id=self.target).first()
+            self.photos = self.photo.folder.photos
 
         #Sort photos
         if self.sort_method == 'Imported':
-            sorted_photos = sorted(self.photos, key=lambda x: x[6], reverse=self.sort_reverse)
+            sorted_photos = sorted(self.photos, key=lambda x: x.import_date, reverse=self.sort_reverse)
         elif self.sort_method == 'Modified':
-            sorted_photos = sorted(self.photos, key=lambda x: x[7], reverse=self.sort_reverse)
+            sorted_photos = sorted(self.photos, key=lambda x: x.modify_date, reverse=self.sort_reverse)
         elif self.sort_method == 'Owner':
-            sorted_photos = sorted(self.photos, key=lambda x: x[11], reverse=self.sort_reverse)
+            sorted_photos = sorted(self.photos, key=lambda x: x.owner, reverse=self.sort_reverse)
         elif self.sort_method == 'Name':
-            sorted_photos = sorted(self.photos, key=lambda x: os.path.basename(x[0]), reverse=self.sort_reverse)
+            sorted_photos = sorted(self.photos, key=lambda x: os.original_file, reverse=self.sort_reverse)
         else:
-            sorted_photos = sorted(self.photos, key=lambda x: x[0], reverse=self.sort_reverse)
+            sorted_photos = sorted(self.photos, key=lambda x: x.original_date, reverse=self.sort_reverse)
         self.photos = sorted_photos
 
     def refresh_photoview(self):
@@ -1649,18 +1660,20 @@ class ScreenAlbum(Screen):
             elif self.fullpath:
                 check_fullpath = self.fullpath
                 check_photo = self.photo
+
             photo_in_list = False
             for photoinfo in self.photos:
-                if photoinfo[0] == check_fullpath:
+                if photoinfo.full_path == check_fullpath:
                     photo_in_list = True
                     break
             if photo_in_list:
                 self.fullpath = check_fullpath
                 self.photo = check_photo
             else:
-                photoinfo = self.photos[0]
-                self.fullpath = photoinfo[0]
-                self.photo = os.path.join(photoinfo[2], photoinfo[0])
+                photoinfo = self.photos.first()
+                self.fullpath = photoinfo.full_path
+                self.photo = photoinfo.new_full_filename()
+
             Clock.schedule_once(lambda *dt: self.scroll_photolist())
         self.refresh_photoview()
 

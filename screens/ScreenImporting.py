@@ -2,26 +2,30 @@ import datetime
 import os
 import threading
 import time
-from shutil import copy2
+from shutil import copy2, move
+from utils.directories import removeEmptyFolders
 from shutil import copyfile
-import sqlite3
-from sqlalchemy.orm import sessionmaker
-from sqlalchemy import create_engine
 
 from kivy.app import App
 from kivy.clock import Clock
+from kivy.lang.builder import Builder
 from kivy.properties import StringProperty, BooleanProperty, ListProperty, NumericProperty
 from kivy.uix.screenmanager import Screen
-from generalcommands import list_files, format_size, naming
-from generalconstants import imagetypes, movietypes
-from generalElements.popups.ScanningPopup import ScanningPopup
+from sqlalchemy import create_engine
+from sqlalchemy.orm import sessionmaker
+
 from generalElements.popups.InputPopup import InputPopup
 from generalElements.popups.NormalPopup import NormalPopup
+from generalElements.popups.ScanningPopup import ScanningPopup
 from generalElements.treeviews.TreeViewButton import TreeViewButton
-from generalElements.photos.PhotoRecycleThumbWide import PhotoRecycleThumbWide  # used in builder
+from generalcommands import list_files, format_size, naming
+from generalconstants import imagetypes, movietypes
+from google.geolocalisation import Geolocalisation
+from models.PhotosTags import Photo, Folder, Country, Province, Locality, Place
 from screens.ScreenImportPreset import disk_usage
-from kivy.lang.builder import Builder
-from models.PhotosTags import Photo,Folder
+from generalElements.photos.PhotoRecycleThumbWide import PhotoRecycleThumbWide
+import googlemaps
+
 
 Builder.load_string("""
 <ScreenImporting>:
@@ -140,6 +144,50 @@ Builder.load_string("""
 
 """)
 
+
+def localize_photo(gmaps, session, photo):
+    if photo.longitude is None:
+        return
+
+    photo_at_same_location = session.query(Photo).filter_by(latitude=photo.latitude, longitude=photo.longitude).first()
+    if photo_at_same_location and photo_at_same_location.place_id != None:
+        photo.place_id = photo_at_same_location.place_id
+        session.commit()
+        return
+
+    localisation = Geolocalisation(gmaps, photo.longitude, photo.latitude)
+
+    country = session.query(Country).filter_by(name=localisation.country()).first()
+    if not country:
+        country = Country(name=localisation.country())
+        session.add(country)
+        session.commit()
+
+    province = session.query(Province).filter_by(name=localisation.province(), country_id=country.id).first()
+    if not province:
+        province = Province(name=localisation.province(), country_id=country.id)
+        session.add(province)
+        session.commit()
+        # country.provinces.add(province)
+
+    locality = session.query(Locality).filter_by(name=localisation.locality(), province_id=province.id).first()
+    if not locality:
+        locality = Locality(name=localisation.locality(), province_id=province.id)
+        session.add(locality)
+        session.commit()
+
+    place = session.query(Place).filter_by(street_number=localisation.street_number(), route=localisation.route(),
+                                           postal_code=localisation.postal_code()).first()
+    if not place:
+        place = Place(locality_id=locality.id, street_number=localisation.street_number(), route=localisation.route(),
+                      postal_code=localisation.postal_code(), latitude=photo.latitude,
+                      longitude=photo.longitude)
+        session.add(place)
+        session.commit()
+
+    photo.place_id = place.id
+    session.commit()
+
 class ScreenImporting(Screen):
     """Screen layout for photo importing process.
     Displays photos from directories and lets you select which ones to import.
@@ -160,10 +208,10 @@ class ScreenImporting(Screen):
     unsorted = []
     removed = []
     total_size = 0
-    cancel_scanning = BooleanProperty(False)  #The importing process thread checks this and will stop if set to True.
-    scanningpopup = None  #Popup dialog showing the importing process progress.
-    scanningthread = None  #Importing files thread.
-    popup_update_thread = None  #Updates the percentage and time index on scanning popup
+    cancel_scanning = BooleanProperty(False)  # The importing process thread checks this and will stop if set to True.
+    scanningpopup = None  # Popup dialog showing the importing process progress.
+    scanningthread = None  # Importing files thread.
+    popup_update_thread = None  # Updates the percentage and time index on scanning popup
     percent_completed = NumericProperty()
     start_time = NumericProperty()
     import_scanning = BooleanProperty(False)
@@ -193,7 +241,7 @@ class ScreenImporting(Screen):
         """Generates a string from a date in the format YYYYMMDD."""
 
         date_info = datetime.datetime.fromtimestamp(date)
-        return str(date_info.year)+str(date_info.month).zfill(2)+str(date_info.day).zfill(2)
+        return str(date_info.year) + str(date_info.month).zfill(2) + str(date_info.day).zfill(2)
 
     def on_enter(self):
         """Called when the screen is entered.  Sets up variables, and scans the import folders."""
@@ -208,9 +256,10 @@ class ScreenImporting(Screen):
         self.total_size = 0
         self.import_scanning = False
 
-        #Display message that folder scanning is in progress
+        # Display message that folder scanning is in progress
         self.cancel_scanning = False
-        self.scanningpopup = ScanningPopup(title='Scanning Import Folders...', auto_dismiss=False, size_hint=(None, None), size=(app.popup_x, app.button_scale * 4))
+        self.scanningpopup = ScanningPopup(title='Scanning Import Folders...', auto_dismiss=False,
+                                           size_hint=(None, None), size=(app.popup_x, app.button_scale * 4))
         self.scanningpopup.open()
         scanning_button = self.scanningpopup.ids['scanningButton']
         scanning_button.bind(on_release=self.cancel_import)
@@ -227,17 +276,32 @@ class ScreenImporting(Screen):
             Will import all files in directories.
         """
         app = App.get_running_app()
-        engine = create_engine(app.database_path, echo=True)
+
+        engine = create_engine(app.database_path,
+                               echo=True,
+                               connect_args={'check_same_thread': False}
+                               )
         Session = sessionmaker(bind=engine)
         session = Session()
+        gmaps = googlemaps.Client(key='AIzaSyD6W9Nf4DGnMDT4mxw_BhqRlj-LLtQzk0U')
+
+        # idx = 0
+        # for photo in session.query(Photo).all():
+        #     print(idx)
+        #     idx += 1
+        #     localize_photo(gmaps, session, photo)
+
+
         current_timestamp = time.time()
 
-        #Scan the folders
+        # Scan the folders
         for folder in self.import_from:
             if os.path.isdir(folder):
                 files = list_files(folder)
+                print(folder)
+                size = len(files)
                 for file_info in files:
-                    #update popup
+                    # update popup
                     if self.cancel_scanning:
                         self.scanning_canceled()
                         return
@@ -249,31 +313,52 @@ class ScreenImporting(Screen):
                     extension = os.path.splitext(file_info[0])[1].lower()
                     if extension in imagetypes or extension in movietypes:
                         photo = Photo()
-                        photo.from_file_info(file_info)
+                        photo.from_file_info(self.import_to,file_info)
                         self.import_photos.append(photo)
 
         nb_photo = len(self.import_photos)
         current_photo_index = 0
         for photo in self.import_photos:
-            self.percent_completed = current_photo_index/nb_photo * 100
+            session.commit()
+            self.scanningpopup.scanning_percentage = current_photo_index / nb_photo * 100
             current_photo_index += 1
             photo_in_db = session.query(Photo).filter_by(full_path=photo.full_path).first()
             if photo_in_db is None:
-                photo.update_thumbnail()
-                session.add(photo)
                 folder = session.query(Folder).filter_by(name=photo.folder_name()).first()
                 if folder is None:
-                    folder = Folder(name=photo.folder_name())
-                    session.add(folder)
-                    local_folder_path = os.path.join(self.import_to,folder.name)
+                    local_folder_path = os.path.join(self.import_to, photo.folder_name())
                     if not os.path.isdir(local_folder_path):
                         os.makedirs(local_folder_path)
 
-                folder.photos.append(photo)
-                copyfile(photo.old_full_filename(), photo.new_full_filename(self.import_to))
+                    folder = Folder(name=photo.folder_name())
+                    session.add(folder)
+                    session.commit()
+
+
+                photo.update_thumbnail()
+                session.add(photo)
                 session.commit()
 
+                folder.photos.append(photo)
+                session.commit()
 
+                if self.delete_originals:
+                    move(photo.old_full_filename(), photo.new_full_filename())
+                else:
+                    copy2(photo.old_full_filename(), photo.new_full_filename())
+
+                localize_photo(gmaps, session, photo)
+
+            else:  # photo is already in database
+                if self.delete_originals:
+                    try:
+                        os.remove(photo.old_full_filename())
+                    except Exception as e:
+                        print(e)
+
+        for folder in self.import_from:
+            while(removeEmptyFolders(folder, True)):
+                pass
 
         self.scanningpopup.dismiss()
         self.scanningpopup = None
@@ -281,6 +366,7 @@ class ScreenImporting(Screen):
         self.import_scanning = False
         self.update_treeview()
         self.update_photolist()
+
 
 
     def scanning_canceled(self):
@@ -301,14 +387,15 @@ class ScreenImporting(Screen):
         """Begin the final stage of the import - copying files."""
         app = App.get_running_app()
 
-        #Create popup to show importing progress
+        # Create popup to show importing progress
         self.cancel_scanning = False
-        self.scanningpopup = ScanningPopup(title='Importing Files', auto_dismiss=False, size_hint=(None, None), size=(app.popup_x, app.button_scale * 4))
+        self.scanningpopup = ScanningPopup(title='Importing Files', auto_dismiss=False, size_hint=(None, None),
+                                           size=(app.popup_x, app.button_scale * 4))
         self.scanningpopup.open()
         scanning_button = self.scanningpopup.ids['scanningButton']
         scanning_button.bind(on_release=self.cancel_import)
 
-        #Start importing thread
+        # Start importing thread
         self.percent_completed = 0
         self.scanningthread = threading.Thread(target=self.importing_process)
         self.import_scanning = True
@@ -325,7 +412,7 @@ class ScreenImporting(Screen):
         import_to = self.import_to
         total_size = self.total_size
         imported_size = 0
-        self.scanningpopup.scanning_text = "Importing "+format_size(total_size)+'  0%'
+        self.scanningpopup.scanning_text = "Importing " + format_size(total_size) + '  0%'
         imported_folders = []
         imported_files = 0
         failed_files = 0
@@ -338,7 +425,7 @@ class ScreenImporting(Screen):
                 app.message("Not enough free drive space! Cancelled import.")
                 Clock.schedule_once(lambda *dt: app.show_import())
 
-        #Scan folders
+        # Scan folders
         for folder_path in folders:
             if self.cancel_scanning:
                 break
@@ -346,7 +433,8 @@ class ScreenImporting(Screen):
             folder_name = folder['name']
             if folder['photos']:
                 if folder['naming']:
-                    folder_name = naming(self.naming_method, title=folder['title'], year=folder['year'], month=folder['month'], day=folder['day'])
+                    folder_name = naming(self.naming_method, title=folder['title'], year=folder['year'],
+                                         month=folder['month'], day=folder['day'])
                 photos = folder['photos']
                 parent = folder['parent']
                 if parent:
@@ -355,7 +443,9 @@ class ScreenImporting(Screen):
                         newfolder = folders[parent]
                         newfolder_name = newfolder['name']
                         if newfolder['naming']:
-                            newfolder_name = naming(self.naming_method, title=newfolder['title'], year=newfolder['year'], month=newfolder['month'], day=newfolder['day'])
+                            newfolder_name = naming(self.naming_method, title=newfolder['title'],
+                                                    year=newfolder['year'], month=newfolder['month'],
+                                                    day=newfolder['day'])
                         path_string.append(newfolder_name)
                         parent = newfolder['parent']
                     for path in path_string:
@@ -370,25 +460,26 @@ class ScreenImporting(Screen):
                     if folderinfo[1]:
                         app.Folder.update_title(folderinfo[0], folderinfo[1]).commit()
                     if folderinfo[2]:
-                        app.Folder.update_description(path,description)(folderinfo[0], folderinfo[2])
+                        app.Folder.update_description(path, description)(folderinfo[0], folderinfo[2])
 
-                #Scan and import photos in folder
+                # Scan and import photos in folder
                 for photo in photos:
                     if self.cancel_scanning:
                         break
-                    completed = (imported_size/total_size)
+                    completed = (imported_size / total_size)
                     remaining = 1 - completed
-                    self.percent_completed = 100*completed
+                    self.percent_completed = 100 * completed
                     self.scanningpopup.scanning_percentage = self.percent_completed
 
                     seconds_elapsed = time.time() - self.start_time
-                    time_elapsed = '  Time: '+str(datetime.timedelta(seconds=int(seconds_elapsed)))
+                    time_elapsed = '  Time: ' + str(datetime.timedelta(seconds=int(seconds_elapsed)))
                     if self.percent_completed > 0:
                         seconds_remain = (seconds_elapsed * remaining) / completed
                         time_remain = '  Remaining: ' + str(datetime.timedelta(seconds=int(seconds_remain)))
                     else:
                         time_remain = ''
-                    self.scanningpopup.scanning_text = "Importing "+format_size(total_size)+'  '+str(int(self.percent_completed))+'%  '+time_elapsed+time_remain
+                    self.scanningpopup.scanning_text = "Importing " + format_size(total_size) + '  ' + str(
+                        int(self.percent_completed)) + '%  ' + time_elapsed + time_remain
                     old_full_filename = os.path.join(photo[2], photo[0])
                     new_photo_fullpath = os.path.join(folder_name, photo[10])
                     new_full_filename = os.path.join(import_to, new_photo_fullpath)
@@ -414,7 +505,7 @@ class ScreenImporting(Screen):
                             if thumbnail_data:
                                 thumbnail = thumbnail_data[2]
                                 app.Photo.thumbnail_write(photo[0], int(time.time()), thumbnail, photo[13])
-                            imported_size = imported_size+photo[4]
+                            imported_size = imported_size + photo[4]
                             imported_files = imported_files + 1
                     else:
                         failed_files = failed_files + 1
@@ -422,7 +513,6 @@ class ScreenImporting(Screen):
                 """
                 imported_folders.append(folder_name)
         """
-
 
         raise ValueError('muste complete import')
 
@@ -434,10 +524,10 @@ class ScreenImporting(Screen):
             failed = ''
         if not self.cancel_scanning:
             if imported_files:
-                app.message("Finished importing "+str(imported_files)+" files."+failed)
+                app.message("Finished importing " + str(imported_files) + " files." + failed)
         else:
             if imported_files:
-                app.message("Canceled importing, "+str(imported_files)+" files were imported."+failed)
+                app.message("Canceled importing, " + str(imported_files) + " files were imported." + failed)
             else:
                 app.message("Canceled importing, no files were imported.")
         self.scanningpopup = None
@@ -462,7 +552,7 @@ class ScreenImporting(Screen):
             index = nodes.index(selected_album)
             if index <= 1:
                 index = len(nodes)
-            new_selected_album = nodes[index-1]
+            new_selected_album = nodes[index - 1]
             database.select_node(new_selected_album)
             new_selected_album.on_press()
             database_container = self.ids['foldersContainer']
@@ -476,9 +566,9 @@ class ScreenImporting(Screen):
         if selected_album:
             nodes = list(database.iterate_all_nodes())
             index = nodes.index(selected_album)
-            if index >= len(nodes)-1:
+            if index >= len(nodes) - 1:
                 index = 0
-            new_selected_album = nodes[index+1]
+            new_selected_album = nodes[index + 1]
             database.select_node(new_selected_album)
             new_selected_album.on_press()
             database_container = self.ids['foldersContainer']
@@ -502,7 +592,8 @@ class ScreenImporting(Screen):
         content = InputPopup(hint='Folder Name', text='Enter A Folder Name:')
         app = App.get_running_app()
         content.bind(on_answer=self.add_folder_answer)
-        self.popup = NormalPopup(title='Create Folder', content=content, size_hint=(None, None), size=(app.popup_x, app.button_scale * 4), auto_dismiss=False)
+        self.popup = NormalPopup(title='Create Folder', content=content, size_hint=(None, None),
+                                 size=(app.popup_x, app.button_scale * 4), auto_dismiss=False)
         self.popup.open()
 
     def add_folder_answer(self, instance, answer):
@@ -522,7 +613,8 @@ class ScreenImporting(Screen):
                     root = self.selected
                 path = os.path.join(root, text)
                 if path not in self.folders:
-                    self.folders[path] = {'name': text, 'parent': root, 'naming': False, 'title': '', 'description': '', 'year': 0, 'month': 0, 'day': 0, 'photos': []}
+                    self.folders[path] = {'name': text, 'parent': root, 'naming': False, 'title': '', 'description': '',
+                                          'year': 0, 'month': 0, 'day': 0, 'photos': []}
                 else:
                     app.message("Folder already exists.")
 
@@ -562,45 +654,45 @@ class ScreenImporting(Screen):
 
         folder_list = self.ids['folders']
 
-        #Clear the treeview list
+        # Clear the treeview list
         nodes = list(folder_list.iterate_all_nodes())
         for node in nodes:
             folder_list.remove_node(node)
         selected_node = None
 
-        #folder_item = TreeViewButton(target='removed', type='extra', owner=self, view_album=False)
-        #folder_item.folder_name = 'Removed (Never Scan Again)'
-        #total_photos = len(self.removed)
-        #folder_item.total_photos_numeric = total_photos
-        #if total_photos > 0:
+        # folder_item = TreeViewButton(target='removed', type='extra', owner=self, view_album=False)
+        # folder_item.folder_name = 'Removed (Never Scan Again)'
+        # total_photos = len(self.removed)
+        # folder_item.total_photos_numeric = total_photos
+        # if total_photos > 0:
         #    folder_item.total_photos = '('+str(total_photos)+')'
-        #folder_list.add_node(folder_item)
-        #if self.selected == 'removed' and self.type == 'extra':
+        # folder_list.add_node(folder_item)
+        # if self.selected == 'removed' and self.type == 'extra':
         #    selected_node = folder_item
 
-        #Populate the 'Already Imported' folder
+        # Populate the 'Already Imported' folder
         folder_item = TreeViewButton(target='duplicates', type='extra', owner=self, view_album=False)
         folder_item.folder_name = 'Already Imported (Never Import Again)'
         total_photos = len(self.duplicates)
         folder_item.total_photos_numeric = total_photos
         if total_photos > 0:
-            folder_item.total_photos = '('+str(total_photos)+')'
+            folder_item.total_photos = '(' + str(total_photos) + ')'
         folder_list.add_node(folder_item)
         if self.selected == 'duplicates' and self.type == 'extra':
             selected_node = folder_item
 
-        #Populate the 'Unsorted' folder
+        # Populate the 'Unsorted' folder
         folder_item = TreeViewButton(target='unsorted', type='extra', owner=self, view_album=False)
         folder_item.folder_name = 'Unsorted (Not Imported This Time)'
         total_photos = len(self.unsorted)
         folder_item.total_photos_numeric = total_photos
         if total_photos > 0:
-            folder_item.total_photos = '('+str(total_photos)+')'
+            folder_item.total_photos = '(' + str(total_photos) + ')'
         folder_list.add_node(folder_item)
         if self.selected == 'unsorted' and self.type == 'extra':
             selected_node = folder_item
 
-        #Populate the importing folders
+        # Populate the importing folders
         sorted_folders = sorted(self.folders)
         self.total_size = 0
         to_parent = []
@@ -608,9 +700,12 @@ class ScreenImporting(Screen):
         for folder_date in sorted_folders:
             folder_info = self.folders[folder_date]
             target = folder_date
-            folder_item = TreeViewButton(is_open=True, fullpath=target, dragable=True, target=target, type='folder', owner=self, view_album=False)
+            folder_item = TreeViewButton(is_open=True, fullpath=target, dragable=True, target=target, type='folder',
+                                         owner=self, view_album=False)
             if folder_info['naming']:
-                folder_item.folder_name = naming(self.naming_method, title=folder_info['title'], year=folder_info['year'], month=folder_info['month'], day=folder_info['day'])
+                folder_item.folder_name = naming(self.naming_method, title=folder_info['title'],
+                                                 year=folder_info['year'], month=folder_info['month'],
+                                                 day=folder_info['day'])
             else:
                 folder_item.folder_name = folder_info['name']
             added_nodes[folder_date] = folder_item
@@ -620,7 +715,7 @@ class ScreenImporting(Screen):
             total_photos = len(photos)
             folder_item.total_photos_numeric = total_photos
             if total_photos > 0:
-                folder_item.total_photos = '('+str(total_photos)+')'
+                folder_item.total_photos = '(' + str(total_photos) + ')'
             if folder_info['parent']:
                 to_parent.append([folder_item, folder_info['parent']])
             else:
@@ -637,7 +732,7 @@ class ScreenImporting(Screen):
         if selected_node:
             folder_list.select_node(selected_node)
         size_display = self.ids['totalSize']
-        size_display.text = 'Total Size: '+format_size(self.total_size)
+        size_display.text = 'Total Size: ' + format_size(self.total_size)
 
     def on_selected(self, instance, value):
         """Called when a photo is selected.  Activate the delete button, and update photo view."""
@@ -670,7 +765,8 @@ class ScreenImporting(Screen):
             folder_info = self.folders[self.selected]
             self.update_treeview()
             folder_name = self.ids['folderName']
-            folder_name.text = naming(self.naming_method, title=folder_info['title'], year=folder_info['year'], month=folder_info['month'], day=folder_info['day'])
+            folder_name.text = naming(self.naming_method, title=folder_info['title'], year=folder_info['year'],
+                                      month=folder_info['month'], day=folder_info['day'])
 
     def update_photolist(self):
         """Redraw the photo list view for the currently selected folder."""
@@ -682,7 +778,7 @@ class ScreenImporting(Screen):
         description_editor = self.ids['folderDescription']
         dragable = True
 
-        #Viewing an input folder.
+        # Viewing an input folder.
         if self.type == 'folder':
             if self.selected in self.folders:
                 folder_info = self.folders[self.selected]
@@ -692,11 +788,12 @@ class ScreenImporting(Screen):
                 description_editor.disabled = False
                 photos = folder_info['photos']
                 if folder_info['naming']:
-                    name = naming(self.naming_method, title=folder_info['title'], year=folder_info['year'], month=folder_info['month'], day=folder_info['day'])
+                    name = naming(self.naming_method, title=folder_info['title'], year=folder_info['year'],
+                                  month=folder_info['month'], day=folder_info['day'])
                 else:
                     name = self.selected
 
-        #Viewing a special sorting folder.
+        # Viewing a special sorting folder.
         else:
             title_editor.text = ''
             title_editor.disabled = True
@@ -715,7 +812,7 @@ class ScreenImporting(Screen):
 
         folder_name.text = name
 
-        #Populate photo view
+        # Populate photo view
         photos_container = self.ids['photosContainer']
         datas = []
         for photo in photos:
@@ -775,23 +872,25 @@ class ScreenImporting(Screen):
         if folder_container.collide_point(position[0], position[1]):
             offset_x, offset_y = folder_list.to_widget(position[0], position[1])
             for widget in folder_list.children:
-                if widget.collide_point(position[0], offset_y) and widget.type != 'None' and self.type != 'None' and not (widget.target == 'duplicates' and widget.type == 'extra'):
+                if widget.collide_point(position[0],
+                                        offset_y) and widget.type != 'None' and self.type != 'None' and not (
+                    widget.target == 'duplicates' and widget.type == 'extra'):
 
                     if dropped_type == 'folder':
-                        #Dropped a folder
+                        # Dropped a folder
                         dropped_data = self.folders[fullpath]
                         new_path = os.path.join(widget.fullpath, dropped_data['name'])
                         if widget.fullpath != fullpath:
-                            #this was actually a drag and not a long click
+                            # this was actually a drag and not a long click
                             if new_path not in self.folders:
-                                #this folder can be dropped here
+                                # this folder can be dropped here
                                 old_parent = fullpath
                                 dropped_data['parent'] = widget.fullpath
                                 self.folders[new_path] = dropped_data
                                 del self.folders[fullpath]
 
                                 new_folders = {}
-                                #rename child folders
+                                # rename child folders
                                 for folder in self.folders:
                                     folder_info = self.folders[folder]
                                     parent = folder_info['parent']
@@ -809,7 +908,7 @@ class ScreenImporting(Screen):
                             else:
                                 app.message("Invalid folder location.")
                     elif dropped_type == 'file':
-                        #Dropped a file
+                        # Dropped a file
                         photo_list = self.get_selected_photos(fullpath=True)
                         if fullpath not in photo_list:
                             photo_list.append(fullpath)

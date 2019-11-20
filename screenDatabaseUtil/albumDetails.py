@@ -19,8 +19,8 @@ from generalElements.popups.NormalPopup import NormalPopup
 from generalElements.popups.ConfirmPopup import ConfirmPopup
 from generalElements.dropDowns.AlbumSortDropDown import AlbumSortDropDown
 from generalconstants import *
-from screenDatabase.databaseSortDropDown import DatabaseSortDropDown
-from screenDatabase.folderDetails import FolderDetails
+from screenDatabaseUtil.databaseSortDropDown import DatabaseSortDropDown
+from screenDatabaseUtil.folderDetails import FolderDetails
 
 from kivy.lang.builder import Builder
 import generalelements

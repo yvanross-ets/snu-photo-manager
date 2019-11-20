@@ -1248,7 +1248,7 @@ class PhotoManager(App):
                 viewtype = config_viewtype
                 viewtarget = self.config.get("Settings", "viewtarget")
                 viewdisplayable = to_bool(self.config.get("Settings", "viewdisplayable"))
-        self.database_screen = ScreenDatabase(name='screenDatabase', type=viewtype, selected=viewtarget, displayable=viewdisplayable)
+        self.database_screen = ScreenDatabase(name='screenDatabase', type=viewtype, displayable=viewdisplayable)
         self.screen_manager.add_widget(self.database_screen)  # yvan
         self.database_restore_screen = ScreenDatabaseRestore(name='database_restore')
 

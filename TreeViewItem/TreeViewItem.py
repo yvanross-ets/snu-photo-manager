@@ -8,11 +8,25 @@
 
 
 class TreeViewItem:
-    target = None
+    target = None    # name of the displayed text
     item = None
     owner = None
+    treeViewItemParent = None
+    type = None
+    indent = 0
+    displayable = True
+    expanded = False
+    expandable = True
+    dragable = False
+    height = 50
     total_photos = ''
+    end = True
 
+    def __init__(self, owner, item, type, parent=None):
+        self.item = item
+        self.type = type
+        self.owner = owner
+        self.treeViewItemParent = parent
 
     def dict(self):
         ret = {}
@@ -38,3 +52,18 @@ class TreeViewItem:
 
         return value
 
+    def deleteChild(self, observableList, treeViewItemParent):
+        for idx, data in reversed(list(enumerate(observableList))):
+            if hasattr(data, 'treeViewItemParent') and data.treeViewItemParent == treeViewItemParent:
+                observableList.pop(idx)
+                observableList = self.deleteChild(observableList, data)
+        self.expanded = False
+        return observableList
+
+    def getItemIndex(self, list, item):
+        index = None
+        for idx, data in enumerate(list):
+            if data == item:
+                index = idx
+                break
+        return index

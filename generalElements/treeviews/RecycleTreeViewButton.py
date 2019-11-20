@@ -79,10 +79,17 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
         """Called when widget is loaded into recycleview layout"""
 
         app = App.get_running_app()
-        if data.displayable:
-            photos = data.item.photos
-            nb_photos = '(' + str(len(photos)) + ')' if len(photos) > 0 else ''
-            self.ids['mainText'].text = data.target + '   [b]' + nb_photos + '[/b]'
+       # if data.displayable:
+        photos = data.item.photos
+
+        if hasattr(data.item,'name'):
+            self.ids['mainText'].text = data.item.name
+        else:
+            self.ids['mainText'].text = data.item.name2()
+
+        if hasattr(data.item, 'nb_photos'):
+            self.ids['mainText'].text = self.ids['mainText'].text + ' [b]' + str(data.item.nb_photos) + '[/b]'
+
         return super(RecycleTreeViewButton, self).refresh_view_attrs(rv, index, data)
 
     def on_touch_down(self, touch):
@@ -108,20 +115,39 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
         self.owner.type = self.type
         self.owner.displayable = self.displayable
         self.owner.selected_item = self.item
-        self.owner.selected =self.item.name
+#        self.owner.selected = self  # will call screenDatabase.On_selected
+        photoListRecyclerView = self.owner.ids['screenDatabase']
+        photoListRecyclerView.accept(self.data)
+
+        #if hasattr(self.item,'name'):
+        #    self.owner.selected =self.item.name
+        #else:
+        #    self.owner.selected = self.item.name2()
 
 
-    def on_release(self):
-        if self.expandable:
-            if self.type == 'Album':
-                self.owner.expanded_albums = not self.owner.expanded_albums
-            elif self.type == 'Tag':
-                self.owner.expanded_tags = not self.owner.expanded_tags
-            elif self.type == 'Person':
-                self.owner.expanded_persons = not self.owner.expanded_persons
-            elif self.type == 'Folder':
-                self.owner.expanded_folders = not self.owner.expanded_folders
-            self.owner.update_treeview()
+    # def on_release(self):
+    #     if self.type == 'Countries' or self.type == 'Country' or self.type == 'Province' or self.type == 'Locality' or self.type == 'Place' or self.type == 'TreeViewItemDaysOfPhotosWithoutPlace':
+    #         print(self.owner)
+    #         photoListRecyclerView = self.owner.ids['screenDatabase']
+    #         print(photoListRecyclerView.data)
+    #         photoListRecyclerView.accept(self.data)
+    #         return
+    #
+    #     if self.expandable:
+    #         if self.type == 'Album':
+    #             self.owner.expanded_albums = not self.owner.expanded_albums
+    #         elif self.type == 'Tag':
+    #             self.owner.expanded_tags = not self.owner.expanded_tags
+    #         elif self.type == 'Person':
+    #             self.owner.expanded_persons = not self.owner.expanded_persons
+    #         elif self.type == 'Folder':
+    #             self.owner.expanded_folders = not self.owner.expanded_folders
+    #         elif self.type == "Countries":
+    #             self.owner.expanded_countries = not self.owner.expanded_countries
+    #         elif self.type == "Country":
+    #             self.owner.expanded_country = not self.owner.expanded_country
+    #
+    #    # self.owner.update_treeview()
 
     def on_touch_move(self, touch):
         if self.drag:
@@ -132,8 +158,9 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
                 app.drag_treeview(self, 'move', window_coords)
 
     def on_touch_up(self, touch):
-        if self.collide_point(*touch.pos) and self.collide_point(*touch.opos):
-            self.on_release()
+      #  if self.collide_point(*touch.pos) and self.collide_point(*touch.opos):
+       #     self.on_release()
+
         if self.drag:
             app = App.get_running_app()
             window_coords = self.to_window(touch.pos[0], touch.pos[1])
