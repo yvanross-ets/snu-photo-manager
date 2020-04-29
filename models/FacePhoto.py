@@ -15,7 +15,3 @@ class FacePhoto(Base,BaseModel):
     def __repr__(self):
         return "<FacePhoto( id='%s', face_id='%d', photo_id='%d')>" % (
         self.id, self.face_id, self.photo_id)
-
-    def create_table(engine):
-        FacePhoto.__table__
-        Base.metadata.create_all(engine)

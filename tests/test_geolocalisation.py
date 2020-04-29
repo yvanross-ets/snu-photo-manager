@@ -1,4 +1,5 @@
-from google.geolocalisation import Geolocalisation, googlemaps
+import googlemaps
+from googleApi.geolocalisation import Geolocalisation
 
 def test_geolocalisation():
     #todo put api key in configuration

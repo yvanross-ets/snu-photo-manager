@@ -4,18 +4,18 @@ from kivy.base import EventLoop
 from kivy.modules import inspector
 from kivy.factory import Factory
 from kivy.app import App
-from main.Theme import Theme
+from window.Theme import Theme
 from kivy.properties import NumericProperty
 from generalconstants import themes
 from kivy.uix.button import Button
-from tests.utils import *
+# from tests.utils import *
 from testUtils.TesterApp import TesterApp
 
 
 def displayMsg(value):
     print("displayMsg", value)
 
-class InputTestCase(GraphicUnitTest):
+class TestInput(GraphicUnitTest):
     framecount = 0
 
     resort_method = displayMsg
@@ -29,10 +29,10 @@ class InputTestCase(GraphicUnitTest):
         self._win = EventLoop.window
         self.clean_garbage()
 
-        super(InputTestCase, self).setUp()
+        super(TestInput, self).setUp()
 
     def tearDown(self):
-        super(InputTestCase, self).tearDown()
+        super(TestInput, self).tearDown()
 
     def clean_garbage(self, *args):
         for child in self._win.children[:]:

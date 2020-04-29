@@ -15,6 +15,7 @@ from kivy.uix.image import Image as KivyImage
 from generalcommands import isfile2, to_bool
 from kivy.lang.builder import Builder
 from models.PhotosTags import Photo
+
 Builder.load_string("""
 
 <AsyncThumbnail>:

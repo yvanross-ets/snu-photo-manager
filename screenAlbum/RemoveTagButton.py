@@ -20,5 +20,5 @@ class RemoveTagButton(RemoveButton):
         if answer == 'yes':
             app = App.get_running_app()
             app.Tag.remove(self.to_remove)
-            self.owner.update_treeview()
+            self.owner.create_treeview()
         self.owner.dismiss_popup()

@@ -9,4 +9,4 @@ class RemoveFromTagButton(RemoveButton):
     def on_release(self):
         app = App.get_running_app()
         app.Tag.remove(self.remove_from, self.to_remove, message=True)
-        self.owner.update_treeview()
+        self.owner.create_treeview()

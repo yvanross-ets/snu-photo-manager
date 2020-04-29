@@ -1,5 +1,3 @@
-import os
-from kivy.app import App
 from kivy.clock import Clock
 from kivy.cache import Cache
 from kivy.animation import Animation
@@ -7,41 +5,40 @@ from kivy.uix.screenmanager import Screen
 from kivy.properties import ObjectProperty, StringProperty, ListProperty, BooleanProperty, NumericProperty
 from kivy.uix.boxlayout import BoxLayout
 from functools import partial
+
+
+from TreeViewItemModels.Favorites import Favorites
+from TreeViewItemModels.Tags import Tags
+from TreeViewItemModels.Folders import Folders
+from TreeViewItemModels.Faces import Faces
+from TreeViewItem.TreeViewItemFaces import TreeViewItemFaces
+from TreeViewItemModels.Persons import Persons
+
 from TreeViewItem.TreeViewItemFolders import TreeViewItemFolders
 from TreeViewItem.TreeViewItemFolder import TreeViewItemFolder
 from TreeViewItem.TreeViewItemTags import TreeViewItemTags
-from TreeViewItem.TreeViewItemTag import TreeViewItemTag
 from TreeViewItem.TreeViewItemPersons import TreeViewItemPersons
-from TreeViewItem.TreeViewItemPerson import TreeViewItemPerson
 from TreeViewItem.TreeViewItemFavorites import TreeViewItemFavorites
 from TreeViewItem.TreeViewItemCountries import TreeViewItemCountries
 from TreeViewItem.TreeViewItemDaysOfPhotosWithoutPlace import TreeViewItemDaysOfPhotosWithoutPlace
 
-from generalcommands import to_bool, get_folder_info, local_path
-from generalElements.buttons.MenuButton import MenuButton
+from generalcommands import to_bool
 from generalElements.dropDowns.NormalDropDown import NormalDropDown
-from generalElements.popups.MoveConfirmPopup import MoveConfirmPopup
-from generalElements.popups.InputPopupTag import InputPopupTag
 from generalElements.popups.InputPopup import InputPopup
 from generalElements.popups.NormalPopup import NormalPopup
 from generalElements.popups.ConfirmPopup import ConfirmPopup
-from generalElements.dropDowns.AlbumSortDropDown import AlbumSortDropDown
 from generalconstants import *
 from screenDatabaseUtil.databaseSortDropDown import DatabaseSortDropDown
 from screenDatabaseUtil.folderDetails import FolderDetails
 from screenDatabaseUtil.albumDetails import AlbumDetails
 from models.PhotosTags import *
-from models.Countries import Countries
-from models.DaysOfPhotosWithoutPlace import DaysOfPhotosWithoutPlace
-from TreeViewItem.TreeViewItem import TreeViewItem
+from TreeViewItemModels.Countries import Countries
+from TreeViewItemModels.DaysOfPhotosWithoutPlace import DaysOfPhotosWithoutPlace
 
-
-from generalElements.buttons.ToogleBase import ToggleBase
-
-from generalElements.buttons.ButtonBase import ButtonBase
-from generalElements.splitters.SplitterPanelLeft import SplitterPanelLeft
-
+# import kivy requested widget
 from generalElements.labels.InfoLabel import InfoLabel
+from generalElements.splitters.SplitterPanelLeft import SplitterPanelLeft
+from generalElements.buttons.ToogleBase import ToggleBase
 from generalElements.photos.PhotoListRecycleView import PhotoListRecycleView
 from generalElements.selectables.SelectableRecycleBoxLayout import SelectableRecycleBoxLayout
 from generalElements.inputs.NormalInput import NormalInput
@@ -50,9 +47,9 @@ from generalElements.selectables.SelectableRecycleGrid import SelectableRecycleG
 from generalElements.photos.PhotoRecycleThumb import PhotoRecycleThumb
 from generalElements.treeviews.RecycleTreeViewButton import RecycleTreeViewButton
 from generalElements.images.AsyncThumbnail import AsyncThumbnail
-from generalElements.scrollers.Scroller import Scroller
 
-import generalelements
+
+
 
 from kivy.lang.builder import Builder
 Builder.load_string("""
@@ -159,7 +156,7 @@ Builder.load_string("""
                                     id: newFolder
                                     size_hint_x: 1
                                     text: 'New'
-                                    on_release: root.add_item()
+                                    on_release: root.new_item()
                                     disabled: not root.can_new_folder or app.database_scanning
                                 NormalButton:
                                     size_hint_y: 1
@@ -372,61 +369,48 @@ class ScreenDatabase(Screen):
         self.search_text = text
         if self.tag_menu:
             Clock.unschedule(self.search_refresh)
-            self.search_refresh = Clock.schedule_once(self.update_treeview, 0.5)
+            self.search_refresh = Clock.schedule_once(self.create_treeview, 0.5)
 
-    def add_item(self, *_):
-        if self.type == 'Album':
-            self.new_album()
+    def new_item(self, *_):
+        photoListRecyclerView = self.ids['screenDatabase']
+        self.selected_item.new_item(photoListRecyclerView)
+        # if self.type == 'Album':
+        #     self.new_album()
+        #
+        # elif self.type == 'Tag':
+        #     self.new_tag()
+        #
+        # elif self.type == 'Person':
+        #     self.new_person()
+        #
+        # else:
+        #     pass
 
-        elif self.type == 'Tag':
-            self.new_tag()
 
-        elif self.type == 'Person':
-            self.new_person()
-
-        else:
-            pass
 
     def rename_item(self, *_):
-        if self.type == 'Album':
-            pass
+        photoListRecyclerView = self.ids['screenDatabase']
+        self.selected_item.rename_item(photoListRecyclerView)
 
-        elif self.type == 'Tag':
-            pass
-        elif self.type == 'Person':
-            pass
+        # if self.type == 'Album':
+        #     pass
+        #
+        # elif self.type == 'Tag':
+        #     pass
+        # elif self.type == 'Person':
+        #     pass
+        #
+        # else:
+        #     pass
 
-        else:
-            pass
+
 
     def delete_item(self, *_):
-        """Starts the delete folder process, creates the confirmation popup."""
+        photoListRecyclerView = self.ids['screenDatabase']
+        self.selected_item.delete_item(photoListRecyclerView)
 
-        text = "Delete The Selected " + self.type + "?"
-        if self.type.lower() == 'folder':
-            text = text + "\nAll Included Photos And Videos Will Be Deleted."
-        else:
-            text = text + "\nThe Contained Files Will Not Be Deleted."
-        content = ConfirmPopup(text=text, yes_text='Delete', no_text="Don't Delete", warn_yes=True)
-        app = App.get_running_app()
-        content.bind(on_answer=self.delete_item_answer)
-        self.popup = NormalPopup(title='Confirm Delete', content=content, size_hint=(None, None),
-                                 size=(app.popup_x, app.button_scale * 4), auto_dismiss=False)
-        self.popup.open()
 
-    def delete_item_answer(self, instance, answer):
-        """Tells the app to delete the folder if the dialog is confirmed.
-        Arguments:
-            instance: The dialog that called this function.
-            answer: String, if 'yes', the folder will be deleted, all other answers will just close the dialog.
-        """
-        del instance
-        if answer == 'yes':
-            self.selected_item.delete()
-            self.previous_album()
-            self.update_folders = True
-        self.dismiss_popup()
-        #self.update_treeview()
+
 
     def get_selected_photos(self):
         photos = self.ids['photos']
@@ -508,14 +492,15 @@ class ScreenDatabase(Screen):
                 if key == 'right' or key == 'down':
                     self.next_album()
                 if key == 'enter':
-                    if self.type != 'None':
-                        if len(self.photos) > 0:
-                            app = App.get_running_app()
-                            app.target = self.selected
-                            app.photo = ''
-                            app.fullpath = ''
-                            app.type = self.type
-                            app.show_album(button=None)
+                    self.enter_item()
+                    # if self.type != 'None':
+                    #     if len(self.photos) > 0:
+                    #         app = App.get_running_app()
+                    #         app.target = self.selected
+                    #         app.photo = ''
+                    #         app.fullpath = ''
+                    #         app.type = self.type
+                    #         app.show_album(button=None)
                 if key == 'delete':
                     self.delete()
                 if key == 'a':
@@ -524,56 +509,41 @@ class ScreenDatabase(Screen):
                 if key == 'enter':
                     self.popup.content.dispatch('on_answer', 'yes')
 
+    def enter_item(self):
+        photoListRecycleView = self.ids['screenDatabase']
+        self.selected_item.visit(photoListRecycleView)
+
     def previous_album(self):
         """Selects the previous album in the screenDatabase."""
-
-        database = self.ids['screenDatabase']
+        photoListRecycleView = self.ids['screenDatabase']
+        self.selected_item = photoListRecycleView.previous(self.selected_item)
+        # new_folder = next_item.displayable_dict()
+        # self.displayable = new_folder['displayable']
+        # self.type = new_folder['type']
+        # self.selected = new_folder['target']
         database_interior = self.ids['databaseInterior']
-        selected = self.selected_item
-        data = database.data
-        current_index = None
-        for i, node in enumerate(data):
-            if node.target == selected.name and node.type == self.type:
-                current_index = i
-                break
-        if current_index is not None:
-            if current_index == 0:
-                next_index = len(data) - 1
-            else:
-                next_index = current_index + 1
-            new_folder = data[next_index].displayable_dict()
-            self.displayable = new_folder['displayable']
-            self.type = new_folder['type']
-            self.selected = new_folder['target']
-            database_interior.selected = new_folder
-            database.scroll_to_selected()
+        database_interior.selected = self.selected_item
+
+        photoListRecycleView.scroll_to_selected()
+#        self.on_selected(self.selected_item)
+        self.selected_item.visit(photoListRecycleView)
 
     def next_album(self):
         """Selects the next album in the screenDatabase."""
 
-        database = self.ids['screenDatabase']
+        photoListRecycleView = self.ids['screenDatabase']
+        self.selected_item = photoListRecycleView.next(self.selected_item)
+        #new_folder = next_item.displayable_dict()
+        #self.displayable = new_folder['displayable']
+        #self.type = new_folder['type']
+        #self.selected = new_folder['target']
+
         database_interior = self.ids['databaseInterior']
-        selected = self.selected_item
-        data = database.data
-        current_index = None
-        for i, node in enumerate(data):
-            if node.target == selected.name and node.type == self.type:
-                current_index = i
-                break
-        if current_index is not None:
-            if current_index == len(data) - 1:
-                next_index = 0
-            else:
-                next_index = current_index - 1
-            new_folder = data[next_index].displayable_dict()
-            self.displayable = new_folder['displayable']
-            self.type = new_folder['type']
-            self.selected = new_folder['target']
-            database_interior.selected = new_folder
-            database.scroll_to_selected()
+        database_interior.selected = self.selected_item
 
-
-
+        photoListRecycleView.scroll_to_selected()
+        #self.on_selected(self.selected_item)
+        self.selected_item.visit(photoListRecycleView)
 
     def show_selected(self):
         """Scrolls the treeview to the currently selected folder"""
@@ -660,13 +630,13 @@ class ScreenDatabase(Screen):
 
             self.on_selected('', '')
         self.dismiss_popup()
-        #self.update_treeview()
+        #self.create_treeview()
 
-    def drop_widget(self, fullpath, position, dropped_type='file', aspect=1):
+    def drop_widget(self, droppedTreeViewItem, position, dropped_type='file', aspect=1):
         """Called when a widget is dropped after being dragged.
         Determines what to do with the widget based on where it is dropped.
         Arguments:
-            fullpath: String, file location of the object being dragged.
+            droppedTreeViewItem: TreeViewItem, object being dragged.
             position: List of X,Y window coordinates that the widget is dropped on.
             dropped_type: String, describes the object being dropped.  May be: 'folder' or 'file'
         """
@@ -678,23 +648,17 @@ class ScreenDatabase(Screen):
             #Now, determine exactly what the widget was dropped on
             offset_x, offset_y = folder_list.to_widget(position[0], position[1])
             for widget in folder_list.children:
-                if widget.collide_point(position[0], offset_y):
-                    if dropped_type == 'folder' and widget.type == 'Folder':
-                        if not widget.displayable:
-                            move_to = ''
-                        else:
-                            move_to = widget.fullpath
-                        if move_to != fullpath:
-                            if not move_to.startswith(fullpath):
-                                if app.database_scanning:
-                                    app.popup_message("Scanning screenDatabase, can't move folder.", title='Warning')
-                                    return
-                                question = 'Move "'+fullpath+'" into "'+widget.fullpath+'"?'
-                                content = ConfirmPopup(text=question, yes_text='Move', no_text="Don't Move", warn_yes=True)
-                                app = App.get_running_app()
-                                content.bind(on_answer=partial(self.move_folder_answer, fullpath, move_to))
-                                self.popup = NormalPopup(title='Confirm Move', content=content, size_hint=(None, None), size=(app.popup_x, app.button_scale * 4), auto_dismiss=False)
-                                self.popup.open()
+                if widget.collide_point(position[0], offset_y) and droppedTreeViewItem != widget:
+                    if dropped_type == 'folder':
+                        if app.database_scanning:
+                            app.popup_message("Scanning screenDatabase, can't move folder.", title='Warning')
+                            return
+                        question = 'Move "'+ droppedTreeViewItem.item.name +'" into "'+ widget.item.name+'"?'
+                        content = ConfirmPopup(text=question, yes_text='Move', no_text="Don't Move", warn_yes=True)
+                        app = App.get_running_app()
+                        content.bind(on_answer=partial(self.move_folder_answer, droppedTreeViewItem.item, widget.item ))
+                        self.popup = NormalPopup(title='Confirm Move', content=content, size_hint=(None, None), size=(app.popup_x, app.button_scale * 4), auto_dismiss=False)
+                        self.popup.open()
                         return
 
                     elif dropped_type == 'file':
@@ -705,18 +669,19 @@ class ScreenDatabase(Screen):
                             if app.database_scanning:
                                 app.popup_message("Scanning screenDatabase, can't move photo(s).", title='Warning')
                                 return
-                            if widget.type == 'Tag':
-                                self.add_to_tag(widget.item, selected_photos=selected_photos)
-                            elif widget.type == 'Person':
-                                self.add_to_person(widget.target, selected_photos=selected_photos)
-                                app.popup_message("Adding person "+widget.target+" to selected photos", title='Warning')
-
-                            elif widget.type == 'Folder':
-                                content = ConfirmPopup(text='Move These Files To "'+widget.target+'"?', yes_text="Move", no_text="Don't Move", warn_yes=True)
-                                content.bind(on_answer=self.move_files)
-                                self.popup = MoveConfirmPopup(photos=selected_photos, target=widget.target, title='Confirm Move', content=content, size_hint=(None, None), size=(app.popup_x, app.button_scale * 4), auto_dismiss=False)
-                                self.popup.open()
-                                pass
+                            widget.data.visit_drop(selected_photos)
+                            # if widget.type == 'Tag':
+                            #     self.add_to_tag(widget.item, selected_photos=selected_photos)
+                            # elif widget.type == 'Person':
+                            #     self.add_to_person(widget.target, selected_photos=selected_photos)
+                            #     app.popup_message("Adding person "+widget.target+" to selected photos", title='Warning')
+                            #
+                            # elif widget.type == 'Folder':
+                            #     content = ConfirmPopup(text='Move These Files To "'+widget.target+'"?', yes_text="Move", no_text="Don't Move", warn_yes=True)
+                            #     content.bind(on_answer=self.move_files)
+                            #     self.popup = MoveConfirmPopup(photos=selected_photos, target=widget.target, title='Confirm Move', content=content, size_hint=(None, None), size=(app.popup_x, app.button_scale * 4), auto_dismiss=False)
+                            #     self.popup.open()
+                            #     pass
                             return
 
     def move_files(self, instance, answer):
@@ -731,7 +696,7 @@ class ScreenDatabase(Screen):
             app = App.get_running_app()
             app.move_files(self.popup.photos, self.popup.target)
             self.selected = self.popup.target
-            #self.update_treeview()
+            #self.create_treeview()
         self.dismiss_popup()
 
     def toggle_select(self):
@@ -760,6 +725,12 @@ class ScreenDatabase(Screen):
         else:
             self.photos_selected = False
 
+    def add_favorites(self,selected_photos):
+        app = App.get_running_app()
+        tag = app.session.query(Tag).filter_by(name='Favorites').first()
+        if tag:
+            self.add_to_tag(tag,selected_photos)
+
     def add_to_tag(self, tag, selected_photos=None):
         """Adds a tag to the currently selected photos.
         Arguments:
@@ -782,7 +753,7 @@ class ScreenDatabase(Screen):
                     self.on_selected()
 
                 app.session.commit()
-                #self.update_treeview()
+                #self.create_treeview()
                 app.message("Added tag '"+tag.name+"' to "+str(added_tag)+" files.")
 
     def add_to_person(self, person_name, selected_photos=None):
@@ -807,7 +778,7 @@ class ScreenDatabase(Screen):
                 if person_name == 'favorite':
                     self.on_selected()
                 app.photos.commit()
-                #self.update_treeview()
+                #self.create_treeview()
                 app.message("Added person '"+person_name+"' to "+str(added_person)+" files.")
 
     # def add_to_person(self, person_name, selected_photos=None):
@@ -831,7 +802,7 @@ class ScreenDatabase(Screen):
     #     self.select_none()
     #     if added:
     #         app.message("Added " + str(added) + " files to the person '" + person_name + "'")
-    #         self.update_treeview()
+    #         self.create_treeview()
 
     def add_to_tag_menu(self, instance):
         self.add_to_tag(instance.item)
@@ -854,7 +825,7 @@ class ScreenDatabase(Screen):
 
         app = App.get_running_app()
         tag = app.session.query(Tag).filter_by(name=tag_name)
-        if tag_name and (tag is not None) and (tag.name.lower() != 'favorite'):
+        if tag_name and (tag is not None) and (tag.name.lower() != 'favorites'):
             return True
         else:
             return False
@@ -874,25 +845,6 @@ class ScreenDatabase(Screen):
         else:
             return False
 
-    def add_tag(self, instance=None, answer="yes"):
-        """Adds the current input tag to the app tags."""
-
-        if answer == "yes":
-            if instance is not None:
-                tag_name = instance.ids['input'].text.lower().strip(' ')
-                if not tag_name:
-                    self.dismiss_popup()
-                    return
-            else:
-                tag_input = self.ids['newTag']
-                tag_name = tag_input.text.lower().strip(' ')
-                tag_input.text = ''
-            app = App.get_running_app()
-            tag = Tag(name=tag_name)
-            app.session.add(tag)
-            app.session.commit()
-            #self.update_treeview()
-        self.dismiss_popup()
 
 
     def add_person(self, instance=None, answer="yes"):
@@ -909,7 +861,7 @@ class ScreenDatabase(Screen):
                 person_input.text = ''
             app = App.get_running_app()
             app.Person.create(person_name)
-            self.update_treeview()
+            self.create_treeview()
         self.dismiss_popup()
 
     def can_add_album(self, album_name):
@@ -937,20 +889,17 @@ class ScreenDatabase(Screen):
             self.expanded_folders.remove(folder)
         else:
             self.expanded_folders.append(folder)
-      #  self.update_treeview()
+      #  self.create_treeview()
 
-    def update_treeview(self, *_):
-        """Updates the treeview's data"""
+    def create_treeview(self, *_):
+        """Create the treeview's data"""
 
         if not self.ids:
             return
 
         database = self.ids['screenDatabase']
         database.data = []
-        self.__append_favorites_to_treeview( database.data)
-        self.__append_tags_to_treeview( database.data)
-        self.__append_countries_to_treeview(database.data)
-        self.__append_folders_to_treeview( database.data)
+        self.__append_treeview_items(database.data)
 
         self.show_selected()
 
@@ -975,17 +924,6 @@ class ScreenDatabase(Screen):
         data = data + folder_data
 
         return data
-
-    def __append_countries_to_treeview(self, data):
-        app = App.get_running_app()
-
-        photosWithNoPlace = DaysOfPhotosWithoutPlace()
-        photosWithNoPlace_root = TreeViewItemDaysOfPhotosWithoutPlace(self,photosWithNoPlace, app.button_scale)
-        data.append(photosWithNoPlace_root)
-
-        countries = Countries()
-        country_root = TreeViewItemCountries(self,countries, app.button_scale)
-        data.append(country_root)
 
     def update_gps(self):
         app = App.get_running_app()
@@ -1063,88 +1001,93 @@ class ScreenDatabase(Screen):
         app.session.commit()
 
 
-    def __append_folders_to_treeview(self,data):
-        app = App.get_running_app()
-        all_folders = app.session.query(Folder).order_by(Folder.name.desc()).all()
-        expandable_folders = True if len(all_folders) > 0 else False
-
-        expanded= True if (self.expanded_folders and expandable_folders) else False,
-        folder_root = TreeViewItemFolders(self,expanded, app.button_scale)
-
-        data.append(folder_root)
-
-        for folder in all_folders:
-            menu_button = MenuButton(text=folder.name)
-            menu_button.bind(on_release=self.add_to_tag_menu)
-            self.tag_menu.add_widget(menu_button)
-            if self.expanded_folders:
-                folder_item = TreeViewItemFolder(self,folder, app.button_scale)
-                data.append(folder_item)
 
 
 
-    def __append_tags_to_treeview(self,data):
-        app = App.get_running_app()
-
-        # add the tags tree item
-        sorted_tags = app.session.query(Tag).order_by('name').all()
-        expandable_tags = True if len(sorted_tags) > 0 else False
-        expanded = True if (self.expanded_tags and expandable_tags) else False,
-        tag_root = TreeViewItemTags(self,expandable_tags,expanded,app.button_scale)
-        data.append(tag_root)
-        self.tag_menu.clear_widgets()
-        menu_button = MenuButton(text='favorite')
-        menu_button.bind(on_release=self.add_to_tag_menu)
-        self.tag_menu.add_widget(menu_button)
-
-        for tag in sorted_tags:
-            menu_button = MenuButton(text=tag.name)
-            menu_button.item = tag
-            menu_button.bind(on_release=self.add_to_tag_menu)
-            self.tag_menu.add_widget(menu_button)
-            if self.expanded_tags:
-                tag_item = TreeViewItemTag(self,tag,app.button_scale)
-                data.append(tag_item)
+    # def __append_tags_to_treeview(self,data):
+    #     app = App.get_running_app()
+    #
+    #     # add the tags tree item
+    #     sorted_tags = app.session.query(Tag).order_by('name').all()
+    #     expandable_tags = True if len(sorted_tags) > 0 else False
+    #     expanded = True if (self.expanded_tags and expandable_tags) else False,
+    #     tag_root = TreeViewItemTags(self,expandable_tags,expanded,app.button_scale)
+    #     data.append(tag_root)
+    #     self.tag_menu.clear_widgets()
+    #     menu_button = MenuButton(text='favorite')
+    #     menu_button.bind(on_release=self.add_to_tag_menu)
+    #     self.tag_menu.add_widget(menu_button)
+    #
+    #     for tag in sorted_tags:
+    #         menu_button = MenuButton(text=tag.name)
+    #         menu_button.item = tag
+    #         menu_button.bind(on_release=self.add_to_tag_menu)
+    #         self.tag_menu.add_widget(menu_button)
+    #         if self.expanded_tags:
+    #             tag_item = TreeViewItemTag(self,tag,app.button_scale)
+    #             data.append(tag_item)
 
        # data[-1]['end'] = True
        # data[-1]['height'] = data[-1]['height'] + int(app.button_scale * 0.1)
 
-    def __append_persons_to_treeview(self,data):
-        app = App.get_running_app()
-
-        # add the tags tree item
-        sorted_persons = app.Person.all()
-        expandable_persons = True if len(sorted_persons) > 0 else False
-        expanded = True if (self.expanded_persons and expandable_persons) else False
-        person_root = TreeViewItemPersons(self,expandable_persons,expanded,app.button_scale)
-
-        data.append(person_root)
-        self.person_menu.clear_widgets()
-        menu_button = MenuButton(text='Persons222')
-        menu_button.bind(on_release=self.add_to_person_menu)
-        self.person_menu.add_widget(menu_button)
-
-        for person in sorted_persons:
-            menu_button = MenuButton(text=person)
-            menu_button.bind(on_release=self.add_to_person_menu)
-            self.person_menu.add_widget(menu_button)
-            if self.expanded_persons:
-                person_item = TreeViewItemPerson(self,person,app.button_scale)
-                data.append(person_item)
-        #data[-1]['end'] = True
+    # def __append_persons_to_treeview(self,data):
+    #     app = App.get_running_app()
+    #
+    #     # add the tags tree item
+    #     sorted_persons = app.Person.all()
+    #     expandable_persons = True if len(sorted_persons) > 0 else False
+    #     expanded = True if (self.expanded_persons and expandable_persons) else False
+    #     person_root = TreeViewItemPersons(self,expandable_persons,expanded,app.button_scale)
+    #
+    #     data.append(person_root)
+    #     self.person_menu.clear_widgets()
+    #     menu_button = MenuButton(text='Persons222')
+    #     menu_button.bind(on_release=self.add_to_person_menu)
+    #     self.person_menu.add_widget(menu_button)
+    #
+    #     for person in sorted_persons:
+    #         menu_button = MenuButton(text=person)
+    #         menu_button.bind(on_release=self.add_to_person_menu)
+    #         self.person_menu.add_widget(menu_button)
+    #         if self.expanded_persons:
+    #             person_item = TreeViewItemPerson(self,person,app.button_scale)
+    #             data.append(person_item)
+    #     #data[-1]['end'] = True
         #data[-1]['height'] = data[-1]['height'] + int(app.button_scale * 0.1)
 
-    def __append_favorites_to_treeview(self, data):
+    def __append_treeview_items(self, data):
         app = App.get_running_app()
-        tag = app.session.query(Tag).filter_by(name='Favorite').first()
-        if tag is  None:
-            tag = Tag(name='Favorite')
-            app.session.add(tag)
-            app.session.commit()
 
-        height = app.button_scale + int(app.button_scale * 0.1)
-        database_favorites =TreeViewItemFavorites(self, tag, height)
-        data.append(database_favorites)
+        favorites = Favorites()
+        favorites_item =TreeViewItemFavorites(self, favorites, app.button_scale )
+        data.append(favorites_item)
+
+        tags = Tags()
+        tags_item = TreeViewItemTags(self,tags,app.button_scale)
+        data.append(tags_item)
+
+        photosWithNoPlace = DaysOfPhotosWithoutPlace()
+        photosWithNoPlace_root = TreeViewItemDaysOfPhotosWithoutPlace(self, photosWithNoPlace, app.button_scale)
+        data.append(photosWithNoPlace_root)
+
+        countries = Countries()
+        country_root = TreeViewItemCountries(self, countries, app.button_scale)
+        data.append(country_root)
+
+        folders = Folders()
+        folders_item = TreeViewItemFolders(self,folders,app.button_scale)
+        data.append(folders_item)
+
+        faces = Faces()
+        faces_item = TreeViewItemFaces(self,faces,app.button_scale)
+        data.append(faces_item)
+
+        persons = Persons()
+        persons_item = TreeViewItemPersons(self,persons,app.button_scale)
+        data.append(persons_item)
+
+       # from models.Videos import Videos
+
 
     def populate_folders(self, folder_root, expanded, all=False):
         app = App.get_running_app()
@@ -1214,41 +1157,9 @@ class ScreenDatabase(Screen):
             self.update_folders = False
         return self.folders
 
-    def rename_folder(self):
-        """Starts the folder renaming process, creates an input text popup."""
 
-        content = InputPopup(hint='Folder Name', text='Rename To:')
-        content.input_text = os.path.split(self.selected)[1]
-        app = App.get_running_app()
-        content.bind(on_answer=self.rename_folder_answer)
-        self.popup = NormalPopup(title='Rename Folder', content=content, size_hint=(None, None), size=(app.popup_x, app.button_scale * 5), auto_dismiss=False)
-        self.popup.open()
 
-    def rename_folder_answer(self, instance, answer):
-        """Tells the app to rename the folder if the dialog is confirmed.
-        Arguments:
-            instance: The dialog that called this function.
-            answer: String, if 'yes', the folder will be renamed, all other answers will just close the dialog.
-        """
 
-        if answer == 'yes':
-            text = instance.ids['input'].text.strip(' ')
-            app = App.get_running_app()
-            app.Folder.rename(self.selected, text)
-            self.update_folders = True
-            self.selected = text
-        self.dismiss_popup()
-       # self.update_treeview()
-
-    def new_tag(self):
-        """Starts the new tag process, creates an input text popup."""
-
-        content = InputPopupTag(hint='Tag Name', text='Enter A Tag:')
-        app = App.get_running_app()
-        content.bind(on_answer=self.add_tag)
-        self.popup = NormalPopup(title='Create Tag', content=content, size_hint=(None, None),
-                                 size=(app.popup_x, app.button_scale * 5), auto_dismiss=False)
-        self.popup.open()
 
     def new_person(self):
         """Starts the new person process, creates an input text popup."""
@@ -1292,7 +1203,7 @@ class ScreenDatabase(Screen):
                 app.Folder.add(text)
                 self.update_folders = True
         self.dismiss_popup()
-       # self.update_treeview()
+       # self.create_treeview()
 
 
 
@@ -1316,7 +1227,7 @@ class ScreenDatabase(Screen):
             self.previous_album()
             self.update_folders = True
         self.dismiss_popup()
-       # self.update_treeview()
+       # self.create_treeview()
 
     def move_folder_answer(self, folder, move_to, instance, answer):
         """Tells the app to move the folder if the dialog is confirmed.
@@ -1334,9 +1245,9 @@ class ScreenDatabase(Screen):
             self.previous_album()
             self.update_folders = True
         self.dismiss_popup()
-        #self.update_treeview()
+        #self.create_treeview()
 
-    def on_selected(self, screenDatabase, selected_treeViewItem):
+    def on_selected(self, selected_treeViewItem):
         """Called when the selected folder/album/tag is changed.
         Clears and draws the photo list.
         """
@@ -1344,137 +1255,39 @@ class ScreenDatabase(Screen):
 
 
         if self.parent and self.ids:
-            dragable = False
-            photos_area = self.ids['photos']
-            photos_area.clear_selection()
+            self.selected_item = selected_treeViewItem
+            #dragable = False
+            #photos_area = self.ids['photos']
+            #photos_area.clear_selection()
             app = App.get_running_app()
+
             folder_title_type = self.ids['folderType']
+            folder_title_type.text = selected_treeViewItem.item.__class__.__name__
+
             folder_details = self.ids['folderDetails']
             folder_details.clear_widgets()
+            folder_details.add_widget(self.album_details)
+
             folder_path = self.ids['folderPath']
+            folder_path.text = selected_treeViewItem.item.name2() if hasattr(selected_treeViewItem.item,'name2') else selected_treeViewItem.item.name
+
             operation_label = self.ids['operationType']
+            operation_label.text = folder_path.text
+
             Cache.remove('kv.loader')
             photos = []
             delete_button = self.ids['deleteButton']
-            app.config.set("Settings", "viewtype", self.type)
-            app.config.set("Settings", "viewtarget", self.selected)
-            app.config.set("Settings", "viewdisplay/able", self.displayable)
+            delete_button.text = 'Delete me'
 
-            # if self.selected:
-            #     self.can_new_folder = True
-
-            if self.selected_item:
-                self.can_new_folder = self.selected_item.can_new_folder
-                self.can_rename_folder = self.selected_item.can_rename_folder
-                self.can_delete_folder = self.selected_item.can_delete_folder
-
-            if not self.displayable or not self.selected:  #Nothing is selected, fill with dummy data.
-                operation_label.text = ''
-                self.can_export = False
-                folder_title_type.text = ''
-                folder_path.text = ''
-                delete_button.text = 'Delete Selected'
-                self.data = []
-                if self.type == 'Album':
-                    operation_label.text = 'Album:'
-                elif self.type == 'Tag':
-                    operation_label.text = 'Tag:'
-                elif self.type == 'Person':
-                    operation_label.text = 'Person:'
-                elif self.type == 'Folder':
-                    operation_label.text = 'Folder:'
-            else:
-                #Something is selected
-                if self.type == 'Album':
-                    operation_label.text = 'Album:'
-                    folder_details.add_widget(self.album_details)
-                    delete_button.text = 'Remove Selected'
-                    folder_title_type.text = 'Album: '
-                    folder_path.text = self.selected
-                    for albuminfo in app.albums:
-                        if albuminfo['name'] == self.selected:
-                            folder_description = self.album_details.ids['albumDescription']
-                            folder_description.text = albuminfo['description']
-                            photo_paths = albuminfo['photos']
-                            for fullpath in photo_paths:
-                                photoinfo = app.Photo.exist(fullpath)
-                                if photoinfo:
-                                    photos.append(photoinfo)
-                elif self.type == 'Tag':
-                    operation_label.text = 'Tag:'
-                    if self.selected == 'favorite':
-                        self.can_delete_folder = False
-                    #delete_button.text = 'Remove Selected'
-                    folder_title_type.text = 'Tagged As: '
-                    folder_path.text = self.selected_item.name
-                    photos = self.selected_item.photos
-                elif self.type == 'Person':
-                    operation_label.text = 'Person:'
-                    #delete_button.text = 'Remove Selected person'
-                    folder_title_type.text = 'Person As: '
-                    folder_path.text = self.selected
-                    photos = app.Person.photos(self.selected)
-                elif self.type == 'Folder':
-                    operation_label.text = 'Folder:'
-                    dragable = True
-                    self.can_rename_folder = False
-                    #delete_button.text = 'Delete Selected'
-                    folder_title_type.text = 'Folder: '
-                    folder_path.text = self.selected
-                    folder_details.add_widget(self.folder_details)
-
-                    folder = self.selected_item #app.session.query(Folder).filter_by(path=self.selected).first()
-                    photos = [] if folder is None else folder.photos
-                    if folder:
-                        folder_title = self.folder_details.ids['folderTitle']
-                        folder_description = self.folder_details.ids['folderDescription']
-                        folder_title.text = folder.title or ""
-                        folder_description.text = folder.description or ""
+            #app.config.set("Settings", "viewtype", self.type)
+            #app.config.set("Settings", "viewtarget", self.selected)
+            #app.config.set("Settings", "viewdisplay/able", self.displayable)
 
 
-                if self.album_sort_method == 'Imported':
-                    sorted_photos = sorted(photos, key=lambda x: x.import_date, reverse=self.album_sort_reverse)
-                elif self.album_sort_method == 'Modified':
-                    sorted_photos = sorted(photos, key=lambda x: x.modify_date, reverse=self.album_sort_reverse)
-                elif self.album_sort_method == 'Owner':
-                    sorted_photos = sorted(photos, key=lambda x: x.owner, reverse=self.album_sort_reverse)
-                elif self.album_sort_method == 'Name':
-                    sorted_photos = sorted(photos, key=lambda x: os.path.basename(x.rename), reverse=self.album_sort_reverse)
-                else:
-                    sorted_photos = sorted(photos, key=lambda x: x.full_path, reverse=self.album_sort_reverse)
+            self.can_new_folder = selected_treeViewItem.can_new_folder
+            self.can_rename_folder = selected_treeViewItem.can_rename_folder
+            self.can_delete_folder = selected_treeViewItem.can_delete_folder
 
-                self.photos = sorted_photos
-                if sorted_photos:
-                    self.can_export = True
-                datas = []
-                for photo in sorted_photos:
-                    full_filename = photo.new_full_filename()
-                    favorite = False
-                    for tag in photo.tags:
-                        if tag.name == 'favorite':
-                            favorite = True
-                            break
-                    video = os.path.splitext(full_filename)[1].lower() in movietypes
-                    data = {
-                        'fullpath': photo.full_path,
-                        'photo': photo,
-                        'folder': self.selected,
-                        'database_folder': photo.database_folder,
-                        'filename': full_filename,
-                        'target': str(photo.id),
-                        'type': self.type,
-                        'owner': self,
-                        'favorite': favorite,
-                        'video': video,
-                        'photo_orientation': photo.orientation,
-                        'source': full_filename,
-                        'temporary': False,
-                        'selected': False,
-                        'selectable': True,
-                        'dragable': dragable
-                    }
-                    datas.append(data)
-                self.data = datas
             self.update_can_browse()
             self.update_selected()
 
@@ -1488,7 +1301,7 @@ class ScreenDatabase(Screen):
         app = App.get_running_app()
         app.config.set('Sorting', 'database_sort', method)
         self.update_folders = True
-        #self.update_treeview()
+        #self.create_treeview()
 
     def resort_reverse(self, reverse):
         """Sets the screenDatabase sort reverse.
@@ -1501,7 +1314,7 @@ class ScreenDatabase(Screen):
         app.config.set('Sorting', 'database_sort_reverse', sort_reverse)
         self.sort_reverse = sort_reverse
         self.update_folders = True
-        #self.update_treeview()
+        #self.create_treeview()
 
     def album_resort_method(self, method):
         """Sets the album sort method.
@@ -1562,7 +1375,7 @@ class ScreenDatabase(Screen):
         # self.album_sort_reverse = to_bool(app.config.get('Sorting', 'album_sort_reverse'))
 
         self.update_folders = True
-        self.update_treeview()
+        self.create_treeview()
         #self.on_selected()
 
 

@@ -112,7 +112,3 @@ class Person(Base,BaseModel):
     #   #     self.update_photoinfo(folders=info[1])
     #   #     if message:
     #   #       self.message("Removed person '" + person + "' from the photo.")
-
-    def create_table(engine):
-        Person.__table__
-        Base.metadata.create_all(engine)

@@ -4,11 +4,11 @@ from kivy.base import EventLoop
 from kivy.modules import inspector
 from kivy.factory import Factory
 from kivy.app import App
-from main.Theme import Theme
+from window.Theme import Theme
 from kivy.properties import NumericProperty
 from generalconstants import themes
 from kivy.uix.button import Button
-from tests.utils import data_to_theme
+#from tests.utils import data_to_theme
 from testUtils.TesterApp import TesterApp
 
 

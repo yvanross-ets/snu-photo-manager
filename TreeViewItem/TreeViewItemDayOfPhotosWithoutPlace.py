@@ -2,18 +2,10 @@ from TreeViewItem.TreeViewItem import TreeViewItem
 from TreeViewItem.TreeViewItemProvince import TreeViewItemProvince
 
 class TreeViewItemDayOfPhotosWithoutPlace(TreeViewItem):
-    type = 'Country'
     indent = 1
 
-    def __init__(self,owner,item, height, parent):
-        self.owner = owner
-        self.target = item.name
-        self.name = "coco" #item.name
-        self.item = item
-        self.height = height
-        self.treeViewItemParent = parent
-
     def visit(self, visitor):
+        super(TreeViewItemDayOfPhotosWithoutPlace, self).visit()
         screenDatabase = self.owner
         datas = []
         for photo in self.item.photos():

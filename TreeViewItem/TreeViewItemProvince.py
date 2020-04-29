@@ -2,18 +2,12 @@ from TreeViewItem.TreeViewItem import TreeViewItem
 from TreeViewItem.TreeViewItemLocality import TreeViewItemLocality
 
 class TreeViewItemProvince(TreeViewItem):
-    type = 'Province'
     indent = 2
-
-    def __init__(self,owner,item, height, parent):
-        self.owner = owner
-        self.target = item.name
-        self.item = item
-        self.height = height
-        self.treeViewItemParent = parent
-
+    can_delete_folder = True
 
     def visit(self,visitor):
+        super(TreeViewItemProvince, self).visit()
+
         if self.expanded:
             visitor.data = self.deleteChild(visitor.data, self)
         else:

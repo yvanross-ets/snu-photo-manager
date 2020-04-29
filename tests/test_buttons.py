@@ -5,6 +5,7 @@ from kivy.app import App
 from kivy.uix.button import Button
 
 from testUtils.TesterApp import TesterApp
+from window.PhotoManager import PhotoManager
 
 class ButtonTestCase(GraphicUnitTest):
     framecount = 0
@@ -106,6 +107,8 @@ class ButtonTestCase(GraphicUnitTest):
         touch = UnitTestTouch(*self.root.ids.expandable_checkbox.center)
         touch.touch_down()
         touch.touch_up()
+        self.__inspect_node(ins)
+        ins = self.root.inspector
         self.assertIsInstance(ins.widget,CheckBox)
         self.advance_frames(2)
 
@@ -237,6 +240,8 @@ class ButtonTestCase(GraphicUnitTest):
         touch = UnitTestTouch(*self.root.center)
         touch.touch_down()
         touch.touch_up()
+        ins = self.root.inspector
+
         self.assertIsInstance(ins.widget,ToggleBase)
         self.advance_frames(2)
 
@@ -275,6 +280,9 @@ class ButtonTestCase(GraphicUnitTest):
         touch = UnitTestTouch(*self.root.center)
         touch.touch_down()
         touch.touch_up()
+        self.__inspect_node(self.root.inspector)
+
+       # ins = self.root.inspector
         self.assertIsInstance(ins.widget,Label)
         self.advance_frames(2)
 

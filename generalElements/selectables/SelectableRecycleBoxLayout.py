@@ -1,5 +1,5 @@
 from kivy.app import App
-from kivy.properties import DictProperty, ListProperty, BooleanProperty
+from kivy.properties import ObjectProperty, ListProperty, BooleanProperty
 from kivy.uix.recycleboxlayout import RecycleBoxLayout
 from kivy.uix.recycleview.layout import LayoutSelectionBehavior
 from kivy.lang.builder import Builder
@@ -20,7 +20,7 @@ Builder.load_string("""
 
 class SelectableRecycleBoxLayout(RecycleBoxLayout, LayoutSelectionBehavior):
     """Adds selection and focus behavior to the view."""
-    selected = DictProperty()
+    selected = ObjectProperty()
     selects = ListProperty()
     multiselect = BooleanProperty(False)
 

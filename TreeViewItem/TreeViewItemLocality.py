@@ -3,21 +3,16 @@ from TreeViewItem.TreeViewItemPlace import TreeViewItemPlace
 from TreeViewItem.TreeViewItemPlace import TreeViewItemPlace
 
 class TreeViewItemLocality(TreeViewItem):
-    type = 'Locality'
-    indent = 2
-
-    def __init__(self,owner,item, height, parent):
-        self.owner = owner
-        self.target = item.name
-        self.item = item
-        self.height = height
-        self.treeViewItemParent = parent
+    indent = 3
+    can_delete_folder = True
 
     def visit(self, visitor):
-      if self.expanded:
+        super(TreeViewItemLocality, self).visit()
+
+        if self.expanded:
           visitor.data = self.deleteChild(visitor.data, self)
           self.expanded = False
-      else:
+        else:
           index = self.getItemIndex(visitor.data,self)
           for places in self.item.places:
               index += 1

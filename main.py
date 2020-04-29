@@ -1,17 +1,17 @@
 """
-Future Todo (lower priority, need to figure out how to do it, or a lot of work):
-    Collage editor - add more collage modes (grids)
-    Rework cropping editor
-    export to facebook - https://github.com/mobolic/facebook-sdk , https://blog.kivy.org/2013/08/using-facebook-sdk-with-python-for-android-kivy/
-    RAW import if possible - https://github.com/photoshell/rawkit , need to get libraw working
+    todo display map of photos
+    todo Import from facebook
+        todo TreeViewItemFacebook - diplay photos from facebook
+    todo Import from instagram
+        todo TreeViewItemInstagram - display  photos from instagram
+    todo export to facebook - https://github.com/mobolic/facebook-sdk , https://blog.kivy.org/2013/08/using-facebook-sdk-with-python-for-android-kivy/
+    todo export to instragram
+    todo Collage editor - add more collage modes (grids)
+    todo RAW import if possible - https://github.com/photoshell/rawkit , need to get libraw working
+    todo Rework cropping editor
+    todo implement a .nomedia file that will make spm ignore a folder
 """
-from main.PhotoManager import PhotoManager
-
-"""
-Todo:
-    implement a .nomedia file that will make spm ignore a folder
-    Need to think of a way to divide up years abstractly
-"""
+from window.PhotoManager import PhotoManager
 
 import time
 

@@ -2,8 +2,11 @@ from TreeViewItem.TreeViewItem import TreeViewItem
 
 
 class TreeViewItemPlace(TreeViewItem):
-    type = 'Place'
-    indent = 3
+    indent = 4
+    dragable = True
+    can_rename_folder = True
+    can_delete_folder = True
+
 
     def __init__(self,owner,item, height, parent):
         self.owner = owner
@@ -13,6 +16,8 @@ class TreeViewItemPlace(TreeViewItem):
         self.treeViewItemParent = parent
 
     def visit(self, visitor):
+        super(TreeViewItemPlace, self).visit()
+
         screenDatabase = self.owner
         datas = []
         for photo in self.item.photos:
@@ -22,14 +27,6 @@ class TreeViewItemPlace(TreeViewItem):
         screenDatabase.update_can_browse()
         screenDatabase.update_selected()
 
-    #   if self.expanded:
-     #       visitor.data = self.deleteChild(visitor.data, self)
-      # else:
-      #     index = self.getItemIndex(visitor.data,self)
-      #     for province in self.item.provinces:
-      #         index += 1
-      #         country_item = TreeViewItemPlace(self.owner, province, self.height, self)
-      #         visitor.data.insert(index, country_item)
-      #     self.expanded = True
 
-
+    def visit_drop(self,visitors):
+       self.item.add_photos(visitors)

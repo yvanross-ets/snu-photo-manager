@@ -1,12 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <dataSource name="location_test_db">
-  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.15">
+  <database-model serializer="dbm" dbms="SQLITE" family-id="SQLITE" format-version="4.17">
     <root id="1">
       <ServerVersion>3.8.9</ServerVersion>
     </root>
     <schema id="2" parent="1" name="main">
       <Current>1</Current>
-      <Visible>1</Visible>
     </schema>
     <collation id="3" parent="1" name="BINARY"/>
     <collation id="4" parent="1" name="NOCASE"/>
@@ -52,7 +51,6 @@
     <index id="17" parent="6" name="sqlite_autoindex_locations_1">
       <NameSurrogate>1</NameSurrogate>
       <ColNames>Id</ColNames>
-      <ColumnCollations></ColumnCollations>
       <Unique>1</Unique>
     </index>
     <index id="18" parent="6" name="location_Name">
@@ -62,7 +60,6 @@ Locality
 StreetNumber
 Route
 PostalCode</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <key id="19" parent="6">
       <ColNames>Id</ColNames>
@@ -85,11 +82,9 @@ PostalCode</ColNames>
     </column>
     <index id="23" parent="7" name="location_LocationId">
       <ColNames>LocationId</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <index id="24" parent="7" name="location_PhotoId">
       <ColNames>PhotoId</ColNames>
-      <ColumnCollations></ColumnCollations>
     </index>
     <column id="25" parent="8" name="type">
       <Position>1</Position>

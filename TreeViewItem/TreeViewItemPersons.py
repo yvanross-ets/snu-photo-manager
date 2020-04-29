@@ -1,29 +1,19 @@
 from TreeViewItem.TreeViewItem import TreeViewItem
-
-class Persons:
-    photos = []
-    pass
+from TreeViewItem.TreeViewItemPerson import TreeViewItemPerson
 
 class TreeViewItemPersons(TreeViewItem):
-    #fullpath = 'Persons'
-    #folder_name = 'Persons'
-    #target = 'Persons'
-    type = 'Person'
-    target = Persons()
-    #total_photos = ''
-    displayable = False
-    expandable = None
-    expanded = None
-    #owner = None
     indent = 0
-    subtext = ''
-    height = None
-    end = False
-    dragable = False
 
-    def __init__(self,owner,expandable, expanded, height):
-        self.owner = owner
-        self.expandable = expandable
-        self.expanded = expanded
-        self.height = height
+    def visit(self, visitor):
+        super(TreeViewItemPersons, self).visit()
 
+        if self.expanded:
+            visitor.data = self.deleteChild(visitor.data, self)
+            self.expanded = False
+        else:
+            index = self.getItemIndex(visitor.data, self)
+            for person in self.item.all():
+                index += 1
+                person_item = TreeViewItemPerson(self.owner, person, self.height, self)
+                visitor.data.insert(index, person_item)
+            self.expanded = True

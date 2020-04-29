@@ -80,7 +80,7 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
 
         app = App.get_running_app()
        # if data.displayable:
-        photos = data.item.photos
+       # photos = data.item.photos
 
         if hasattr(data.item,'name'):
             self.ids['mainText'].text = data.item.name
@@ -101,7 +101,7 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
                         app.show_album(self)
             else:
                 self.parent.selected = {}
-                self.parent.selected = self.data.displayable_dict()
+                self.parent.selected = self.data
                 self.on_press()
             if self.dragable:
                 self.drag = True
@@ -147,7 +147,7 @@ class RecycleTreeViewButton(ButtonBehavior, RecycleItem):
     #         elif self.type == "Country":
     #             self.owner.expanded_country = not self.owner.expanded_country
     #
-    #    # self.owner.update_treeview()
+    #    # self.owner.create_treeview()
 
     def on_touch_move(self, touch):
         if self.drag:

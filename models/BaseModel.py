@@ -1,11 +1,15 @@
-class BaseModel:
-    can_new_folder = False
-    can_rename_folder = False
-    can_delete_folder = False
+from kivy.app import App
 
+class BaseModel:
+
+    def can_delete(self):
+        return False
 
     def delete(self):
-        raise NotImplementedError('Must implement delete method  to use this base class')
+        if self.can_delete():
+            app = App.get_running_app()
+            app.session.delete(self)
+            app.session.commit()
 
     def dict(self):
         ret = {}

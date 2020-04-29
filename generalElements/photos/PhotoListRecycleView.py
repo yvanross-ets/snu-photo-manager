@@ -5,6 +5,32 @@ from kivy.uix.recycleview import RecycleView
 class PhotoListRecycleView(RecycleView):
     selected_index = NumericProperty(0)
 
+    def index(self,treeViewItem):
+        pos = None
+        for idx, data in enumerate(self.data):
+            if data == treeViewItem:
+                pos = idx
+                break
+        return pos
+
+    def next(self,treeViewItem):
+        current_index = self.index(treeViewItem)
+        if current_index is not None:
+            if current_index == len(self.data) - 1:
+                next_index = 0
+            else:
+                next_index = current_index + 1
+        return self.data[next_index]
+
+    def previous(self, treeViewItem):
+        current_index = self.index(treeViewItem)
+        if current_index is not None:
+            if current_index == 0:
+                previous_index = len(self.data) - 1
+            else:
+                previous_index = current_index - 1
+        return self.data[previous_index]
+
     def scroll_to_selected(self):
         box = self.children[0]
         selected = box.selected

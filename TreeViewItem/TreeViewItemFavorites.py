@@ -1,23 +1,20 @@
 from TreeViewItem.TreeViewItem import TreeViewItem
 
 class TreeViewItemFavorites(TreeViewItem):
-    #fullpath = 'Favorites'
-    type = 'Tag'
-    #folder_name = None
-    #total_photos_numeric = None
-    #total_photos = None
-    expandable = False
-    displayable = True
     indent = 0
-    subtext = ''
-    height = None
-    end = True
-    dragable = False
 
+    def visit(self, visitor):
+        super(TreeViewItemFavorites, self).visit()
 
-    def __init__(self,owner,tag,height):
-        self.owner = owner
-        self.target = tag.name
-        self.item = tag
-        self.height = height
+        screenDatabase = self.owner
+        datas = []
+        for photo in self.item.favorites():
+            datas.append(photo.data_item(screenDatabase))
+
+        screenDatabase.data = datas
+        screenDatabase.update_can_browse()
+        screenDatabase.update_selected()
+
+    def visit_drop(self,visitors):
+        self.owner.add_favorites(visitors)
 

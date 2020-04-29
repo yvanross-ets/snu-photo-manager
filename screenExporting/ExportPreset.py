@@ -25,7 +25,7 @@ class ExportPreset(ExpandableButton):
         app = App.get_running_app()
         app.export_preset_remove(self.index)
         self.owner.selected_preset = -1
-        self.owner.update_treeview()
+        self.owner.create_treeview()
 
     def on_release(self):
         self.owner.selected_preset = self.index

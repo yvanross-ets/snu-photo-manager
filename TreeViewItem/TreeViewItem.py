@@ -1,18 +1,10 @@
-# import abc
-# class ITreeViewItem(object):
-#     __metaclass__ = abc.ABCMeta
-#
-#     @abc.abstractmethod
-#     def test(self):
-#         raise NotImplementedError('Must implement test method to use this base class')
-
+from kivy.app import App
 
 class TreeViewItem:
     target = None    # name of the displayed text
     item = None
     owner = None
     treeViewItemParent = None
-    type = None
     indent = 0
     displayable = True
     expanded = False
@@ -21,11 +13,15 @@ class TreeViewItem:
     height = 50
     total_photos = ''
     end = True
+    can_new_folder = False
+    can_rename_folder = False
+    can_delete_folder = False
 
-    def __init__(self, owner, item, type, parent=None):
-        self.item = item
-        self.type = type
+    def __init__(self, owner, item, height, parent=None):
         self.owner = owner
+        self.target = item.name
+        self.item = item
+        self.height = height
         self.treeViewItemParent = parent
 
     def dict(self):
@@ -67,3 +63,15 @@ class TreeViewItem:
                 index = idx
                 break
         return index
+
+    def visit_drop(self,visitor):
+        app = App.get_running_app()
+        app.popup_message("Dropping photos to " + self.target + " is not permitted", title='Warning')
+
+    def visit(self):
+        self.owner.on_selected(self)
+
+    def visit_delete(self, treeViewItems):
+        if self.item.can_delete():
+            self.item.delete()
+            treeViewItems.remove(self)

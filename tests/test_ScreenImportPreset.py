@@ -1,13 +1,13 @@
 import unittest
 from kivy.tests.common import GraphicUnitTest, UnitTestTouch
-from main.Theme import Theme
+from window.Theme import Theme
 from screens.ScreenImportPreset import ScreenImportPreset
 from kivy.app import App
-from main.PhotoManager import PhotoManager
+from window.PhotoManager import PhotoManager
 from kivy.config import ConfigParser
 from screenSettings.PhotoManagerSettings import PhotoManagerSettings
 
-class ScreenImportPresetTestCase(GraphicUnitTest):
+class TestScreenImportPreset(GraphicUnitTest):
     framecount = 0
 
     #resort_method = displayMsg
@@ -31,18 +31,16 @@ class ScreenImportPresetTestCase(GraphicUnitTest):
     #         self._win.remove_widget(child)
     #     self.advance_frames(5)
 
+
+# must create dataase before calling this test
     def test_ScreenImportPreset(self):
-        app = PhotoManager()
-        app.config = ConfigParser(interpolation=None)
-        app.build_config(app.config)
-
-       # app.settings = PhotoManagerSettings()
-       # app.build_settings(app.settings)
-
-
-        app.theme = Theme()
-        app.build()
-        app.show_import()
-        self.render(app)
+        # app = PhotoManager(data_directory=".")
+        # app.config = ConfigParser(interpolation=None)
+        # app.build_config(app.config)
+        #
+        # app.theme = Theme(app)
+        # app.build()
+        # app.show_import()
+        # self.render(app)
         pass
 

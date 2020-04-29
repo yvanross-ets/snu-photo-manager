@@ -1,5 +1,4 @@
-from main.Theme import Theme
-from tests.utils import data_to_theme
+from window.Theme import Theme
 from kivy.properties import NumericProperty
 from generalconstants import themes
 from kivy.app import App
@@ -8,13 +7,21 @@ try:
 except:
     from six.moves import configparser
 from screenAlbum.PhotoViewer import PhotoViewer
+from kivy.tests.common import GraphicUnitTest
 
-class TesterApp(App):
+class TestApp(App):
+    database_scanning = False
+    list_background_even = (0, 0, 0, .1)
+
+    def button_update(self):
+        pass
+
+class TesterApp(TestApp):
     text_scale = 25
     infotext = "Info text"
     animations = 0
-    theme = Theme()
-    data_to_theme(theme,themes[0])
+    theme = Theme(TestApp)
+    theme.data_to_theme(themes[0])
     button_scale = NumericProperty(25)
     padding = 10
     bubble = ""

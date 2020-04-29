@@ -21,6 +21,3 @@ class Face(Base,BaseModel):
     return "<Face( id='%s',left='%f', right='%f', top='%f', bottom='%f')>" % (
       self.id, self.left, self.right, self.top, self.bottom)
 
-  def create_table(engine):
-    Face.__table__
-    Base.metadata.create_all(engine)

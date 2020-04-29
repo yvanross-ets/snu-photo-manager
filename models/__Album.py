@@ -44,7 +44,7 @@ class Album():
           album_input.text = ''
         app = App.get_running_app()
         app.album_make(album, '')
-        self.update_treeview()
+        self.create_treeview()
       self.dismiss_popup()
 
 

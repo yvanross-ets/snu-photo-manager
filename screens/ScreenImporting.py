@@ -14,13 +14,14 @@ from kivy.uix.screenmanager import Screen
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
 
+from generalElements.scrollers import Scroller
 from generalElements.popups.InputPopup import InputPopup
 from generalElements.popups.NormalPopup import NormalPopup
 from generalElements.popups.ScanningPopup import ScanningPopup
 from generalElements.treeviews.TreeViewButton import TreeViewButton
 from generalcommands import list_files, format_size, naming
 from generalconstants import imagetypes, movietypes
-from google.geolocalisation import Geolocalisation
+from googleApi.geolocalisation import Geolocalisation
 from models.PhotosTags import Photo, Folder, Country, Province, Locality, Place
 from screens.ScreenImportPreset import disk_usage
 from generalElements.photos.PhotoRecycleThumbWide import PhotoRecycleThumbWide
@@ -283,6 +284,7 @@ class ScreenImporting(Screen):
                                )
         Session = sessionmaker(bind=engine)
         session = Session()
+        # TODO: put this code in a secret file
         gmaps = googlemaps.Client(key='AIzaSyD6W9Nf4DGnMDT4mxw_BhqRlj-LLtQzk0U')
 
         # idx = 0

@@ -1,10 +1,10 @@
 from unittest import TestCase
 from screens.screenDatabase import ScreenDatabase
-from main.Theme import Theme
+from window.Theme import Theme
 from kivy.app import App
 from kivy.properties import BooleanProperty, NumericProperty, StringProperty, ObjectProperty, ListProperty
 from generalElements.buttons.NormalButton import NormalButton
-from main.PhotoManager import PhotoManager
+from window.PhotoManager import PhotoManager
 
 class TestScreenDatabase(TestCase):
     def test_update_gps(self):

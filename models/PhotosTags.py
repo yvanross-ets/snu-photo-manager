@@ -2,6 +2,8 @@ import os
 import sqlite3
 import time
 from io import BytesIO
+from kivy.app import App
+
 from datetime import datetime
 from generalconstants import imagetypes, movietypes
 from PIL import Image
@@ -87,9 +89,7 @@ class Photo(Base, BaseModel):
                 self.original_size,
                 self.rename, self.import_date, self.modify_date, self.edited, self.orientation, self.owner)
 
-    def create_table(engine):
-        Photo.__table__
-        Base.metadata.create_all(engine)
+
 
     def data_item(self,screenDatabase):
         full_filename = self.new_full_filename()
@@ -350,24 +350,13 @@ class Tag(Base,BaseModel):
 
     photos = relationship('Photo', secondary=photos_tags, back_populates='tags')
 
+    def can_delete(self):
+        return True
 
-    can_delete_folder = True
-    can_new_folder = True
-    can_rename_folder = True
 
     def __repr__(self):
         return "<Tag( id='%s', name='%s')>" % (
             self.id, self.name)
-
-    def delete(self):
-        app = App.get_running_app()
-        app.session.delete(self)
-        app.session.commit()
-
-    def create_table(engine):
-        Tag.__table__
-        Base.metadata.create_all(engine)
-
 
 class Folder(Base,BaseModel):
     __tablename__ = 'folder'
@@ -381,14 +370,13 @@ class Folder(Base,BaseModel):
     photos = relationship('Photo', order_by=Photo.original_date, back_populates='folder')
     fullname = 'F1234'
 
+    def can_delete(self):
+        return len(self.photos) == 0
+
+
     def __repr__(self):
         return "<Folder( id='%s',name='%s', title='%s', description='%s')>" % (
             self.id, self.name, self.title, self.description)
-
-    def create_table(engine):
-        Folder.__table__
-        Base.metadata.create_all
-
 
 
 class Country(Base,BaseModel):
@@ -410,9 +398,11 @@ class Country(Base,BaseModel):
     def __repr__(self):
         return "<Country(id='%s',name='%s')>" % (
                                 self.id,self.name)
-    def create_table(engine):
-        Country.__table__
-        Base.metadata.create_all(engine)
+
+    def can_delete(self):
+        return len(self.provinces) == 0
+
+
 
 class Province(Base, BaseModel):
     __tablename__ = 'province'
@@ -434,11 +424,10 @@ class Province(Base, BaseModel):
     def __repr__(self):
         return "<Province(id='%s',name='%s')>" % (self.id, self.name)
 
+    def can_delete(self):
+        return len(self.localities) == 0
 
 
-    def create_table(engine):
-        Province.__table__
-        Base.metadata.create_all(engine)
 
 class Locality(Base,BaseModel):
     __tablename__ = 'locality'
@@ -459,6 +448,10 @@ class Locality(Base,BaseModel):
 
     def __repr__(self):
         return "<Locality( id='%s',name='%s')>" % (self.id,self.name)
+
+    def can_delete(self):
+        return len(self.places) == 0
+
 
     def visit(self, screenDatabase):
         photoListRecyclerView = screenDatabase.ids['screenDatabase']
@@ -487,9 +480,7 @@ class Locality(Base,BaseModel):
             self.state = 'must_load'
             return
 
-    def create_table(engine):
-        Locality.__table__
-        Base.metadata.create_all(engine)
+
 
 
 class Place(Base,BaseModel):
@@ -515,6 +506,9 @@ class Place(Base,BaseModel):
     locality = relationship('Locality', back_populates='places')
     state = 'must_load'
 
+    def can_delete(self):
+        return len(self.photos) == 0
+
     def name2(self):
         return "%s, %s, %s" % (self.street_number, self.route, self.postal_code)
 
@@ -531,10 +525,13 @@ class Place(Base,BaseModel):
         return "<Place( id='%s', title='%s', description='%s',street_number='%s', route='%s', postal_code='%s')>" % (
             self.id, self.title, self.description, self.street_number, self.route, self.postal_code)
 
-    def create_table(engine):
+    def add_photos(self,photos):
+        for photo in photos:
+            photo.place_id = self.id
 
-        Place.__table__
-        Base.metadata.create_all(engine)
+        app = App.get_running_app()
+        app.session.commit()
+
 
 
 
