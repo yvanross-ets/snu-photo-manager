@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c18f69a3-776f-4dd6-998c-4d459ba95fe2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/screens/credentials.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/ScreenImporting.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/ScreenImporting.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -493,7 +491,7 @@
       <workItem from="1588164256713" duration="680000" />
       <workItem from="1588164949323" duration="8253000" />
       <workItem from="1588173454554" duration="485000" />
-      <workItem from="1588177000108" duration="850000" />
+      <workItem from="1588177000108" duration="1033000" />
     </task>
     <task id="LOCAL-00001" summary="update ignore file">
       <created>1588177324193</created>
@@ -641,12 +639,12 @@
       <screen x="1440" y="-277" width="1920" height="1177" />
     </state>
     <state x="1540" y="-177" width="1720" height="977" key="com.intellij.history.integration.ui.views.DirectoryHistoryDialog/1440.-277.1920.1177/0.23.1440.877/-1600.-46.1600.877@1440.-277.1920.1177" timestamp="1588165924324" />
-    <state x="467" y="198" width="676" height="528" key="find.popup" timestamp="1588177736462">
+    <state x="467" y="198" width="676" height="528" key="find.popup" timestamp="1588177978520">
       <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="1204" y="-943" width="673" height="708" key="find.popup/0.22.1440.878/-1019.-878.1600.878/581.-1178.1920.1178@581.-1178.1920.1178" timestamp="1587218451932" />
     <state x="623" y="258" width="673" height="708" key="find.popup/0.23.1920.1177/-1440.323.1440.877@0.23.1920.1177" timestamp="1588173022160" />
-    <state x="467" y="198" width="676" height="528" key="find.popup/1440.-277.1920.1177/0.23.1440.877/-1600.-46.1600.877@0.23.1440.877" timestamp="1588177736462" />
+    <state x="467" y="198" width="676" height="528" key="find.popup/1440.-277.1920.1177/0.23.1440.877/-1600.-46.1600.877@0.23.1440.877" timestamp="1588177978520" />
     <state x="2063" y="-42" width="673" height="708" key="find.popup/1440.-277.1920.1177/0.23.1440.877/-1600.-46.1600.877@1440.-277.1920.1177" timestamp="1588168006831" />
     <state x="1206" y="-913" width="670" height="676" key="search.everywhere.popup" timestamp="1586370374138">
       <screen x="581" y="-1178" width="1920" height="1178" />
