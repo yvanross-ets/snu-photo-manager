@@ -1,10 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="c18f69a3-776f-4dd6-998c-4d459ba95fe2" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-    </list>
+    <list default="true" id="c18f69a3-776f-4dd6-998c-4d459ba95fe2" name="Default Changelist" comment="" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
     <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
@@ -156,11 +153,11 @@
       <recent name="$PROJECT_DIR$/models" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/test_google_api" />
       <recent name="$PROJECT_DIR$/architecture/OWL/ontologies" />
       <recent name="$PROJECT_DIR$/TreeViewItemModels" />
       <recent name="$PROJECT_DIR$/tests" />
       <recent name="$PROJECT_DIR$/tests/models" />
-      <recent name="$PROJECT_DIR$/testUtils" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.Unittests in tests">
@@ -492,8 +489,16 @@
       <workItem from="1588164256713" duration="680000" />
       <workItem from="1588164949323" duration="8253000" />
       <workItem from="1588173454554" duration="485000" />
-      <workItem from="1588177000108" duration="294000" />
+      <workItem from="1588177000108" duration="546000" />
     </task>
+    <task id="LOCAL-00001" summary="update ignore file">
+      <created>1588177324193</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1588177324193</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView">
@@ -551,6 +556,10 @@
     <option name="RECENTLY_FILTERED_BRANCH_GROUPS">
       <collection />
     </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="update ignore file" />
+    <option name="LAST_COMMIT_MESSAGE" value="update ignore file" />
   </component>
   <component name="WindowStateProjectService">
     <state x="434" y="193" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588177201502">
