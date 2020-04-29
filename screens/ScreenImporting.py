@@ -285,7 +285,7 @@ class ScreenImporting(Screen):
         Session = sessionmaker(bind=engine)
         session = Session()
         # TODO: put this code in a secret file
-        gmaps = googlemaps.Client(key='AIzaSyD6W9Nf4DGnMDT4mxw_BhqRlj-LLtQzk0U')
+        gmaps = googlemaps.Client(key='xxx-LLtQzk0U')
 
         # idx = 0
         # for photo in session.query(Photo).all():
