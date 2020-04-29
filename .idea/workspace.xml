@@ -2,88 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="c18f69a3-776f-4dd6-998c-4d459ba95fe2" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemFace.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemFaces.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TreeViewItemModels/Faces.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TreeViewItemModels/Favorites.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TreeViewItemModels/Folders.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TreeViewItemModels/Persons.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TreeViewItemModels/Tags.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/TreeViewItemModels/Videos.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/googleApi/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_google_api/test_google_photo.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/test_models/__init__.py" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/window/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources.local.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources.local.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/dataSources/ccbc378d-4248-4eaf-b6ea-7ac53ccc26af.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dataSources/ccbc378d-4248-4eaf-b6ea-7ac53ccc26af.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/gomp.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/gomp.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.vscode/tags" beforeDir="false" afterPath="$PROJECT_DIR$/.vscode/tags" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItem.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItem.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemCountries.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemCountries.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemCountry.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemCountry.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemDayOfPhotosWithoutPlace.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemDayOfPhotosWithoutPlace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemDaysOfPhotosWithoutPlace.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemDaysOfPhotosWithoutPlace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemFavorites.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemFavorites.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemFolder.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemFolder.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemFolders.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemFolders.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemLocality.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemLocality.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemPerson.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemPerson.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemPersons.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemPersons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemPlace.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemPlace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemProvince.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemProvince.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemTag.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemTag.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/TreeViewItem/TreeViewItemTags.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItem/TreeViewItemTags.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalElements/images/AsyncThumbnail.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generalElements/photos/PhotoListRecycleView.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalElements/photos/PhotoListRecycleView.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generalElements/selectables/SelectableRecycleBoxLayout.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalElements/selectables/SelectableRecycleBoxLayout.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py" beforeDir="false" afterPath="$PROJECT_DIR$/generalElements/treeviews/RecycleTreeViewButton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/google/__init__.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItemModels/__init__.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/google/geolocalisation.py" beforeDir="false" afterPath="$PROJECT_DIR$/googleApi/geolocalisation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/MainWindow.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/MainWindow.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/PhotoManager.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/PhotoManager.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/SQLMultiThreadOK.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/SQLMultiThreadOK.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/Theme.py" beforeDir="false" afterPath="$PROJECT_DIR$/window/Theme.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/main/about.txt" beforeDir="false" afterPath="$PROJECT_DIR$/window/about.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/BaseModel.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/BaseModel.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/CVisitable.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Countries.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItemModels/Countries.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/DayOfPhotosWithoutPlace.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/DayOfPhotosWithoutPlace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/DaysOfPhotosWithoutPlace.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItemModels/DaysOfPhotosWithoutPlace.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Face.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Face.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/FacePhoto.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/FacePhoto.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Folders.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Person.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/Person.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/PhotosTags.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/PhotosTags.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/Tags.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/__Album.py" beforeDir="false" afterPath="$PROJECT_DIR$/models/__Album.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/create_database.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/models/places.py" beforeDir="false" afterPath="$PROJECT_DIR$/TreeViewItemModels/places.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenAlbum/RemoveFromTagButton.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenAlbum/RemoveFromTagButton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenAlbum/RemoveTagButton.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenAlbum/RemoveTagButton.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenExporting/ExportPreset.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenExporting/ExportPreset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screenImporting/ImportPreset.py" beforeDir="false" afterPath="$PROJECT_DIR$/screenImporting/ImportPreset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/ScreenImporting.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/ScreenImporting.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/screenDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/screenDatabase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/screens/test_screenDatabase.py" beforeDir="false" afterPath="$PROJECT_DIR$/screens/test_screenDatabase.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/testUtils/TesterApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/testUtils/TesterApp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/models/Locations.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_models/Locations.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/models/__init__.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/models/test_fileInfo.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/photos/IMG0002.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_photos/IMG0002.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/photos/IMG_gps.jpg" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_photos/IMG_gps.jpg" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/photos/IMG_tricycle.JPG" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_photos/IMG_tricycle.JPG" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_PhotoManagerApp.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_PhotoManagerApp.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_ScreenImportPreset.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_ScreenImportPreset.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_buttons.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_buttons.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_dropDown.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_dropDown.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_geolocalisation.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_geolocalisation.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_input.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_input.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_label.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_label.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/test_screenImporting.py" beforeDir="false" afterPath="$PROJECT_DIR$/tests/test_screenImporting.py" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -206,7 +126,7 @@
     <property name="js-jscs-nodeInterpreter" value="$USER_HOME$/.nvm/versions/node/v8.4.0/bin/node" />
     <property name="js.eslint.eslintPackage" value="" />
     <property name="js.eslint.nodeInterpreter" value="/usr/local/bin/node" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$/TreeViewItem" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/tests/test_google_api" />
     <property name="node.js.detected.package.eslint" value="true" />
     <property name="node.js.detected.package.standard" value="true" />
     <property name="node.js.path.for.package.eslint" value="project" />
@@ -230,16 +150,17 @@
     <option name="myUseBundledCoveragePy" value="true" />
   </component>
   <component name="RecentsManager">
+    <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/tests/test_google_api" />
+      <recent name="$PROJECT_DIR$/TreeViewItem" />
+      <recent name="$PROJECT_DIR$/models" />
+    </key>
     <key name="MoveFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/architecture/OWL/ontologies" />
       <recent name="$PROJECT_DIR$/TreeViewItemModels" />
       <recent name="$PROJECT_DIR$/tests" />
       <recent name="$PROJECT_DIR$/tests/models" />
       <recent name="$PROJECT_DIR$/testUtils" />
-    </key>
-    <key name="CopyFile.RECENT_KEYS">
-      <recent name="$PROJECT_DIR$/TreeViewItem" />
-      <recent name="$PROJECT_DIR$/models" />
     </key>
   </component>
   <component name="RunManager" selected="Python tests.Unittests in tests">
@@ -570,7 +491,8 @@
       <workItem from="1588163842676" duration="372000" />
       <workItem from="1588164256713" duration="680000" />
       <workItem from="1588164949323" duration="8253000" />
-      <workItem from="1588173454554" duration="381000" />
+      <workItem from="1588173454554" duration="485000" />
+      <workItem from="1588177000108" duration="294000" />
     </task>
     <servers />
   </component>
@@ -631,10 +553,11 @@
     </option>
   </component>
   <component name="WindowStateProjectService">
-    <state x="1160" y="-949" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1586352028323">
-      <screen x="581" y="-1178" width="1920" height="1178" />
+    <state x="434" y="193" key="#com.intellij.fileTypes.FileTypeChooser" timestamp="1588177201502">
+      <screen x="0" y="23" width="1440" height="877" />
     </state>
     <state x="1160" y="-949" key="#com.intellij.fileTypes.FileTypeChooser/0.22.1440.878/-1019.-878.1600.878/581.-1178.1920.1178@581.-1178.1920.1178" timestamp="1586352028323" />
+    <state x="434" y="193" key="#com.intellij.fileTypes.FileTypeChooser/1440.-277.1920.1177/0.23.1440.877/-1600.-46.1600.877@0.23.1440.877" timestamp="1588177201502" />
     <state width="730" height="466" key="DebuggerActiveHint" timestamp="1588172918730">
       <screen x="0" y="23" width="1920" height="1177" />
     </state>
