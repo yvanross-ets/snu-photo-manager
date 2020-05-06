@@ -15,8 +15,11 @@ class TreeViewItemCountries(TreeViewItem):
             self.expanded = False
         else:
             index = self.getItemIndex(visitor.data,self)
-            for country in self.item.all():
-                index += 1
-                country_item = TreeViewItemCountry(self.owner, country, self.height, self)
-                visitor.data.insert(index, country_item)
-            self.expanded = True
+            try:
+                for country in self.item.all():
+                    index += 1
+                    country_item = TreeViewItemCountry(self.owner, country, self.height, self)
+                    visitor.data.insert(index, country_item)
+                self.expanded = True
+            except:
+                pass

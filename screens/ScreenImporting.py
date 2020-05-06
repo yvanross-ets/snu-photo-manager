@@ -284,14 +284,10 @@ class ScreenImporting(Screen):
                                )
         Session = sessionmaker(bind=engine)
         session = Session()
-        # TODO: put this code in a secret file
-        gmaps = googlemaps.Client(key='xxx-LLtQzk0U')
 
-        # idx = 0
-        # for photo in session.query(Photo).all():
-        #     print(idx)
-        #     idx += 1
-        #     localize_photo(gmaps, session, photo)
+
+        # TODO: put this code in a secret file
+        #gmaps = googlemaps.Client(key='xxx-LLtQzk0U')
 
 
         current_timestamp = time.time()
@@ -349,7 +345,7 @@ class ScreenImporting(Screen):
                 else:
                     copy2(photo.old_full_filename(), photo.new_full_filename())
 
-                localize_photo(gmaps, session, photo)
+               # localize_photo(gmaps, session, photo)
 
             else:  # photo is already in database
                 if self.delete_originals:

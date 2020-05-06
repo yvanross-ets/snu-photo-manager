@@ -1,5 +1,11 @@
 # Snu Photo Manager
 
+## Initial setup
+alembic upgrade head # to create the database
+cd ~/.snuphotomanager # to go in database directory
+
+
+
 A feature-rich photo manager and editor written in python and using the Kivy library.  
 It should run on any platform that the required libraries can be run on.  So far, I have made Windows, Linux (Ubuntu 16+) and Android binaries.  It should be possible to create OSX and ios binaries as well, but I do not have the required hardware to do so.  
 Download latest binaries at: www.snuq.com/snuphotomanager/  
