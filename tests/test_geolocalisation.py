@@ -3,7 +3,7 @@ from googleApi.geolocalisation import Geolocalisation
 
 def test_geolocalisation():
     #todo put api key in configuration
-    #gmaps = googlemaps.Client(key='-LLtQzk0U')
+    #gmaps = googlemaps.Client(key='-LLtQzsljgjsdflgjl')
     #localisation = Geolocalisation(gmaps,45.444522, -73.2525112)
     #assert localisation.country() == "Canada"
     #assert localisation.locality() == "Richelieu"

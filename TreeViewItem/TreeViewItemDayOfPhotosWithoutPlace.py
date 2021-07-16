@@ -4,7 +4,7 @@ from TreeViewItem.TreeViewItemProvince import TreeViewItemProvince
 class TreeViewItemDayOfPhotosWithoutPlace(TreeViewItem):
     indent = 1
 
-    def visit(self, visitor):
+    def visit(self, treeViewItem):
         super(TreeViewItemDayOfPhotosWithoutPlace, self).visit()
         screenDatabase = self.owner
         datas = []

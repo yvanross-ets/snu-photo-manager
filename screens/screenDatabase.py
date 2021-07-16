@@ -371,6 +371,7 @@ class ScreenDatabase(Screen):
             Clock.unschedule(self.search_refresh)
             self.search_refresh = Clock.schedule_once(self.create_treeview, 0.5)
 
+    #   add_item
     def new_item(self, *_):
         photoListRecyclerView = self.ids['screenDatabase']
         self.selected_item.new_item(photoListRecyclerView)
@@ -1003,59 +1004,7 @@ class ScreenDatabase(Screen):
 
 
 
-
-    # def __append_tags_to_treeview(self,data):
-    #     app = App.get_running_app()
-    #
-    #     # add the tags tree item
-    #     sorted_tags = app.session.query(Tag).order_by('name').all()
-    #     expandable_tags = True if len(sorted_tags) > 0 else False
-    #     expanded = True if (self.expanded_tags and expandable_tags) else False,
-    #     tag_root = TreeViewItemTags(self,expandable_tags,expanded,app.button_scale)
-    #     data.append(tag_root)
-    #     self.tag_menu.clear_widgets()
-    #     menu_button = MenuButton(text='favorite')
-    #     menu_button.bind(on_release=self.add_to_tag_menu)
-    #     self.tag_menu.add_widget(menu_button)
-    #
-    #     for tag in sorted_tags:
-    #         menu_button = MenuButton(text=tag.name)
-    #         menu_button.item = tag
-    #         menu_button.bind(on_release=self.add_to_tag_menu)
-    #         self.tag_menu.add_widget(menu_button)
-    #         if self.expanded_tags:
-    #             tag_item = TreeViewItemTag(self,tag,app.button_scale)
-    #             data.append(tag_item)
-
-       # data[-1]['end'] = True
-       # data[-1]['height'] = data[-1]['height'] + int(app.button_scale * 0.1)
-
-    # def __append_persons_to_treeview(self,data):
-    #     app = App.get_running_app()
-    #
-    #     # add the tags tree item
-    #     sorted_persons = app.Person.all()
-    #     expandable_persons = True if len(sorted_persons) > 0 else False
-    #     expanded = True if (self.expanded_persons and expandable_persons) else False
-    #     person_root = TreeViewItemPersons(self,expandable_persons,expanded,app.button_scale)
-    #
-    #     data.append(person_root)
-    #     self.person_menu.clear_widgets()
-    #     menu_button = MenuButton(text='Persons222')
-    #     menu_button.bind(on_release=self.add_to_person_menu)
-    #     self.person_menu.add_widget(menu_button)
-    #
-    #     for person in sorted_persons:
-    #         menu_button = MenuButton(text=person)
-    #         menu_button.bind(on_release=self.add_to_person_menu)
-    #         self.person_menu.add_widget(menu_button)
-    #         if self.expanded_persons:
-    #             person_item = TreeViewItemPerson(self,person,app.button_scale)
-    #             data.append(person_item)
-    #     #data[-1]['end'] = True
-        #data[-1]['height'] = data[-1]['height'] + int(app.button_scale * 0.1)
-
-    def __append_treeview_items(self, data):
+    def __append_treeview_items(self, data):x
         app = App.get_running_app()
 
         favorites = Favorites()

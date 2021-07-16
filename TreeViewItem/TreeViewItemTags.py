@@ -10,18 +10,18 @@ class TreeViewItemTags(TreeViewItem):
     indent = 0
     can_new_folder = True
 
-    def visit(self, visitor):
+    def visit(self, treeViewItem):
         super(TreeViewItemTags, self).visit()
 
         if self.expanded:
-            visitor.data = self.deleteChild(visitor.data, self)
+            treeViewItem.data = self.deleteChild(treeViewItem.data, self)
             self.expanded = False
         else:
-            index = self.getItemIndex(visitor.data, self)
+            index = self.getItemIndex(treeViewItem.data, self)
             for tag in self.item.all():
                 index += 1
                 tag_item = TreeViewItemTag(self.owner, tag, self.height, self)
-                visitor.data.insert(index, tag_item)
+                treeViewItem.data.insert(index, tag_item)
             self.expanded = True
 
     def new_item(self,photoListRecyclerView):

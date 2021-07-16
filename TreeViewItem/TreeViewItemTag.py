@@ -22,8 +22,8 @@ class TreeViewItemTag(TreeViewItem):
         screenDatabase.update_can_browse()
         screenDatabase.update_selected()
 
-    def visit_drop(self,visitors):
-        self.owner.add_to_tag(self.item,visitors)
+    def visit_drop(self,elements):
+        self.owner.add_to_tag(self.item,elements)
         self.target = 'allo'
 
 

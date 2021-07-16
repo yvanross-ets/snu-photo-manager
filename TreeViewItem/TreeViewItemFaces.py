@@ -4,16 +4,16 @@ from TreeViewItem.TreeViewItemFace import TreeViewItemFace
 class TreeViewItemFaces(TreeViewItem):
     indent = 0
 
-    def visit(self,visitor):
+    def visit(self,treeViewItem):
         super(TreeViewItemFaces, self).visit()
 
         if self.expanded:
-            visitor.data = self.deleteChild(visitor.data, self)
+            treeViewItem.data = self.deleteChild(treeViewItem.data, self)
             self.expanded = False
         else:
-            index = self.getItemIndex(visitor.data, self)
+            index = self.getItemIndex(treeViewItem.data, self)
             for face in self.item.all():
                 index += 1
                 face_item = TreeViewItemFace(self.owner, face, self.height, self)
-                visitor.data.insert(index, face_item)
+                treeViewItem.data.insert(index, face_item)
             self.expanded = True

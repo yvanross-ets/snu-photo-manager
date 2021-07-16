@@ -15,7 +15,7 @@ class TreeViewItemPlace(TreeViewItem):
         self.height = height
         self.treeViewItemParent = parent
 
-    def visit(self, visitor):
+    def visit(self, treeViewItem):
         super(TreeViewItemPlace, self).visit()
 
         screenDatabase = self.owner
@@ -28,5 +28,5 @@ class TreeViewItemPlace(TreeViewItem):
         screenDatabase.update_selected()
 
 
-    def visit_drop(self,visitors):
-       self.item.add_photos(visitors)
+    def visit_drop(self,elements):
+       self.item.add_photos(elements)

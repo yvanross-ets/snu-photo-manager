@@ -64,7 +64,7 @@ class TreeViewItem:
                 break
         return index
 
-    def visit_drop(self,visitor):
+    def visit_drop(self,treeViewItem):
         app = App.get_running_app()
         app.popup_message("Dropping photos to " + self.target + " is not permitted", title='Warning')
 
